@@ -1,15 +1,32 @@
 // #Task route solution
 const express = require("express");
+const Course = require("../Models/Course");
 const User = require("../Models/User");
 const router = express.Router()
 
 
 
+router.get("/:Subject/:rating", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params['Subject'], rating: req.params['rating'] });
+    res.send(Courses);
+});
 
-router.get("/read/:Name", async(req, res) => {
 
+router.get("/:Subject", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params['Subject'] });
+    res.send(Courses);
+});
+
+
+router.get("/:Name", async(req, res) => {
     const users = await User.find({ Name: req.params['Name'] });
     res.send(users);
+});
+
+
+router.get("/:rating", async(req, res) => {
+    const Courses = await Course.find({ rating: req.params['rating'] });
+    res.send(Courses);
 });
 
 router.post('/', async(req, res) => {
@@ -38,7 +55,7 @@ router.put("/update/:Name", async(req, res) => {
     const para = req.params['Name'];
     await User.updateOne({ Name: para }, user);
     res.send({ data: "User updated " });
-   
+
 });
 
 router.delete("/delete/:Name", async(req, res) => {

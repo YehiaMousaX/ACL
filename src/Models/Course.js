@@ -2,12 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
-    Courseid : {
+    Courseid: {
         type: String,
         required: true,
         unique: true
     },
-   
+
+    Subject: {
+        type: String,
+        required: true,
+    },
+
     title: {
         type: String,
         required: true,
@@ -15,10 +20,12 @@ const CourseSchema = new Schema({
     subtitle: {
         type: String,
         required: true,
+        unique: false
     },
     price: {
         type: Number,
         required: true,
+
     },
     shortsummary: {
         type: String,
@@ -26,14 +33,17 @@ const CourseSchema = new Schema({
     },
     rating: {
         type: Number,
-        required: false
+        required: true,
+        min: 0,
+        max: 5
+
     },
     review: {
         type: String,
-        required: false
+        required: true
     }
 
-   
+
 }, { timestamps: true });
 
 

@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    userid : {
+const instractorSchema = new Schema({
+    instractorid : {
+
         type: Number,
         required : true ,
         unique : true
-        },
+    },
+
     Name: {
         type: String,
         required: true,
-
     },
     Email: {
         type: String,
@@ -21,23 +22,7 @@ const userSchema = new Schema({
         type: Number,
         required: true,
     },
-    BornIn: {
-        type: String,
-        required: true
-    },
-    LivesIn: {
-        type: String,
-        required: true
-    },
-    MartialStatus: {
-        type: String,
-        required: true
-    },
     PhoneNumber: {
-        type: String,
-        required: true
-    },
-    Job: {
         type: String,
         required: true
     }
@@ -45,5 +30,5 @@ const userSchema = new Schema({
 
 
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Instractor = mongoose.model('Instractor', instractorSchema);
+module.exports = Instractor;

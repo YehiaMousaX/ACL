@@ -23,7 +23,16 @@ const CourseSchema = new Schema({
     shortsummary: {
         type: String,
         required: true
+    },
+    rating: {
+        type: Number,
+        required: false
+    },
+    review: {
+        type: String,
+        required: false
     }
+
    
 }, { timestamps: true });
 

@@ -7,12 +7,13 @@ const instractorcourseSchema = new Schema({
         type: Number,
         required : true ,
         unique : true
+    
     },
 
     courseid  :{
        type:String ,
        required : true ,
-    unique : true
+       unique : true
 
     }
 }, { timestamps: true });

@@ -11,26 +11,33 @@ const CourseSchema = new Schema({
     title: {
         type: String,
         required: true,
+        
     },
     subtitle: {
         type: String,
         required: true,
+        
     },
     price: {
         type: Number,
         required: true,
+        
     },
     shortsummary: {
         type: String,
-        required: true
+        required: true,
+        
     },
-    rating: {
+    rating:{
         type: Number,
-        required: false
+        required: false ,
+
+        
     },
     review: {
         type: String,
-        required: false
+        required: false ,
+       
     }
 
    

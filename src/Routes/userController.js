@@ -262,6 +262,22 @@ router.get("/read/:Name", async(req, res) => {
     res.send(users);
 });
 
+
+
+router.put("/update/:Name", async(req, res) => {
+    const user = req.body;
+    const para = req.params['Name'];
+    await User.updateOne({ Name: para }, user);
+    res.send({ data: "User updated " });
+   
+});
+
+router.delete("/delete/:Name", async(req, res) => {
+
+    const users = await User.deleteOne({ Name: req.params['Name'] });
+    res.send(users);
+});
+
 router.post('/signup', async(req, res) => {
     {
         // Insert the new user if they do not exist yet
@@ -288,20 +304,5 @@ router.post('/signup', async(req, res) => {
 
     }
 });
-
-router.put("/update/:Name", async(req, res) => {
-    const user = req.body;
-    const para = req.params['Name'];
-    await User.updateOne({ Name: para }, user);
-    res.send({ data: "User updated " });
-   
-});
-
-router.delete("/delete/:Name", async(req, res) => {
-
-    const users = await User.deleteOne({ Name: req.params['Name'] });
-    res.send(users);
-});
-
 
 module.exports = router;

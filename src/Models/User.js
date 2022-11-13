@@ -25,7 +25,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    LivesIn: {
+    Country: {
         type: String,
         required: true
     },

@@ -39,7 +39,7 @@ app.get("/home", (req, res) => {
 
 // #Routing to userController here
 
-const UserRoute = require('./src/Models/Routes/userController');
+const UserRoute = require('./Routes/userController');
 app.use('/', UserRoute);
 
 

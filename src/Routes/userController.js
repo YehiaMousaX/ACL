@@ -284,7 +284,7 @@ router.post('/signup', async(req, res) => {
 
         
        NumberofCountry : req.body.NumberofCountry
-	   country =countryList[NumberofCountry-1] ;
+	   country =countryList[NumberofCountry-1];
 
         const user = new User({
             Name: req.body.Name,

@@ -4,7 +4,7 @@ const Course = require("../Models/Course");
 const User = require("../Models/User");
 const router = express.Router()
 const NumberofCountry = 0;
-const countryList = [
+const  countryList = [
     "Afghanistan",
     "Albania",
     "Algeria",
@@ -286,7 +286,7 @@ router.get("/:Name", async(req, res) => {
 
 
 
-router.post('/', async(req, res) => {
+router.post('signup/', async(req, res) => {
     {
         // Insert the new user if they do not exist yet
         const user = new User({

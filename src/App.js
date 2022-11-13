@@ -42,6 +42,10 @@ app.get("/home", (req, res) => {
 const UserRoute = require('./Routes/userController');
 app.use('/', UserRoute);
 
+const UserRoute = require('./Routes/instractorController');
+app.use('/', UserRoute);
+
+
 
 /*
                                                     End of your code

@@ -255,6 +255,8 @@ const  countryList = [
     "Zimbabwe",
     "Åland Islands"
 ];
+const country = "" ;
+
 
 router.get("/rate/:rating", async(req, res) => {
     const Courses = await Course.find({ rating: req.params['rating'] });
@@ -286,16 +288,18 @@ router.get("/:Name", async(req, res) => {
 
 
 
-router.post('signup/', async(req, res) => {
+router.post('/signup', async(req, res) => {
     {
         // Insert the new user if they do not exist yet
+		NumberofCountry : req.body.NumberofCountry 
+        country : countryList[NumberofCountry-1] + " " ;
         const user = new User({
-            Name: req.body.Name,
+            userid : req.body.userid ,
+			Name: req.body.Name,
             Email: req.body.Email,
-            Password: req.body.Password,
             Age: req.body.Age,
             BornIn: req.body.BornIn,
-            LivesIn: req.body.LivesIn,
+            Country: country,
             MartialStatus: req.body.MartialStatus,
             PhoneNumber: req.body.PhoneNumber,
             Job: req.body.Job

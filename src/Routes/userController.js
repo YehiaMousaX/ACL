@@ -46,10 +46,5 @@ router.delete("/delete/:Name", async(req, res) => {
     res.send(users);
 });
 
-router.delete("/delete/:Name", async(req, res) => {
-
-    const users = await User.deleteOne({ Name: req.params['Name'] });
-    res.send(users);
-});
 
 module.exports = router;

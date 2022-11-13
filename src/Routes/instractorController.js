@@ -1,8 +1,8 @@
 const express = require("express");
 const User = require("../Models/User");
-const Course = require("../Models/Course");
-const instractor = require("../Models/Instractor");
-const InstractorCourse = require("../Models/InstractorCourse");
+const  Course = require("../Models/Course");
+const  instractor = require("../Models/Instractor");
+const  InstractorCourse = require("../Models/InstractorCourse");
 
 
 
@@ -15,43 +15,42 @@ router.get("/home", async(req, res) => {
 });
 
 router.post('/AddCourse', async(req, res) => {
+
+
     {
         // Insert the new course if they do not exist yet
         const course = new Course({
-            Courseid: req.body.Courseid,
-            Subject: req.body.Subject,
+            Courseid: req.body.Courseid ,
             title: req.body.title,
             subtitle: req.body.subtitle,
             price: req.body.price,
             shortsummary: req.body.shortsummary,
-            rating: req.body.rating,
-            review: req.body.review
+            rating:req.body.rating ,
+            review : req.body.rating 
+
         });
-        await course.save();
-        console.log(req.body.Courseid);
+        const instractorcourse = new InstractorCourse({
+            instractorid : req.body.instractorid ,
+            courseid: req.body.Courseid
+
+        });
+        
+        try{
+            await course.save();
+            await instractorcourse.save();
+            console.log("this course is added successfully : "+ req.body.Courseid);
+
+        
+          }
+          catch(error){
+            console.log(error)
+            console.log("this course is added before"+ ":  "+ req.body.Courseid) 
+            
+          }
         res.sendStatus(200);
 
-        // try {
-        //     await course.save();
-        //     console.log("this course is added successfully" + req.body.Courseid);
-        //     const instractorcourse = new InstractorCourse({
-        //         instractorid: "1",
-        //         Courseid: req.body.Courseid
-
-        //     });
-        //     await instractorcourse.save();
-
-        // } catch (error) {
-        //     console.log(error)
-        //     console.log("this course is added before" + ":  " + req.body.Courseid)
-
-        // }
-
-
-
-
     }
-
+    
 
 });
 

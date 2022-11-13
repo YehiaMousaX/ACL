@@ -2,17 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const instractorcourseSchema = new Schema({
-    instractorid: {
+    instractorid : {
 
         type: Number,
-        required: true,
-        unique: true
+        required : true ,
+        unique : true
+    
     },
 
-    courseid: {
-        type: String,
-        required: true,
-        unique: true
+    courseid  :{
+       type:String ,
+       required : true ,
+       unique : true
 
     }
 }, { timestamps: true });

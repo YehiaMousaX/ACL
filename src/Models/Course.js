@@ -25,7 +25,7 @@ const CourseSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true,
+        required: true
 
     },
     shortsummary: {

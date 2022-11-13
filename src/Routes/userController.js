@@ -4,16 +4,24 @@ const Course = require("../Models/Course");
 const User = require("../Models/User");
 const router = express.Router()
 
-
-
-router.get("/:Subject/:rating", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params['Subject'], rating: req.params['rating'] });
+router.get("/rate/:rating", async(req, res) => {
+    const Courses = await Course.find({ rating: req.params['rating'] });
     res.send(Courses);
 });
 
 
-router.get("/:Subject", async(req, res) => {
+router.get("/sub/:Subject", async(req, res) => {
     const Courses = await Course.find({ Subject: req.params['Subject'] });
+    res.send(Courses);
+});
+
+router.get("/subrate/:Subject/:rating", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params['Subject'], rating: req.params['rating'] });
+    res.send(Courses);
+});
+
+router.get("/price/:price", async(req, res) => {
+    const Courses = await Course.find({ price: req.params['price'] });
     res.send(Courses);
 });
 
@@ -24,10 +32,7 @@ router.get("/:Name", async(req, res) => {
 });
 
 
-router.get("/:rating", async(req, res) => {
-    const Courses = await Course.find({ rating: req.params['rating'] });
-    res.send(Courses);
-});
+
 
 router.post('/', async(req, res) => {
     {

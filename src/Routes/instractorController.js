@@ -1,6 +1,10 @@
 const express = require("express");
 const User = require("../Models/User");
 const  Course = require("../Models/Course");
+const  instractor = require("../Models/Instractor");
+const  InstractorCourse = require("../Models/InstractorCourse");
+
+
 
 const router = express.Router()
 
@@ -20,11 +24,22 @@ router.post('/AddCourse', async(req, res) => {
             title: req.body.title,
             subtitle: req.body.subtitle,
             price: req.body.price,
-            shortsummary: req.body.shortsummary
+            shortsummary: req.body.shortsummary,
+            rating:req.body.rating ,
+            review : req.body.rating 
+
         });
+        
         try{
             await course.save();
             console.log("this course is added successfully"+ req.body.Courseid);
+            const instractorcourse = new InstractorCourse({
+                instractorid : "1" ,
+                Courseid: req.body.Courseid 
+    
+            });
+            await instractorcourse.save();
+
           }
           catch(error){
             console.log(error)

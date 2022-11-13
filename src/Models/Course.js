@@ -10,7 +10,7 @@ const CourseSchema = new Schema({
 
     Subject: {
         type: String,
-        required: true,
+        required: true
     },
 
     title: {
@@ -23,7 +23,7 @@ const CourseSchema = new Schema({
         unique: false
     },
     price: {
-        String: Number,
+        type: Number,
         required: true
 
     },

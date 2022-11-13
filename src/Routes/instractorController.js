@@ -15,7 +15,7 @@ router.get("/home", async(req, res) => {
 });
 
 router.post('/AddCourse', async(req, res) => {
-    console.log("Course is added")
+
 
     {
         // Insert the new course if they do not exist yet
@@ -29,24 +29,24 @@ router.post('/AddCourse', async(req, res) => {
             review : req.body.rating 
 
         });
+        const instractorcourse = new InstractorCourse({
+            instractorid : req.body.instractorid ,
+            courseid: req.body.Courseid
+
+        });
         
         try{
             await course.save();
-            console.log("this course is added successfully"+ req.body.Courseid);
-            const instractorcourse = new InstractorCourse({
-                instractorid : "1" ,
-                Courseid: req.body.Courseid 
-    
-            });
             await instractorcourse.save();
+            console.log("this course is added successfully : "+ req.body.Courseid);
 
+        
           }
           catch(error){
             console.log(error)
             console.log("this course is added before"+ ":  "+ req.body.Courseid) 
             
           }
-        
         res.sendStatus(200);
 
     }

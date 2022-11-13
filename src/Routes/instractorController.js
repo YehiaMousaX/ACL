@@ -26,6 +26,7 @@ router.post('/AddCourse', async(req, res) => {
             price: req.body.price,
             shortsummary: req.body.shortsummary,
             rating:req.body.rating ,
+            Subject: req.body.Subject ,
             review : req.body.rating 
 
         });

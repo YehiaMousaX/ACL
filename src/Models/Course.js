@@ -23,8 +23,8 @@ const CourseSchema = new Schema({
         unique: false
     },
     price: {
-        type: Number,
-        required: true,
+        String: Number,
+        required: true
 
     },
     shortsummary: {

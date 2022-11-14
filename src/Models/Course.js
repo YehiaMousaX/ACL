@@ -7,6 +7,13 @@ const CourseSchema = new Schema({
         required: true,
         unique: true
     },
+    instractorid : {
+
+        type: Number,
+        required : true ,
+        unique : false
+    
+    },
 
     Subject: {
         type: String,

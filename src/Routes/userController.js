@@ -1,6 +1,7 @@
 // #Task route solution
 const express = require("express");
 const Course = require("../Models/Course");
+const InstractorCourse = require("../Models/InstractorCourse");
 const User = require("../Models/User");
 const router = express.Router()
 const NumberofCountry = 0;
@@ -256,6 +257,8 @@ const  countryList = [
     "Åland Islands"
 ];
 const country = "" ;
+const X =[] ;
+
 
 
 router.get("/rate/:rating", async(req, res) => {
@@ -285,26 +288,33 @@ router.get("/:Name", async(req, res) => {
     res.send(users);
 });
 
+router.get("/Mycoursestitles/:instractorid", async(req, res) => {
+	  X.push (await InstractorCourse.find( {instractorid : req.params['instractorid']  } ,{ _id : 0 ,courseid :1 } ) );
+    //const Courses = await Course.find({ Courseid: Coursesid }, { title : 1 });
+    res.send(X);
+});
 
 
 
 router.post('/signup', async(req, res) => {
-    {
+
+
+	{
         // Insert the new user if they do not exist yet
-		NumberofCountry : req.body.NumberofCountry 
-        country : countryList[NumberofCountry-1] + " " ;
         const user = new User({
             userid : req.body.userid ,
 			Name: req.body.Name,
             Email: req.body.Email,
             Age: req.body.Age,
             BornIn: req.body.BornIn,
-            Country: country,
+            Country: req.body.Country,
             MartialStatus: req.body.MartialStatus,
             PhoneNumber: req.body.PhoneNumber,
             Job: req.body.Job
         });
+
         await user.save();
+		await user.updateOne({ Country: (countryList [(req.body.Country-1)] )}, user);
         console.log(req.body.Name);
         res.sendStatus(200);
 

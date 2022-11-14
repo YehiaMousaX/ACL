@@ -6,7 +6,7 @@ const instractorcourseSchema = new Schema({
 
         type: Number,
         required : true ,
-        unique : true
+        unique : false
     
     },
 

@@ -22,6 +22,7 @@ router.post('/AddCourse', async(req, res) => {
         const course = new Course({
             Courseid: req.body.Courseid ,
             title: req.body.title,
+            totalHours: req.body.totalHours,
             subtitle: req.body.subtitle,
             price: req.body.price,
             shortsummary: req.body.shortsummary,
@@ -57,6 +58,30 @@ router.get("/Mycoursestitles/:instractorid", async(req, res) => {
     const Courses = await Course.find({ instractorid : req.params['instractorid'] }, { _id: 0 ,title : 1 });
     
   res.send(Courses);
+});
+
+
+router.get("/AllCourses", async(req, res) => {
+    
+  X.push ( await Course.find({}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+  
+res.send(X);
+});
+
+
+router.get("/AllCourses/prices", async(req, res) => {
+  
+  X.push ( await Course.find({}, { _id: 0 ,title : 1, price : 1}));
+  
+res.send(X);
+});
+
+
+router.get("/AllCourses/:title/details", async(req, res) => {
+  
+  const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitle : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+  
+res.send(details);
 });
 
 

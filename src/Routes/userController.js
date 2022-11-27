@@ -335,5 +335,27 @@ router.delete("/delete/:Name", async(req, res) => {
     res.send(users);
 });
 
+router.get("/AllCourses", async(req, res) => {
+    
+    X.push ( await Course.find({}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+    
+  res.send(X);
+  });
 
-module.exports = router;
+
+router.get("/AllCourses/prices", async(req, res) => {
+    
+    X.push ( await Course.find({}, { _id: 0 ,title : 1, price : 1}));
+    
+  res.send(X);
+  });
+
+
+  router.get("/AllCourses/:title/details", async(req, res) => {
+  
+    const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitle : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+    
+  res.send(details);
+  });
+
+  module.exports = router;

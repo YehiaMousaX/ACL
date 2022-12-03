@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Excercise = require('./Excercise');
-const Exercise = require('./Excercise');
-const Subtitle = require('./Subtitle');
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
@@ -34,20 +31,13 @@ const CourseSchema = new Schema({
         required: true,
 
     },
-
-    excercises: {
-        type: String,
-        required: true,
-
-    },
     subtitles: {
-        type: Subtitle,
-        required: true,
-
+        content: String,
+        totalHours: Number,
     },
     excercises: {
-        type: Excercise,
-        required: true,
+        content: String,
+        totalHours: Number,
 
     },
     price: {

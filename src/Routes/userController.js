@@ -353,7 +353,7 @@ router.get("/AllCourses/prices", async(req, res) => {
 
   router.get("/AllCourses/:title/details", async(req, res) => {
   
-    const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitle : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+    const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
     
   res.send(details);
   });

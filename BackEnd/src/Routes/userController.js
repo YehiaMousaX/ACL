@@ -302,7 +302,7 @@ router.post('/signup', async(req, res) => {
 	{
         // Insert the new user if they do not exist yet
         const user = new User({
-            userid : req.body.userid ,
+            password : req.body.password ,
 			Name: req.body.Name,
             Email: req.body.Email,
             Age: req.body.Age,

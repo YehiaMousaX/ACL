@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // Mongo DB
 
 const mongoose = require('mongoose')
-const url = `mongodb+srv://YehiaSamir:a1022002X@cluster0.kopoxh0.mongodb.net/?retryWrites=true&w=majority`;
+const url = `mongodb+srv://seif:01063864779@cluster0.iacobfm.mongodb.net/test`;
 const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true

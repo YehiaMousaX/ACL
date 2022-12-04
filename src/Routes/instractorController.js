@@ -23,8 +23,10 @@ router.post('/AddCourse', async(req, res) => {
             Courseid: req.body.Courseid ,
             title: req.body.title,
             totalHours: req.body.totalHours,
-            subtitle: req.body.subtitle,
+            excercises: req.body.excercises,
+            subtitles: req.body.subtitles,
             price: req.body.price,
+            discount: req.body.discount,
             shortsummary: req.body.shortsummary,
             rating:req.body.rating ,
             Subject: req.body.Subject ,
@@ -79,7 +81,7 @@ res.send(X);
 
 router.get("/AllCourses/:title/details", async(req, res) => {
   
-  const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitle : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+  const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
   
 res.send(details);
 });

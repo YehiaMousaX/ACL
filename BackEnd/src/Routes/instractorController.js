@@ -65,7 +65,7 @@ router.get("/Mycoursestitles/:instractorid", async(req, res) => {
 
 router.get("/AllCourses", async(req, res) => {
     
-  X.push ( await Course.find({}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+  X.push ( await Course.find({}, { instractorid: req.body.id , title : req.body.title, totalHours : req.body.totalHours, rating : req.body.rating }));
   
 res.send(X);
 });

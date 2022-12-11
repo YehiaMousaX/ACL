@@ -256,7 +256,6 @@ const  countryList = [
     "Zimbabwe",
     "Åland Islands"
 ];
-const country = "" ;
 const X =[] ;
 
 
@@ -314,7 +313,7 @@ router.post('/signup', async(req, res) => {
         });
 
         await user.save();
-		await user.updateOne({ Country: (countryList [(req.body.Country-1)] )}, user);
+		await user.update({ Country:(countryList [req.body.Country -1] )}, user);
         console.log(req.body.Name);
         res.sendStatus(200);
 

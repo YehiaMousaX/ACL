@@ -259,12 +259,7 @@ const  countryList = [
 const X =[] ;
 //
 
-const y =[] ;
-router.get("/search", async(req, res) => {
-    y.push ( await Course.find({}, {title : req.body.title}));
-    
-    res.send(y);
-});
+
 
 router.get("/rate/:rating", async(req, res) => {
     const Courses = await Course.find({ rating: req.params['rating'] });

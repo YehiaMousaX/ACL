@@ -261,10 +261,6 @@ const X =[] ;
 
 const y =[] ;
 
-router.get("/search", async(req, res) => {
-    const a  =( await Course.find({title : req.body.title},{ _id: 0}));
-    res.send(a);
-});
 
 router.get("/rate/:rating", async(req, res) => {
     const Courses = await Course.find({ rating: req.params['rating'] });

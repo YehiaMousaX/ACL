@@ -270,14 +270,16 @@ router.get("/home", async(req, res) => {
 
 router.put("/EditProfile", async(req, res) => {
 
-if(req.body.Email != null ) {
+if(req.body.Email != null  ) {
 await Instractor.updateOne({_id: req.body.id} ,{ $set: { Email: req.body.Email } } )
+res.send(" Email is updated ");
+
 }
-
+if(req.body.Biography != null ) {
 await Instractor.updateOne({_id: req.body.id} ,{ $set: { Biography: req.body.Biography } } )
+res.send(" Biography is updated ");
 
-res.send(" updated ");
-
+}
 
 });
 

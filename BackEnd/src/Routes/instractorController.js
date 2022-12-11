@@ -329,9 +329,9 @@ router.post('/AddCourse', async(req, res) => {
 });
 
 
-router.get("/Mycoursestitles/:instractorid", async(req, res) => {
+router.get("/Mycoursestitles", async(req, res) => {
     
-    const Courses = await Course.find({ instractorid : req.params['instractorid'] }, { _id: 0 ,title : 1 });
+    const Courses = await Course.find({ instractorid : req.params.instractorid }, { _id: 0 ,title : 1 });
     
   res.send(Courses);
 });
@@ -353,9 +353,9 @@ res.send(X);
 });
 
 
-router.get("/AllCourses/:title/details", async(req, res) => {
+router.get("/AllCourses/titledetails", async(req, res) => {
   
-  const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+  const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
   
 res.send(details);
 });

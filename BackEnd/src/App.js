@@ -40,7 +40,7 @@ app.get("/home", (req, res) => {
 // #Routing to userController here
 
 const UserRoute = require('./Routes/userController');
-app.use('/', UserRoute);
+app.use('/user', UserRoute);
 
 const instractorRoute = require('./Routes/instractorController');
 app.use('/instractor', instractorRoute);

@@ -257,9 +257,14 @@ const  countryList = [
     "Åland Islands"
 ];
 const X =[] ;
-//
 
 
+const y =[] ;
+
+router.get("/search", async(req, res) => {
+    const a  =( await Course.find({title : req.body.title},{ _id: 0}));
+    res.send(a);
+});
 
 router.get("/rate/:rating", async(req, res) => {
     const Courses = await Course.find({ rating: req.params['rating'] });
@@ -321,18 +326,16 @@ router.post('/signup', async(req, res) => {
     }
 });
 
-router.put("/update/:Name", async(req, res) => {
-    const user = req.body;
-    const para = req.params['Name'];
-    await User.updateOne({ Name: para }, user);
-    res.send({ data: "User updated " });
+router.put("/update", async(req, res) => {
+    await User.updateOne({ Name: req.body.Name }, User.findById(req.body.id));
+    res.send( User.findById(req.body.id) + "User updated " );
 
 });
 
-router.delete("/delete/:Name", async(req, res) => {
+router.delete("/delete", async(req, res) => {
 
-    const users = await User.deleteOne({ Name: req.params['Name'] });
-    res.send(users);
+    const users = await User.deleteOne({ Name: req.body.Name } ,User.findById(req.body.id));
+    res.send(users + "this user is deleted");
 });
 
 router.get("/AllCourses", async(req, res) => {

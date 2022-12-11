@@ -18,7 +18,7 @@ const instractorcourseSchema = new Schema({
     }
 }, { timestamps: true });
 
-
+//
 
 const InstractorCourse = mongoose.model('InstractorCourse', instractorcourseSchema);
 module.exports = InstractorCourse;

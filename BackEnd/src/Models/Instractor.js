@@ -10,19 +10,19 @@ const instractorSchema = new Schema({
     },
     Email: {
         type: String,
-        required: true,
+        required: false,
     },
     Biography: {
         type: String,
-        required: true,
+        required: false,
     },
     Age: {
         type: Number,
-        required: true,
+        required: false,
     },
     PhoneNumber: {
         type: String,
-        required: true
+        required: false
     },
     password : {
         type: String,
@@ -31,7 +31,7 @@ const instractorSchema = new Schema({
         },
     Country: {
         type: String,
-        required: true
+        required: false
     }
 }, { timestamps: true });
 

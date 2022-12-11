@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 const instractorcourseSchema = new Schema({
     instractorid : {
 
-        type: Number,
+        type: String,
         required : true ,
         unique : false
     
     },
 
-    courseid  :{
+    Courseid  :{
        type:String ,
        required : true ,
-       unique : true
+       unique : false
 
     }
 }, { timestamps: true });

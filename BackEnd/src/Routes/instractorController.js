@@ -267,28 +267,15 @@ router.get("/home", async(req, res) => {
 
 });
 
-router.post('/signup', async(req, res) => {
+
+router.put("/EditProfile", async(req, res) => {
+
+await Instractor.updateOne({Email:req.body.Email} ,Instractor.findById(req.body.id))
+res.send(  "Email updated " );
 
 
-	{
-        // Insert the new user if they do not exist yet
-        const instractor = new Instractor({
-            password : req.body.password ,
-		      	Name: req.body.Name,
-            Email: req.body.Email,
-            Age: req.body.Age,
-            Country: req.body.Country,
-            PhoneNumber: req.body.PhoneNumber,
-            Biography : req.body.Biography
-        });
-
-        await instractor.save();
-		    await instractor.update({ Country:(countryList [req.body.Country -1] )}, instractor);
-        console.log(req.body.Name);
-        res.sendStatus(200);
-
-    }
 });
+
 router.post('/AddCourse', async(req, res) => {
 
 
@@ -306,13 +293,20 @@ router.post('/AddCourse', async(req, res) => {
             rating:req.body.rating ,
             Subject: req.body.Subject ,
             instractorid : req.body.instractorid ,
-            review : req.body.rating 
+            review : req.body.review 
 
         });
         
-        
+        const instractorcourse = new InstractorCourse({
+          Courseid: req.body.Courseid ,
+          instractorid : req.body.instractorid 
+
+        }) ;
+
+
         try{
             await course.save();
+            await instractorcourse.save() ;
             console.log("this course is added successfully : "+ req.body.Courseid);
 
         

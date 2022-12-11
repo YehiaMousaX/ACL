@@ -1,8 +1,6 @@
 const express = require("express");
 const User = require("../Models/User");
-const  Course = require("../Models/Course");
-const  InstractorCourse = require("../Models/InstractorCourse");
-const Instractor = require("../Models/Instractor");
+
 
 const  countryList = [
   "Afghanistan",

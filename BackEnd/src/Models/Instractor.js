@@ -32,6 +32,10 @@ const instractorSchema = new Schema({
     Country: {
         type: String,
         required: false
+    },
+    rate: {
+        type: Number,
+        required: false
     }
 }, { timestamps: true });
 

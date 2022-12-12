@@ -6,7 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const router = express.Router()
 
-
+//
 router.post('/AddAdmin', async(req, res) => {
     {
         const admin = new Admin({

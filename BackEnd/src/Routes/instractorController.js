@@ -330,10 +330,37 @@ router.post('/AddCourse', async(req, res) => {
 
 });
 
+router.put("/ChangePassword", async(req, res) => {
+
+
+  
+  await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { password: req.body.NewPassword } } )
+  console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
+  res.sendStatus(200);
+  
+
+
+});
+
+deepCompare = (arg1, arg2) => {
+  if (Object.prototype.toString.call(arg1) === Object.prototype.toString.call(arg2)){
+    if (Object.prototype.toString.call(arg1) === '[object Object]' || Object.prototype.toString.call(arg1) === '[object Array]' ){
+      if (Object.keys(arg1).length !== Object.keys(arg2).length ){
+        return false;
+      }
+      return (Object.keys(arg1).every(function(key){
+        return deepCompare(arg1[key],arg2[key]);
+      }));
+    }
+    return (arg1===arg2);
+  }
+  return false;
+}
+
 
 router.get("/Mycoursestitles", async(req, res) => {
     
-    const Courses = await Course.find({ instractorid : req.params.instractorid }, { _id: 0 ,title : 1 });
+    const Courses = await Course.find({ _id : req.body.instractorid }, { _id: 0 ,title : 1 });
     
   res.send(Courses);
 });
@@ -341,7 +368,7 @@ router.get("/Mycoursestitles", async(req, res) => {
 
 router.get("/AllCourses", async(req, res) => {
     
-  X.push ( await Course.find({}, { instractorid: req.body.id , title : req.body.title, totalHours : req.body.totalHours, rating : req.body.rating }));
+  X.push ( await Course.find({}, { _id: req.body.id , title : req.body.title, totalHours : req.body.totalHours, rating : req.body.rating }));
   
 res.send(X);
 });
@@ -357,7 +384,7 @@ res.send(X);
 
 router.get("/AllCourses/titledetails", async(req, res) => {
   
-  const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+  const details = await Course.find({title : req.body.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
   
 res.send(details);
 });

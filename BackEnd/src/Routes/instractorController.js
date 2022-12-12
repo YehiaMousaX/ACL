@@ -1,8 +1,9 @@
 const express = require("express");
 const User = require("../Models/User");
-const  Course = require("../Models/Course");
-const  InstractorCourse = require("../Models/InstractorCourse");
-const Instractor = require("../Models/Instractor");
+const Course = require("../Models/Course");
+const Admin = require("../Models/Admin");
+const instractor = require("../Models/Instractor");
+const InstractorCourse = require("../Models/InstractorCourse");
 
 const  countryList = [
   "Afghanistan",
@@ -260,6 +261,22 @@ const  countryList = [
 const X =[] ;
 var p = "" ;
 const router = express.Router()
+//
+router.get("/search", async(req, res) => {
+  const a = await Course.find({title : req.body.search } , {_id : 0});
+  const b = await Course.find({Subject : req.body.search} , {_id : 0});
+  const z = await Instractor.find({Name : req.body.search },{instractorid:1});
+  const c = await Course.find({instractorid : z._id }, {_id : 0});
+  if(a.length>0){
+      res.send(a);
+  }else if(b.length>0){
+      res.send(b);
+  }else{
+      res.send(c);
+  }
+  console.log(z);
+});
+
 
 router.get("/home", async(req, res) => {
 

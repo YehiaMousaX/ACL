@@ -45,6 +45,8 @@ app.use('/user', UserRoute);
 const instractorRoute = require('./Routes/instractorController');
 app.use('/instractor', instractorRoute);
 
+const AdminController = require('./Routes/adminController');
+app.use('/admin', AdminController);
 
 
 /*

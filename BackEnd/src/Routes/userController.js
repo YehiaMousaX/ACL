@@ -358,7 +358,23 @@ router.get("/AllCourses/prices", async(req, res) => {
   res.send(X);
   });
 
+  router.put("/ChangePassword", async(req, res) => {
 
+
+    var t = String( await Instractor.findOne({_id: req.body.instractorid} ,  {_id : 0 , password:1}))  ;
+    if (t.substring(13,t.length-3)==(req.body.OldPassword)) {
+    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { password: req.body.NewPassword } } )
+    console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
+    res.sendStatus(200);
+    }
+    else {
+    console.log("you enter your old password wrong") 
+    res.sendStatus(200);
+    }
+  
+  
+  
+  });
   router.get("/AllCourses/TitleDetails", async(req, res) => {
   
     const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});

@@ -4,6 +4,8 @@ const Course = require("../Models/Course");
 const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
+const Instractor = require("../Models/Instractor");
+var assert = require('assert')
 
 const  countryList = [
   "Afghanistan",
@@ -347,32 +349,25 @@ router.post('/AddCourse', async(req, res) => {
 
 });
 
+
 router.put("/ChangePassword", async(req, res) => {
 
 
-  
+  var t = String( await Instractor.findOne({_id: req.body.instractorid} ,  {_id : 0 , password:1}))  ;
+  if (t.substring(13,t.length-3)==(req.body.OldPassword)) {
   await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { password: req.body.NewPassword } } )
   console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
   res.sendStatus(200);
-  
+  }
+  else {
+  console.log("you enter your old password wrong") 
+  res.sendStatus(200);
+  }
+
 
 
 });
 
-deepCompare = (arg1, arg2) => {
-  if (Object.prototype.toString.call(arg1) === Object.prototype.toString.call(arg2)){
-    if (Object.prototype.toString.call(arg1) === '[object Object]' || Object.prototype.toString.call(arg1) === '[object Array]' ){
-      if (Object.keys(arg1).length !== Object.keys(arg2).length ){
-        return false;
-      }
-      return (Object.keys(arg1).every(function(key){
-        return deepCompare(arg1[key],arg2[key]);
-      }));
-    }
-    return (arg1===arg2);
-  }
-  return false;
-}
 
 
 router.get("/Mycoursestitles", async(req, res) => {

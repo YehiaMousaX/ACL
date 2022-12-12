@@ -259,7 +259,7 @@ const  countryList = [
     "Åland Islands"
 ];
 const X =[] ;
-//
+
 
 
 router.get("/search", async(req, res) => {
@@ -278,35 +278,38 @@ router.get("/search", async(req, res) => {
 });
 
 
-router.get("/rate/:rating", async(req, res) => {
-    const Courses = await Course.find({ rating: req.params['rating'] });
+
+
+router.get("/rate", async(req, res) => {
+    const Courses = await Course.find({ rating: req.params.rating });
+    res.send(Courses);
+
+});
+
+
+router.get("/sub", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject });
+    res.send(Courses);
+});
+
+router.get("/subrate", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject, rating: req.params.rating });
+    res.send(Courses);
+});
+
+router.get("/price", async(req, res) => {
+    const Courses = await Course.find({ price: req.params.price });
     res.send(Courses);
 });
 
 
-router.get("/sub/:Subject", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params['Subject'] });
-    res.send(Courses);
-});
-
-router.get("/subrate/:Subject/:rating", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params['Subject'], rating: req.params['rating'] });
-    res.send(Courses);
-});
-
-router.get("/price/:price", async(req, res) => {
-    const Courses = await Course.find({ price: req.params['price'] });
-    res.send(Courses);
-});
-
-
-router.get("/:Name", async(req, res) => {
-    const users = await User.find({ Name: req.params['Name'] });
+router.get("/MyName", async(req, res) => {
+    const users = await User.find({ Name: req.params.Name});
     res.send(users);
 });
 
-router.get("/Mycoursestitles/:instractorid", async(req, res) => {
-	  X.push (await InstractorCourse.find( {instractorid : req.params['instractorid']  } ,{ _id : 0 ,courseid :1 } ) );
+router.get("/Mycoursestitles", async(req, res) => {
+	  X.push (await InstractorCourse.find( {instractorid : req.params.instractorid } ,{ _id : 0 ,courseid :1 } ) );
     //const Courses = await Course.find({ Courseid: Coursesid }, { title : 1 });
     res.send(X);
 });
@@ -338,19 +341,7 @@ router.post('/signup', async(req, res) => {
     }
 });
 
-router.put("/update/:Name", async(req, res) => {
-    const user = req.body;
-    const para = req.params['Name'];
-    await User.updateOne({ Name: para }, user);
-    res.send({ data: "User updated " });
 
-});
-
-router.delete("/delete/:Name", async(req, res) => {
-
-    const users = await User.deleteOne({ Name: req.params['Name'] });
-    res.send(users);
-});
 
 router.get("/AllCourses", async(req, res) => {
     
@@ -368,9 +359,9 @@ router.get("/AllCourses/prices", async(req, res) => {
   });
 
 
-  router.get("/AllCourses/:title/details", async(req, res) => {
+  router.get("/AllCourses/TitleDetails", async(req, res) => {
   
-    const details = await Course.find({title : req.params['title']}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+    const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
     
   res.send(details);
   });

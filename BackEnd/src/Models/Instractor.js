@@ -2,12 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const instractorSchema = new Schema({
-    instractorid : {
-
-        type: Number,
-        required : true ,
-        unique : true
-    },
+    
 
     Name: {
         type: String,
@@ -15,16 +10,32 @@ const instractorSchema = new Schema({
     },
     Email: {
         type: String,
-        required: true,
-        unique: true
+        required: false,
+    },
+    Biography: {
+        type: String,
+        required: false,
     },
     Age: {
         type: Number,
-        required: true,
+        required: false,
     },
     PhoneNumber: {
         type: String,
-        required: true
+        required: false
+    },
+    password : {
+        type: String,
+        required : true ,
+
+        },
+    Country: {
+        type: String,
+        required: false
+    },
+    rate: {
+        type: Number,
+        required: false
     }
 }, { timestamps: true });
 

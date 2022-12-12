@@ -9,7 +9,7 @@ const CourseSchema = new Schema({
     },
     instractorid : {
 
-        type: Number,
+        type: String,
         required : true ,
         unique : false
     
@@ -32,12 +32,12 @@ const CourseSchema = new Schema({
 
     },
     subtitles: {
-        content: String,
-        totalHours: Number,
+        type: String,
+        required: true,
     },
     excercises: {
-        content: String,
-        totalHours: Number,
+        type: String,
+        required: true,
 
     },
     price: {

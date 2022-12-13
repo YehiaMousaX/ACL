@@ -34,7 +34,7 @@ const instractorSchema = new Schema({
         required: false
     },
     rate: {
-        type: Number,
+        type: Array,
         required: false
     }
 }, { timestamps: true });

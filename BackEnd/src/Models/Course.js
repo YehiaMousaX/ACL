@@ -55,8 +55,8 @@ const CourseSchema = new Schema({
         required: true,
 
     },
-    rating: {
-        type: Number,
+    rate: {
+        type: Array,
         required: false,
 
 

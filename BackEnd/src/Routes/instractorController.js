@@ -5,7 +5,6 @@ const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Instractor = require("../Models/Instractor");
-var assert = require('assert')
 
 const  countryList = [
   "Afghanistan",

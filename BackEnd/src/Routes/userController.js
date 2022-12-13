@@ -375,6 +375,64 @@ router.get("/AllCourses/prices", async(req, res) => {
   
   
   });
+
+
+  router.put("/rateinstractor", async(req, res) => {
+   
+    var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
+    var t2= new Array();
+    var i = 10 ;
+    if (t1.length > 12) {
+   while(i < t1.length -3) {
+    t2.push(parseInt(t1[i]))
+    i = i +3 ;
+   }
+   }
+    t2.push(parseInt(req.body.rate)) ;
+    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
+    var quantity = 0 ;
+    var sum = 0;
+    var i2 = 10 ;
+    var t3 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
+    while(i2 < t3.length -3) {
+        sum = sum + parseInt(t3[i2]);
+        i2 = i2 +3 ;
+        quantity =quantity+1
+       }
+
+       console.log("Average is " + " : " + sum/quantity)
+       res.sendStatus(200);
+
+  });
+
+  router.put("/ratecourse", async(req, res) => {
+   
+    var t1 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
+    var t2= new Array();
+    var i = 10 ;
+    if (t1.length > 12) {
+   while(i < t1.length -3) {
+    t2.push(parseInt(t1[i]))
+    i = i +3 ;
+   }
+   }
+    t2.push(parseInt(req.body.rate)) ;
+    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
+    var quantity = 0 ;
+    var sum = 0;
+    var i2 = 10 ;
+    var t3 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
+    while(i2 < t3.length -3) {
+        sum = sum + parseInt(t3[i2]);
+        i2 = i2 +3 ;
+        quantity =quantity+1
+       }
+
+       console.log("Average is " + " : " + sum/quantity)
+       res.sendStatus(200);
+
+  });
+
   router.get("/AllCourses/TitleDetails", async(req, res) => {
   
     const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});

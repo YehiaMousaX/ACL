@@ -1,12 +1,12 @@
-// #Task route solution
 const express = require("express");
-const Course = require("../Models/Course");
-const Instractor = require("../Models/Instractor");
-const Admin = require("../Models/Admin");
-const InstractorCourse = require("../Models/InstractorCourse");
 const User = require("../Models/User");
+const Course = require("../Models/Course");
+const Admin = require("../Models/Admin");
+const instractor = require("../Models/Instractor");
+const InstractorCourse = require("../Models/InstractorCourse");
+const Coroporateuser = require("../Models/Corporateuser")
 const router = express.Router()
-const NumberofCountry = 0;
+
 const  countryList = [
     "Afghanistan",
     "Albania",
@@ -258,133 +258,10 @@ const  countryList = [
     "Zimbabwe",
     "Åland Islands"
 ];
-const X =[] ;
 
-
-
-router.get("/search", async(req, res) => {
-    const a = await Course.find({title : req.body.search } , {_id : 0});
-    const b = await Course.find({Subject : req.body.search} , {_id : 0});
-    const z = await Instractor.find({Name : req.body.search },{instractorid:1});
-    const c = await Course.find({instractorid : z._id }, {_id : 0})
-    if(a.length>0){
-        res.send(a);
-    }else if(b.length>0){
-        res.send(b);
-    }else{
-        res.send(c);
-    }
-    console.log(z);
-});
-
-
-// row 11 
-
-router.get("/rate", async(req, res) => {
-    const Courses = await Course.find({ rating: req.params.rating });
-    res.send(Courses);
-
-});
-
-
-router.get("/sub", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject });
-    res.send(Courses);
-});
-
-router.get("/subrate", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject, rating: req.params.rating });
-    res.send(Courses);
-});
-
-//row 12
-router.get("/price", async(req, res) => {
-    const Courses = await Course.find({ price: req.params.price });
-    res.send(Courses);
-});
-
-
-
-
-// row 8
-
-router.post('/signup', async(req, res) => {
-
-
-	{
-        // Insert the new user if they do not exist yet
-        const user = new User({
-            password : req.body.password ,
-			Name: req.body.Name,
-            Email: req.body.Email,
-            Age: req.body.Age,
-            BornIn: req.body.BornIn,
-            MartialStatus: req.body.MartialStatus,
-            PhoneNumber: req.body.PhoneNumber,
-            Job: req.body.Job
-        });
-
-        await user.save();
-        console.log(req.body.Name);
-        res.sendStatus(200);
-
-    }
-});
-
-router.post('/SelectCountry', async(req, res) => {
-
-
-  await User.updateOne({Email: req.body.Email} ,{ $set: { Country:(countryList [req.body.Country -1] )} } )
-
-
-
-});
-// row 9
-router.get("/AllCourses", async(req, res) => {
-    
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
-    
-  res.send(X);
-  });
-
-
-  // 
-  router.get("/Mycoursestitles2", async(req, res) => {
-    X.push (await InstractorCourse.find( {_id : req.params.instractorid } ,{ _id : 0 ,courseid :1 } ) );
-    //const Courses = await Course.find({ Courseid: Coursesid }, { title : 1 });
-    res.send(X);
-  });
-  
-  // row 10 
-router.get("/AllCourses/prices", async(req, res) => {
-    
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, price : 1}));
-    
-  res.send(X);
-  });
-
-
-  // row 33 
-  router.put("/ChangePassword", async(req, res) => {
-
-
-    var t = String( await User.findOne({Email: req.body.Email} ,  {_id : 0 , password:1}))  ;
-    if (t.substring(13,t.length-3)==(req.body.OldPassword)) {
-    await User.updateOne({Email: req.body.Email} ,{ $set: { password: req.body.NewPassword } } )
-    console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
-    res.sendStatus(200);
-    }
-    else {
-    console.log("you enter your old password wrong") 
-    res.sendStatus(200);
-    }
-  
-  
-  
-  });
 
 // row 35
-  router.put("/rateinstractor", async(req, res) => {
+router.put("/rateinstractor", async(req, res) => {
    
     var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
     var t2= new Array();
@@ -441,12 +318,137 @@ router.get("/AllCourses/prices", async(req, res) => {
 
   });
 
-  // row 14
-  router.get("/AllCourses/TitleDetails", async(req, res) => {
+  router.put("/ChangePassword", async(req, res) => {
+
+
+    var t = String( await Coroporateuser.findOne({Email: req.body.Email} ,  {_id : 0 , password:1}))  ;
+    if (t.substring(13,t.length-3)==(req.body.OldPassword)) {
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $set: { password: req.body.NewPassword } } )
+    console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
+    res.sendStatus(200);
+    }
+    else {
+    console.log("you enter your old password wrong") 
+    res.sendStatus(200);
+    }
   
-    const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
-    
-  res.send(details);
+  
+  
   });
 
-  module.exports = router;
+// row 8
+  router.post('/SelectCountry', async(req, res) => {
+
+
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $set: { Country:(countryList [req.body.Country -1] )} } )
+  
+  
+  
+  });
+
+// row 9
+router.get("/AllCourses", async(req, res) => {
+    
+    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+    
+  res.send(X);
+  });
+
+
+// row 11 
+
+router.get("/rate", async(req, res) => {
+    const Courses = await Course.find({ rating: req.params.rating });
+    res.send(Courses);
+
+});
+
+
+router.get("/sub", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject });
+    res.send(Courses);
+});
+
+router.get("/subrate", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject, rating: req.params.rating });
+    res.send(Courses);
+});
+
+//row 33 
+router.put("/ChangePassword", async(req, res) => {
+
+
+    var t = String( await Coroporateuser.findOne({_id: req.body.Coroporateid} ,  {_id : 0 , password:1}))  ;
+    if (t.substring(13,t.length-3)==(req.body.OldPassword)) {
+    await Coroporateuser.updateOne({_id: req.body.Coroporateid} ,{ $set: { password: req.body.NewPassword } } )
+    console.log(" the new password is updated"+ ":  "+ req.body.NewPassword) 
+    res.sendStatus(200);
+    }
+    else {
+    console.log("you enter your old password wrong") 
+    res.sendStatus(200);
+    }
+  
+  
+  
+  });
+
+// row 35
+router.put("/rateinstractor", async(req, res) => {
+   
+    var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
+    var t2= new Array();
+    var i = 10 ;
+    if (t1.length > 12) {
+   while(i < t1.length -3) {
+    t2.push(parseInt(t1[i]))
+    i = i +3 ;
+   }
+   }
+    t2.push(parseInt(req.body.rate)) ;
+    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
+    var quantity = 0 ;
+    var sum = 0;
+    var i2 = 10 ;
+    var t3 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
+    while(i2 < t3.length -3) {
+        sum = sum + parseInt(t3[i2]);
+        i2 = i2 +3 ;
+        quantity =quantity+1
+       }
+
+       console.log("Average is " + " : " + sum/quantity)
+       res.sendStatus(200);
+
+  });
+
+  //row 36 
+  router.put("/ratecourse", async(req, res) => {
+   
+    var t1 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
+    var t2= new Array();
+    var i = 10 ;
+    if (t1.length > 12) {
+   while(i < t1.length -3) {
+    t2.push(parseInt(t1[i]))
+    i = i +3 ;
+   }
+   }
+    t2.push(parseInt(req.body.rate)) ;
+    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
+    var quantity = 0 ;
+    var sum = 0;
+    var i2 = 10 ;
+    var t3 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
+    while(i2 < t3.length -3) {
+        sum = sum + parseInt(t3[i2]);
+        i2 = i2 +3 ;
+        quantity =quantity+1
+       }
+
+       console.log("Average is " + " : " + sum/quantity)
+       res.sendStatus(200);
+
+  });
+
+module.exports = router;

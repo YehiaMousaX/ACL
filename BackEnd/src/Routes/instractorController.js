@@ -5,6 +5,7 @@ const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Instractor = require("../Models/Instractor");
+var url = require('url');
 
 const  countryList = [
   "Afghanistan",
@@ -314,22 +315,25 @@ router.post('/SelectCountry', async(req, res) => {
 // row 25
 router.post('/AddCourse', async(req, res) => {
 
+     var t2= new Array();
+     var t3= [String(req.body.Subtitle),"",""];
 
+     t2.push(t3)
+  
     {
+      
         // Insert the new course if they do not exist yet
         const course = new Course({
             Courseid: req.body.Courseid ,
             title: req.body.title,
             totalHours: req.body.totalHours,
             excercises: req.body.excercises,
-            subtitles: req.body.subtitles,
             price: req.body.price,
-            discount: req.body.discount,
             shortsummary: req.body.shortsummary,
-            rating:req.body.rating ,
             Subject: req.body.Subject ,
             instractorid : req.body.instractorid ,
-            review : req.body.review 
+            review : req.body.review ,
+            subtitles:t2
 
         });
         
@@ -339,7 +343,7 @@ router.post('/AddCourse', async(req, res) => {
 
         }) ;
 
-
+         
         try{
             await course.save();
             await instractorcourse.save() ;
@@ -359,6 +363,54 @@ router.post('/AddCourse', async(req, res) => {
 
 });
 
+/// ADD SUB TITLES FOR ACOURSE 
+router.get('/Course/Addsubtitles', async(req, res) => {
+  
+ t3 = [req.body.subtitle ,"" ,""] 
+Course.findOneAndUpdate({ Courseid:req.body.courseid }, { $push: { subtitles: t3 } }, { new: true }, (err, doc) => {
+  if (err) {
+    // Handle the error
+    console.log(err);
+  } else {
+    // Print the updated document
+    console.log(doc);
+    res.sendStatus(200);
+
+  }
+});
+});
+
+
+// row 26
+
+router.post('/Course/subtitles/AddYoutubeLink', async(req, res) => {
+
+  var youtube = String(req.body.linkyoutube);
+
+  if (youtube.substring(8,23) == "www.youtube.com") {
+    Course.findOneAndUpdate({Courseid:req.body.courseid, subtitles : [req.body.subtitle,"",""]}, { $set: { 'subtitles.$': [req.body.subtitle,String(youtube),req.body.shortdescription] } }, { new: true }, (err, doc) => {
+      if (err) {
+        // Handle the error
+        console.log(err);
+      } else {
+        // Print the updated document
+        console.log(doc);
+      }
+    });
+    res.sendStatus(200);
+
+  }
+
+  else {
+    console.log("Not valid Link");
+    res.sendStatus(200);
+
+
+  }
+
+  
+
+});
 // row 33 
 router.put("/ChangePassword", async(req, res) => {
 
@@ -382,18 +434,48 @@ router.put("/ChangePassword", async(req, res) => {
 // row 23 
 router.get("/MyCourses/ratingandreviews", async(req, res) => {
   
-  const courses = await Course.find({_id : req.body.instractorid}, { _id: 0 , rating :1 , review :1});
+  const courses = await Course.find({instractorid : req.body.instractorid}, {  rate :1 , review:1});
   
 
-res.send(details);
+  res.send(courses);
 });
 
 
+// row 32 
+
+router.post("/Courses/promotion", async(req, res) => {
+  
+  var t = String (req.body.discount) + " and it is valid for :" + String (req.body.forhowlong)
+  await Course.updateOne({courseid: req.body.courseid} ,{ $set: { discount: t} } )
+  res.sendStatus(200);
+
+
+});
+
+// row 27 
+
+router.post("/Courses/uploadpreview", async(req, res) => {
+  var youtube = String(req.body.linkyoutube);
+
+  if (youtube.substring(8,23) == "www.youtube.com") {
+    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { preview: youtube} } )
+    res.sendStatus(200);
+
+  }
+
+  else {
+    console.log("Not valid Link");
+    res.sendStatus(200);
+
+
+  }
+
+});
 
   // row 14
   router.get("/AllCourses/TitleDetails", async(req, res) => {
   
-    const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
+    const details = await Course.find({title : req.params.title}, {  subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
     
   res.send(details);
   });
@@ -401,7 +483,7 @@ res.send(details);
     // row 10 
 router.get("/AllCourses/prices", async(req, res) => {
     
-  X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, price : 1}));
+  X.push ( await Course.find({Courseid: req.body.courseid}, {title : 1, price : 1}));
   
 res.send(X);
 });
@@ -409,7 +491,7 @@ res.send(X);
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-  X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+  X.push ( await Course.find({Courseid: req.body.courseid}, {title : 1, totalHours : 1, rate : 1 }));
   
 res.send(X);
 });
@@ -422,18 +504,13 @@ res.send(X);
 res.send(X);
 });
 
- // row 14
- router.get("/AllCourses/TitleDetails", async(req, res) => {
-  
-  const details = await Course.find({title : req.params.title}, { _id: 0 , subtitles : 1 , totalHours : 1, excercises : 1,price : 1, discount : 1});
-  
-res.send(details);
-});
+ 
+
 
 // row 11 
 
 router.get("/rate", async(req, res) => {
-  const Courses = await Course.find({ rating: req.params.rating });
+  const Courses = await Course.find({ rate: req.params.rate });
   res.send(Courses);
 
 });
@@ -445,7 +522,7 @@ router.get("/sub", async(req, res) => {
 });
 
 router.get("/subrate", async(req, res) => {
-  const Courses = await Course.find({ Subject: req.params.Subject, rating: req.params.rating });
+  const Courses = await Course.find({ Subject: req.params.Subject, rate: req.params.rate });
   res.send(Courses);
 });
 

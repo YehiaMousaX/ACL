@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var url = require('url');
 
 const CourseSchema = new Schema({
     Courseid: {
@@ -32,8 +33,8 @@ const CourseSchema = new Schema({
 
     },
     subtitles: {
-        type: String,
-        required: true,
+        type: Array,
+        required: false,
     },
     excercises: {
         type: String,
@@ -46,8 +47,8 @@ const CourseSchema = new Schema({
 
     },
     discount: {
-        type: Number,
-        required: true
+        type: String,
+        required: false
 
     },
     shortsummary: {
@@ -65,7 +66,15 @@ const CourseSchema = new Schema({
         type: String,
         required: false,
 
-    }
+    },
+    videos : {
+        type: Array,
+        required: false,
+    }, 
+    preview : {
+        type: String,
+        required: false,
+    }, 
 
 
 }, { timestamps: true });

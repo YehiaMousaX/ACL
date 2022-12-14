@@ -281,7 +281,7 @@ router.get("/search", async(req, res) => {
 // row 11 
 
 router.get("/rate", async(req, res) => {
-    const Courses = await Course.find({ rating: req.params.rating });
+    const Courses = await Course.find({ rate: req.params.rate });
     res.send(Courses);
 
 });
@@ -293,7 +293,7 @@ router.get("/sub", async(req, res) => {
 });
 
 router.get("/subrate", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject, rating: req.params.rating });
+    const Courses = await Course.find({ Subject: req.params.Subject, rate: req.params.rate });
     res.send(Courses);
 });
 
@@ -342,7 +342,7 @@ router.post('/SelectCountry', async(req, res) => {
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rate : 1 }));
     
   res.send(X);
   });

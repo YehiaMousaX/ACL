@@ -48,6 +48,13 @@ app.use('/instractor', instractorRoute);
 const AdminController = require('./Routes/adminController');
 app.use('/admin', AdminController);
 
+const Coroporateuser = require('./Routes/CoroporateuserController');
+app.use('/Coroporateuser', Coroporateuser);
+
+const Guest = require('./Routes/GuestController');
+app.use('/Guest', Guest);
+
+
 
 /*
                                                     End of your code

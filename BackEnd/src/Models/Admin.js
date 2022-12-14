@@ -11,7 +11,7 @@ const AdminSchema = new Schema({
 
         type: String,
         required : true ,
-        unique : false
+        unique : true
         
     },
     Email: {

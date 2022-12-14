@@ -37,8 +37,8 @@ const CourseSchema = new Schema({
         required: false,
     },
     excercises: {
-        type: String,
-        required: true,
+        type: Array,
+        required: false,
 
     },
     price: {

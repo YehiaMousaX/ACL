@@ -317,6 +317,7 @@ router.post('/AddCourse', async(req, res) => {
 
      var t2= new Array();
      var t3= [String(req.body.Subtitle),"",""];
+     var t4= new Array();
 
      t2.push(t3)
   
@@ -327,14 +328,13 @@ router.post('/AddCourse', async(req, res) => {
             Courseid: req.body.Courseid ,
             title: req.body.title,
             totalHours: req.body.totalHours,
-            excercises: req.body.excercises,
             price: req.body.price,
             shortsummary: req.body.shortsummary,
             Subject: req.body.Subject ,
             instractorid : req.body.instractorid ,
             review : req.body.review ,
-            subtitles:t2
-
+            subtitles:t2,
+            excercises : t4
         });
         
         const instractorcourse = new InstractorCourse({
@@ -440,7 +440,75 @@ router.get("/MyCourses/ratingandreviews", async(req, res) => {
   res.send(courses);
 });
 
+// row 30 
+router.get("/Myratingandreviews", async(req, res) => {
+  
+  const instractor = await Instractor.find({instractorid : req.body.instractorid}, {  rate :1 , review:1});
+  
 
+  res.send(instractor);
+});
+
+
+// row 28
+
+router.post("/createquestion", async(req, res) => {
+  
+  Course.updateOne({ Courseid: req.body.courseid }, { $push: { excercises: [String(req.body.question) , String(req.body.choice1) , String(req.body.choice2 ), String(req.body.choice3 ), String(req.body.choice4 ), String(req.body.correctanswer)] } }, function(error) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Question added Successfully");
+    }
+  });
+  res.sendStatus(200);
+});
+
+
+// row 29 
+
+router.get("/showquestion", async(req, res) => {
+ 
+   t = new Array () ;
+   var i =0 
+   var j = 0
+   var k = 0
+    Course.findOne({ Courseid:req.body.courseid }, { 'excercises': 1 }, function(error, result) {
+   t = result.excercises
+    if (error) {
+      console.log(error);
+    } else {
+      
+      while(i <t.length){
+        k =i +1 ;
+         if (j<5){
+          if (j == 0){
+            console.log("Question Number :" + k)
+          }
+         
+          else{
+            console.log("Choice Number :" + j)
+          }
+          
+          console.log(t[i][j]);
+          j++ ;
+          if(j== 5 ){
+            i ++ ;
+            j = 0 ;
+            console.log("----------------------");
+          }
+         }  
+                        
+      }    }
+  });
+  
+  res.sendStatus(200);
+
+
+});
+
+/*
+*/
 // row 32 
 
 router.post("/Courses/promotion", async(req, res) => {
@@ -469,6 +537,7 @@ router.post("/Courses/uploadpreview", async(req, res) => {
 
 
   }
+  
 
 });
 

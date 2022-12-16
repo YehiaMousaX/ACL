@@ -269,6 +269,10 @@ function SignUpForm() {
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [errormail, setErrorMail] = useState(false);
+  const [errorpassword, setErrorPassword] = useState(false);
+  const [errorconfirmpassword, setErrorConfirmPassword] = useState(false);
+
 
   const successMessage = () => {
     return (
@@ -298,6 +302,10 @@ function SignUpForm() {
   const  handleSubmit = e => {
     if (name === '' || Email === '' || password === '' || age === ''|| bornIn === ''|| passwordconfirm === ''|| job === ''|| phoneNumber === ''|| martialStatus === '') {
       setError(true);
+      
+          
+      
+      
     }
     else {
     setSubmitted(true);
@@ -712,15 +720,40 @@ function SignUpForm() {
 
       <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
       <button id = "login "className="btn" type="submit" >Go To Login Page</button>
-      <script>
-        const cb = document.querySelector('#accept');
-        const btn = document.querySelector('#btn');
-        btn.onclick = () => {
-           alert(cb.value);
-        };
-    </script>
-    </div>
-    </div>
+       
+      <form id="sign-up-form">
+      <div>
+  <a href="#" id="view-policy-link">View refund/payment policy</a>
+  </div>
+  <label>
+    <input type="checkbox" id="accept-policy-checkbox" required/>
+    I have read and accept the refund/payment policy
+  </label>
+
+</form>
+
+<div id="policy-modal" class="modal">
+  <div class="modal-content">
+    <h2>Refund/Payment Policy</h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Vivamus lacinia ultricies metus, sit amet tincidunt est pellentesque id.
+      Praesent quis ornare ligula. Vestibulum eget nulla eu tellus placerat bibendum.
+      Etiam elementum, metus a vehicula posuere, sem lacus porttitor lacus,
+      eget vehicula sem ipsum at nisi. Suspendisse potenti.
+    </p>
+    <p>
+      Curabitur id lectus at nibh ullamcorper dignissim.
+      Aenean eget ligula ac ligula placerat vestibulum.
+      Sed venenatis dolor et sapien mollis, vel fermentum justo sollicitudin.
+      Aenean id est at leo suscipit aliquet. Maecenas auctor, nisl quis luctus vehicula,
+      turpis lectus feugiat ligula, a pulvinar lacus elit sit amet elit.
+    </p>
+    <button id="close-modal-button">Close</button>
+  </div>
+</div>
+</div>
+</div>
 
   );
 }

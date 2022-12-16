@@ -719,7 +719,6 @@ function SignUpForm() {
 
 
       <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
-      <button id = "login "className="btn" type="submit" >Go To Login Page</button>
        
       <form id="sign-up-form">
       <div>

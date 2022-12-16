@@ -3,12 +3,14 @@ const express = require("express");
 const bodyParser = require('body-parser');
 //App variables
 const app = express();
-const port = process.env.PORT || "8000";
+const port =  "8000";
 const user = require('./Models/User');
+var cors = require('cors');
 
 // #Importing the userController
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // configurations
 // Mongo DB
@@ -31,6 +33,7 @@ mongoose.connect(url, connectionParams)
 
 
 /*
+
                                                     Start of your code
 */
 app.get("/home", (req, res) => {

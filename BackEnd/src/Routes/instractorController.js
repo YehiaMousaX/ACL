@@ -465,47 +465,7 @@ router.post("/createquestion", async(req, res) => {
 });
 
 
-// row 29 
 
-router.get("/showquestion", async(req, res) => {
- 
-   t = new Array () ;
-   var i =0 
-   var j = 0
-   var k = 0
-    Course.findOne({ Courseid:req.body.courseid }, { 'excercises': 1 }, function(error, result) {
-   t = result.excercises
-    if (error) {
-      console.log(error);
-    } else {
-      
-      while(i <t.length){
-        k =i +1 ;
-         if (j<5){
-          if (j == 0){
-            console.log("Question Number :" + k)
-          }
-         
-          else{
-            console.log("Choice Number :" + j)
-          }
-          
-          console.log(t[i][j]);
-          j++ ;
-          if(j== 5 ){
-            i ++ ;
-            j = 0 ;
-            console.log("----------------------");
-          }
-         }  
-                        
-      }    }
-  });
-  
-  res.sendStatus(200);
-
-
-});
 
 /*
 */

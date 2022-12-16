@@ -5,6 +5,7 @@ const Instractor = require("../Models/Instractor");
 const Admin = require("../Models/Admin");
 const InstractorCourse = require("../Models/InstractorCourse");
 const User = require("../Models/User");
+const { response } = require("express");
 const router = express.Router()
 const NumberofCountry = 0;
 const  countryList = [
@@ -303,33 +304,78 @@ router.get("/price", async(req, res) => {
     res.send(Courses);
 });
 
+// row 29 
 
+router.get("/showquestions", async(req, res) => {
+ 
+  t = new Array () ;
+  var i =0 
+  var j = 0
+  var k = 0
+  ques = new Array () 
+    Course.findOne({ Courseid:req.body.courseid }, { 'excercises': 1 }, function(error, result) {
+  t = result.excercises
+   if (error) {
+     console.log(error);
+   } else {
+     
+     while(i <t.length){
+       k =i +1 ;
+        if (j<5){
+         if (j == 0){
+          var temp = String ("Question Number " + k + " : "+ t[i][j])
+          ques.push( temp)
+         }
+        
+         else{
+          var temp = String ("Choice Number " + j + " : "+ t[i][j] )
+          ques.push(temp)
+         }
+         j++ ;
+         if(j== 5 ){
+           i ++ ;
+           j = 0 ;
+         }
+        }  
+                       
+     } 
+     res.send(ques);
+
+    
+    }
+ });
+
+});
 
 
 // row 8
 
-router.post('/signup', async(req, res) => {
 
 
-	{
-        // Insert the new user if they do not exist yet
-        const user = new User({
-            password : req.body.password ,
-			Name: req.body.Name,
-            Email: req.body.Email,
-            Age: req.body.Age,
-            BornIn: req.body.BornIn,
-            MartialStatus: req.body.MartialStatus,
-            PhoneNumber: req.body.PhoneNumber,
-            Job: req.body.Job
-        });
 
-        await user.save();
-        console.log(req.body.Name);
-        res.sendStatus(200);
+router.post("/signup",async(req,res)=>{
 
-    }
+  const user = new User({
+    password : req.body.password ,
+    Name: req.body.Name,
+    Email: req.body.Email,
+    Age: req.body.Age,
+    BornIn: req.body.BornIn,
+    MartialStatus: req.body.MartialStatus,
+    PhoneNumber: req.body.PhoneNumber,
+    Job: req.body.Job,
+    Gender: req.body.Gender,
+    Country : req.body.Country
 });
+
+
+      
+         await  user.save()
+         res.send({message:"user success added"})
+
+
+
+}) 
 
 router.post('/SelectCountry', async(req, res) => {
 
@@ -448,5 +494,31 @@ router.get("/AllCourses/prices", async(req, res) => {
     
   res.send(details);
   });
+
+  /// helper methods 
+  router.post("/Login",(req,res)=>{
+    const {email,password} =req.body;
+     User.findone({email:email},(err,user)=>{
+        if(user){
+           if(password === user.password){
+               res.send({message:"login sucess",user:user})
+           }else{
+               res.send({message:"wrong credentials"})
+           }
+        }else{
+            res.send("not register")
+        }
+    })
+});
+
+router.post("/seif", async(req, res) => {
+  
+  var i = 0 
+  while(i<countryList.length) {
+    console.log("<option value="+countryList[i]+">"+countryList[i]+"</option>")
+        i++ 
+  }
+});
+
 
   module.exports = router;

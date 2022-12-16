@@ -514,7 +514,7 @@ router.post("/seif", async(req, res) => {
   
   var i = 0 
   while(i<countryList.length) {
-    console.log("<option value="+countryList[i]+">"+countryList[i]+"</option>")
+    console.log("<option value="+ "'" + countryList[i]+ "'" +">"+countryList[i]+"</option>")
         i++ 
   }
 });

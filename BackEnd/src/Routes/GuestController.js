@@ -5,7 +5,8 @@ const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
-const Guest = require ("../Models/Guest")
+const Guest = require ("../Models/Guest");
+const Guest = require("../Models/Guest");
 const router = express.Router()
 
 const  countryList = [
@@ -321,5 +322,31 @@ router.get("/price", async(req, res) => {
     const Courses = await Course.find({ price: req.params.price });
     res.send(Courses);
 });
+
+  router.get("/AllCourses/:courseId", async(req, res) => {
+
+    const course = await Course.findOne({Courseid: req.params.courseId});
+      if (!course) {
+          return res.status(404).send("Course not found");
+      }
+  
+      const guest = await Guest.findById(req.body.guestId);
+      if (!guest) {
+          return res.status(404).send("User not found");
+      }
+  
+      // Calculate the price with the discount if applicable
+      let price = course.price;
+      if (course.discount && guest.Country === course.discount.country) {
+          price = price - (price * course.discount.percentage / 100);
+      }
+  
+      res.send({
+          subtitles: course.subtitles,
+          excercises: course.excercises,
+          totalHours: course.totalHours,
+          price: price,
+      });
+  });
 
 module.exports = router;

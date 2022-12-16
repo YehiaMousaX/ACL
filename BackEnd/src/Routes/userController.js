@@ -392,8 +392,7 @@ router.get("/AllCourses", async(req, res) => {
     
   res.send(X);
   });
-
-
+ 
   // 
   router.get("/Mycoursestitles2", async(req, res) => {
     X.push (await InstractorCourse.find( {_id : req.params.instractorid } ,{ _id : 0 ,courseid :1 } ) );
@@ -494,31 +493,5 @@ router.get("/AllCourses/prices", async(req, res) => {
     
   res.send(details);
   });
-
-  /// helper methods 
-  router.post("/Login",(req,res)=>{
-    const {email,password} =req.body;
-     User.findone({email:email},(err,user)=>{
-        if(user){
-           if(password === user.password){
-               res.send({message:"login sucess",user:user})
-           }else{
-               res.send({message:"wrong credentials"})
-           }
-        }else{
-            res.send("not register")
-        }
-    })
-});
-
-router.post("/seif", async(req, res) => {
-  
-  var i = 0 
-  while(i<countryList.length) {
-    console.log("<option value="+countryList[i]+">"+countryList[i]+"</option>")
-        i++ 
-  }
-});
-
 
   module.exports = router;

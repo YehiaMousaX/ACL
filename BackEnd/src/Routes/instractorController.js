@@ -601,4 +601,32 @@ router.get("/price", async(req, res) => {
   res.send(Courses);
 });
 
+router.get("/AllCourses/:courseId", async(req, res) => {
+
+  const course = await Course.findOne({Courseid: req.params.courseId});
+    if (!course) {
+        return res.status(404).send("Course not found");
+    }
+
+    const instractor = await Instractor.findById(req.body.instractorId);
+    if (!instractor) {
+        // If the user is not found, send a 404 error
+        return res.status(404).send("User not found");
+    }
+
+    // Calculate the price with the discount if applicable
+    // the discount in the course schema should have a country field 
+    let price = course.price;
+    if (course.discount && instractor.Country === course.discount.country) {
+        price = price - (price * course.discount.percentage / 100);
+    }
+
+    res.send({
+        subtitles: course.subtitles,
+        excercises: course.excercises,
+        totalHours: course.totalHours,
+        price: price,
+    });
+});
+
 module.exports = router;

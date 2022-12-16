@@ -346,8 +346,7 @@ router.get("/AllCourses", async(req, res) => {
     
   res.send(X);
   });
-
-
+ 
   // 
   router.get("/Mycoursestitles2", async(req, res) => {
     X.push (await InstractorCourse.find( {_id : req.params.instractorid } ,{ _id : 0 ,courseid :1 } ) );
@@ -448,5 +447,12 @@ router.get("/AllCourses/prices", async(req, res) => {
     
   res.send(details);
   });
+
+
+
+
+
+
+  
 
   module.exports = router;

@@ -6,7 +6,6 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
 const Guest = require ("../Models/Guest");
-const Guest = require("../Models/Guest");
 const router = express.Router()
 
 const  countryList = [

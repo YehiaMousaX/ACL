@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import  "./signup.css"
+
 const  countryList = [
     "Afghanistan",
     "Albania",
@@ -708,8 +710,15 @@ function SignUpForm() {
         </select>
 
 
-      <button  className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
-      <button className="btn" type="submit" >Go To Login Page</button>
+      <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
+      <button id = "login "className="btn" type="submit" >Go To Login Page</button>
+      <script>
+        const cb = document.querySelector('#accept');
+        const btn = document.querySelector('#btn');
+        btn.onclick = () => {
+           alert(cb.value);
+        };
+    </script>
     </div>
     </div>
 

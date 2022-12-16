@@ -494,7 +494,6 @@ router.get("/AllCourses/prices", async(req, res) => {
   res.send(details);
   });
 
-  <<<<<<< seif
   /// helper methods 
   router.post("/Login",(req,res)=>{
     const {email,password} =req.body;

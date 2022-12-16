@@ -53,3 +53,22 @@
     height: 60px;
     padding: 0px;
   }
+  #policy-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#policy-modal .policy-text {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}

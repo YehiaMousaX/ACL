@@ -1,19 +1,12 @@
-import { BrowserRouter , Routes , Route} from 'react-router-dom'
+import SignUpForm from './components/SignUp/signup';
 
-
-// pages and components 
-import Signup from './pages/signup'
-import Header from './components/header';
-//import Navbar from './components/Navbar';
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Header/>
-      <Signup/>
+    <div>
+      <h1>Sign Up Form</h1>
+      <SignUpForm />
     </div>
   );
-}
-
+};
 
 export default App;

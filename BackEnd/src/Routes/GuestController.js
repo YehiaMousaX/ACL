@@ -298,6 +298,30 @@ router.get("/AllCourses", async(req, res) => {
   res.send(details);
   });
 
+// row 11 
+
+router.get("/rate", async(req, res) => {
+    const Courses = await Course.find({ rate: req.params.rate });
+    res.send(Courses);
+
+});
+
+
+router.get("/sub", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject });
+    res.send(Courses);
+});
+
+router.get("/subrate", async(req, res) => {
+    const Courses = await Course.find({ Subject: req.params.Subject, rate: req.params.rate });
+    res.send(Courses);
+});
+
+//row 12
+router.get("/price", async(req, res) => {
+    const Courses = await Course.find({ price: req.params.price });
+    res.send(Courses);
+});
 
   router.get("/AllCourses/:courseId", async(req, res) => {
 

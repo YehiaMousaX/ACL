@@ -27,7 +27,7 @@ const userSchema = new Schema({
     },
     Country: {
         type: String,
-        required: true
+        required: false
     },
     MartialStatus: {
         type: String,
@@ -38,6 +38,10 @@ const userSchema = new Schema({
         required: true
     },
     Job: {
+        type: String,
+        required: true
+    },
+    Gender: {
         type: String,
         required: true
     }

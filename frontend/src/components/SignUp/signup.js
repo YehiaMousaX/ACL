@@ -1,258 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import  "./signup.css"
-
-const  countryList = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "American Samoa",
-    "Andorra",
-    "Angola",
-    "Anguilla",
-    "Antarctica",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Aruba",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas (the)",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bermuda",
-    "Bhutan",
-    "Bolivia (Plurinational State of)",
-    "Bonaire, Sint Eustatius and Saba",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Bouvet Island",
-    "Brazil",
-    "British Indian Ocean Territory (the)",
-    "Brunei Darussalam",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Cayman Islands (the)",
-    "Central African Republic (the)",
-    "Chad",
-    "Chile",
-    "China",
-    "Christmas Island",
-    "Cocos (Keeling) Islands (the)",
-    "Colombia",
-    "Comoros (the)",
-    "Congo (the Democratic Republic of the)",
-    "Congo (the)",
-    "Cook Islands (the)",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Curaçao",
-    "Cyprus",
-    "Czechia",
-    "Côte d'Ivoire",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic (the)",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini",
-    "Ethiopia",
-    "Falkland Islands (the) [Malvinas]",
-    "Faroe Islands (the)",
-    "Fiji",
-    "Finland",
-    "France",
-    "French Guiana",
-    "French Polynesia",
-    "French Southern Territories (the)",
-    "Gabon",
-    "Gambia (the)",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Gibraltar",
-    "Greece",
-    "Greenland",
-    "Grenada",
-    "Guadeloupe",
-    "Guam",
-    "Guatemala",
-    "Guernsey",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
-    "Heard Island and McDonald Islands",
-    "Holy See (the)",
-    "Honduras",
-    "Hong Kong",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran (Islamic Republic of)",
-    "Iraq",
-    "Ireland",
-    "Isle of Man",
-    "Israel",
-    "Italy",
-    "Jamaica",
-    "Japan",
-    "Jersey",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kiribati",
-    "Korea (the Democratic People's Republic of)",
-    "Korea (the Republic of)",
-    "Kuwait",
-    "Kyrgyzstan",
-    "Lao People's Democratic Republic (the)",
-    "Latvia",
-    "Lebanon",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Macao",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Maldives",
-    "Mali",
-    "Malta",
-    "Marshall Islands (the)",
-    "Martinique",
-    "Mauritania",
-    "Mauritius",
-    "Mayotte",
-    "Mexico",
-    "Micronesia (Federated States of)",
-    "Moldova (the Republic of)",
-    "Monaco",
-    "Mongolia",
-    "Montenegro",
-    "Montserrat",
-    "Morocco",
-    "Mozambique",
-    "Myanmar",
-    "Namibia",
-    "Nauru",
-    "Nepal",
-    "Netherlands (the)",
-    "New Caledonia",
-    "New Zealand",
-    "Nicaragua",
-    "Niger (the)",
-    "Nigeria",
-    "Niue",
-    "Norfolk Island",
-    "Northern Mariana Islands (the)",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Palau",
-    "Palestine, State of",
-    "Panama",
-    "Papua New Guinea",
-    "Paraguay",
-    "Peru",
-    "Philippines (the)",
-    "Pitcairn",
-    "Poland",
-    "Portugal",
-    "Puerto Rico",
-    "Qatar",
-    "Republic of North Macedonia",
-    "Romania",
-    "Russian Federation (the)",
-    "Rwanda",
-    "Réunion",
-    "Saint Barthélemy",
-    "Saint Helena, Ascension and Tristan da Cunha",
-    "Saint Kitts and Nevis",
-    "Saint Lucia",
-    "Saint Martin (French part)",
-    "Saint Pierre and Miquelon",
-    "Saint Vincent and the Grenadines",
-    "Samoa",
-    "San Marino",
-    "Sao Tome and Principe",
-    "Saudi Arabia",
-    "Senegal",
-    "Serbia",
-    "Seychelles",
-    "Sierra Leone",
-    "Singapore",
-    "Sint Maarten (Dutch part)",
-    "Slovakia",
-    "Slovenia",
-    "Solomon Islands",
-    "Somalia",
-    "South Africa",
-    "South Georgia and the South Sandwich Islands",
-    "South Sudan",
-    "Spain",
-    "Sri Lanka",
-    "Sudan (the)",
-    "Suriname",
-    "Svalbard and Jan Mayen",
-    "Sweden",
-    "Switzerland",
-    "Syrian Arab Republic",
-    "Taiwan",
-    "Tajikistan",
-    "Tanzania, United Republic of",
-    "Thailand",
-    "Timor-Leste",
-    "Togo",
-    "Tokelau",
-    "Tonga",
-    "Trinidad and Tobago",
-    "Tunisia",
-    "Turkey",
-    "Turkmenistan",
-    "Turks and Caicos Islands (the)",
-    "Tuvalu",
-    "Uganda",
-    "Ukraine",
-    "United Arab Emirates (the)",
-    "United Kingdom of Great Britain and Northern Ireland (the)",
-    "United States Minor Outlying Islands (the)",
-    "United States of America (the)",
-    "Uruguay",
-    "Uzbekistan",
-    "Vanuatu",
-    "Venezuela (Bolivarian Republic of)",
-    "Viet Nam",
-    "Virgin Islands (British)",
-    "Virgin Islands (U.S.)",
-    "Wallis and Futuna",
-    "Western Sahara",
-    "Yemen",
-    "Zambia",
-    "Zimbabwe",
-    "Åland Islands"
-];
+import IconButton from "@mui/material/IconButton";
 
 function SignUpForm() {
   const [name, setName] = useState('');
@@ -272,8 +21,11 @@ function SignUpForm() {
   const [errormail, setErrorMail] = useState(false);
   const [errorpassword, setErrorPassword] = useState(false);
   const [errorconfirmpassword, setErrorConfirmPassword] = useState(false);
+  const [emailFound, setEmailFound] = useState(true);
 
+  const [emailvalid, setEmailValid] = useState(false);
 
+  
   const successMessage = () => {
     return (
       <div
@@ -294,22 +46,209 @@ function SignUpForm() {
         style={{
           display: error ? '' : 'none',
         }}>
-        <h1>Please enter all the fields</h1>
-      </div>
+        <h1>* Please enter all the fields*</h1>
+      
+      
+    </div>
     );
   };
 
+
+  const errorconfirpassword = () => {
+    return (
+      <div
+      className="error"
+      style={{
+        display: errorconfirmpassword ? '' : 'none',
+      }}>
+      <h1>* the two passwords are not the same *</h1>
+    </div>
+    );
+  };
+
+
+  const errorpasssword = () => {
+    return (
+      <div
+      className="error"
+      style={{
+        display: errorpassword ? '' : 'none',
+      }}>
+      <h1>*the passwod must be at least length of 8 and atleast character and upper character and special characters like this ["!@#$%^&*()_+-=[]{}|;':\"] *</h1>
+    </div>
+    );
+  };
+
+
+  const erroremail = () => {
+    return (
+      <div
+      className="error"
+      style={{
+        display: errormail ? '' : 'none',
+      }}>
+      <h1>* the email is already signedin use another email or sign in with this mail</h1>
+    </div>
+    );
+  };
+
+
+  const validmail = () => {
+    return (
+      <div
+      className="error"
+      style={{
+        display: emailvalid ? '' : 'none',
+      }}>
+      <h1>* the email is not valid </h1>
+    </div>
+    );
+  };
+  
+  function isStrongPassword(password) {
+    // Minimum length for a strong password is 8 characters
+    if (password.length < 8) {
+      return false;
+    }
+  
+    // Check if the password contains at least one lowercase letter, one uppercase letter, and one number
+    let hasLowerCase = false;
+    let hasUpperCase = false;
+    let hasNumber = false;
+    for (let i = 0; i < password.length; i++) {
+      if (password[i] >= 'a' && password[i] <= 'z') {
+        hasLowerCase = true;
+      } else if (password[i] >= 'A' && password[i] <= 'Z') {
+        hasUpperCase = true;
+      } else if (password[i] >= '0' && password[i] <= '9') {
+        hasNumber = true;
+      }
+    }
+    if (!hasLowerCase || !hasUpperCase || !hasNumber) {
+      return false;
+    }
+  
+    // Check if the password contains any special characters
+    let specialCharacters = "!@#$%^&*()_+-=[]{}|;':\"";
+    let hasSpecialCharacter = false;
+    for (let i = 0; i < password.length; i++) {
+      if (specialCharacters.indexOf(password[i]) !== -1) {
+        hasSpecialCharacter = true;
+        break;
+      }
+    }
+    if (!hasSpecialCharacter) {
+      return false;
+    }
+  
+    return true;
+  }
+  
+// check email is valid or not 
+
+  const isValidEmail = (email) => {
+    // check if the email is a string
+    if (typeof email !== 'string') {
+      return false;
+    }
+  
+    // check if the email has an '@' symbol and a '.' after it
+    if (!email.includes('@') || !email.includes('.')) {
+      return false;
+    }
+  
+    // split the email into two parts: the part before the '@' symbol, and the part after
+    const [localPart, domain] = email.split('@');
+  
+    // check if the local part is at least one character long and does not contain any spaces
+    if (localPart.length === 0 || localPart.includes(' ')) {
+      return false;
+    }
+  
+    // check if the domain is at least two characters long and does not contain any spaces
+    if (domain.length < 2 || domain.includes(' ')) {
+      return false;
+    }
+  
+    // if all checks pass, the email is valid
+    return true;
+  }
+  
+
+
+
+  
+
+ 
+
+
+ 
   const  handleSubmit = e => {
+
+   
+    axios.post('http://localhost:8000/user/checkemail', { Email: Email })
+      .then(response => {
+        setEmailFound( response.data );
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+
     if (name === '' || Email === '' || password === '' || age === ''|| bornIn === ''|| passwordconfirm === ''|| job === ''|| phoneNumber === ''|| martialStatus === '') {
-      setError(true);
-      
-          
-      
-      
+      setError(true); 
+      setErrorConfirmPassword(false);
+      setErrorPassword(false)
+      setSubmitted(false);
+      setErrorMail (false);
+
+
+    }
+    
+    else if (password!== passwordconfirm) {
+      setErrorConfirmPassword(true);
+      setErrorPassword(false)
+      setError(false); 
+      setSubmitted(false);
+      setErrorMail (false);
+
+
+    } 
+    else if (isStrongPassword(password) === false) {
+      setErrorConfirmPassword(false);
+      setError(false); 
+      setErrorPassword(true)
+      setSubmitted(false);
+      setErrorMail (false);
+
+    }
+    else if (emailFound === true){
+     setErrorMail (true);
+     setSubmitted(false);
+     setError(false);
+     setErrorConfirmPassword(false);
+     setErrorPassword(false)
+    }
+    else if (isValidEmail(Email) === false) {
+      setErrorMail (false);
+      setSubmitted(false);
+      setError(false);
+      setErrorConfirmPassword(false);
+      setErrorPassword(false)
+      setEmailValid(true)
+
+
+
     }
     else {
     setSubmitted(true);
     setError(false);
+    setErrorConfirmPassword(false);
+    setErrorPassword(false)
+    setErrorMail (false);
+    setEmailValid(false)
+
+    
      
     axios.post('http://localhost:8000/user/signup', {
       Name: name,
@@ -329,7 +268,7 @@ function SignUpForm() {
           } 
     } )
     .then((response) => {
-      alert("successful sign up ");
+
     })
     .catch((error) => {
         if (error.response) {
@@ -360,6 +299,10 @@ function SignUpForm() {
       <div className="messages">
         {errorMessage()}
         {successMessage()}
+        {errorconfirpassword()}
+        {errorpasssword()}
+        {erroremail()}
+        {validmail()}
       </div>
 
       <div className="form1">
@@ -375,12 +318,12 @@ function SignUpForm() {
       <label className="label">Password:</label>
       <input
         type="password"
-        id="password"
+        id="password-input"
         className="input"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
-      />
-      <label className="label">PasswordConfirm:</label>
+        />
+      <label  className="label">PasswordConfirm:</label>
       <input
         type="password"
         id="passwordconfirm"
@@ -388,6 +331,8 @@ function SignUpForm() {
         value={passwordconfirm}
         onChange={(event) => setPasswordConfirm(event.target.value)}
       />
+
+    
       <label className="label">Email:</label>
       <input
         type="email"
@@ -720,37 +665,7 @@ function SignUpForm() {
 
       <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
        
-      <form id="sign-up-form">
-      <div>
-  <a href="#" id="view-policy-link">View refund/payment policy</a>
-  </div>
-  <label>
-    <input type="checkbox" id="accept-policy-checkbox" required/>
-    I have read and accept the refund/payment policy
-  </label>
-
-</form>
-
-<div id="policy-modal" class="modal">
-  <div class="modal-content">
-    <h2>Refund/Payment Policy</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Vivamus lacinia ultricies metus, sit amet tincidunt est pellentesque id.
-      Praesent quis ornare ligula. Vestibulum eget nulla eu tellus placerat bibendum.
-      Etiam elementum, metus a vehicula posuere, sem lacus porttitor lacus,
-      eget vehicula sem ipsum at nisi. Suspendisse potenti.
-    </p>
-    <p>
-      Curabitur id lectus at nibh ullamcorper dignissim.
-      Aenean eget ligula ac ligula placerat vestibulum.
-      Sed venenatis dolor et sapien mollis, vel fermentum justo sollicitudin.
-      Aenean id est at leo suscipit aliquet. Maecenas auctor, nisl quis luctus vehicula,
-      turpis lectus feugiat ligula, a pulvinar lacus elit sit amet elit.
-    </p>
-    <button id="close-modal-button">Close</button>
-  </div>
-</div>
+      
 </div>
 </div>
 

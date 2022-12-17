@@ -260,7 +260,8 @@ const  countryList = [
     "Åland Islands"
 ];
 const X =[] ;
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 router.get("/search", async(req, res) => {
@@ -510,29 +511,46 @@ router.get("/AllCourses/prices", async(req, res) => {
   res.send(details);
   });
 
-  /// helper methods 
-  router.post("/Login",(req,res)=>{
-    const {email,password} =req.body;
-     User.findone({email:email},(err,user)=>{
-        if(user){
-           if(password === user.password){
-               res.send({message:"login sucess",user:user})
-           }else{
-               res.send({message:"wrong credentials"})
-           }
-        }else{
-            res.send("not register")
-        }
-    })
-});
 
-router.post("/seif", async(req, res) => {
+
+
+
+
+
+  router.post('/login', (req, res) => {
+    const { email, password } = req.body;
   
-  var i = 0 
-  while(i<countryList.length) {
-    console.log("<option value="+ "'" + countryList[i]+ "'" +">"+countryList[i]+"</option>")
-        i++ 
-  }
-});
-
+    // find the user by email
+    User.findOne({ email })
+      .then((user) => {
+        // if the user doesn't exist, return an error
+        if (!user) {
+          return res.status(404).send({ error: 'User not found' });
+        }
+  
+        // compare the provided password with the hashed password in the database
+        bcrypt.compare(password, user.password)
+          .then((isMatch) => {
+            // if the password doesn't match, return an error
+            if (!isMatch) {
+              return res.status(400).send({ error: 'Invalid password' });
+            }
+  
+            // create a JWT
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+  
+            // send the JWT in the response
+            res.send({ token });
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send({ error: 'Error comparing passwords' });
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send({ error: 'Error finding user' });
+      });
+  });
+  
   module.exports = router;

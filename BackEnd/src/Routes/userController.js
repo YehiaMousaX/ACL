@@ -377,6 +377,22 @@ router.post("/signup",async(req,res)=>{
 
 }) 
 
+
+
+router.post('/checkemail', (req, res) => {
+
+  User.findOne({ Email : req.body.Email}, (err, user) => {
+    if (err) {
+      return res.status(500).json({ message: err.message });
+    }
+    if (user) {
+      return res.json(true);
+    } else {
+      return res.json(false);
+    }
+  });
+});
+
 router.post('/SelectCountry', async(req, res) => {
 
 

@@ -4,7 +4,7 @@ import Header from './components/SignUp/header';
 const App = () => {
   return (
     <div>
-      
+     <SignUpForm />
     </div>
   );
 };

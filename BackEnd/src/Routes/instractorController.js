@@ -520,7 +520,7 @@ res.send(X);
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-  X.push ( await Course.find({Courseid: req.body.courseid}, {title : 1, totalHours : 1, rate : 1 }));
+  X.push ( await Course.find({}, {title : 1, totalHours : 1, rate : 1 }));
   
 res.send(X);
 });

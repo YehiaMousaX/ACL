@@ -44,7 +44,11 @@ const userSchema = new Schema({
     Gender: {
         type: String,
         required: true
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now
+      }
 }, { timestamps: true });
 
 

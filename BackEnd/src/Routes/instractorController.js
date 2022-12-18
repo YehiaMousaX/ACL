@@ -291,14 +291,14 @@ router.put("/EditProfile", async(req, res) => {
 
 if(req.body.Email != null  ) {
 await Instractor.updateOne({_id: req.body.id} ,{ $set: { Email: req.body.Email } } )
-res.send(" Email is updated ");
 
 }
 if(req.body.Biography != null ) {
 await Instractor.updateOne({_id: req.body.id} ,{ $set: { Biography: req.body.Biography } } )
-res.send(" Biography is updated ");
 
 }
+
+res.status(200)
 
 });
 
@@ -429,6 +429,7 @@ router.put("/ChangePassword", async(req, res) => {
 
 
 });
+
 
 
 // row 23 
@@ -588,5 +589,45 @@ router.get("/AllCourses/:courseId", async(req, res) => {
         price: price,
     });
 });
+
+
+// get instractor profile 
+
+
+router.post("/MyProfile", async(req, res) => {
+
+   y = new Array();
+   var name = String(await Instractor.find({ _id: req.body.id } , {_id : 0 ,Name: 1 }));
+  var email = String(await Instractor.find({ _id: req.body.id } , {_id : 0 ,Email : 1 }));
+  var Biography = String(await Instractor.find({ _id: req.body.id } , {_id : 0 ,Biography : 1 }) );
+  var rate = String(await Instractor.find({ _id: req.body.id } , {_id : 0 ,rate : 1 }) );
+   
+   y.push (name.substring(9,name.length -3))
+   y.push (email.substring(10,email.length-3))
+   y.push(Biography.substring(14,Biography.length-3))
+ //  y.push(rate.substring(9,rate.length-3))
+
+   
+  var rate1 = String(rate.substring(9,rate.length-3))
+  var i = 1
+  var j = 0 
+  var result = 0
+  while (i < rate1.length ) {
+    result =result +parseInt(rate1.substring(i,i+1))
+   j++ ;
+   i = i+ 3 
+  
+
+  }
+
+  var Averagerate =  result/ j ;
+  y.push (Averagerate)
+
+  res.send(y)
+
+
+
+});
+
 
 module.exports = router;

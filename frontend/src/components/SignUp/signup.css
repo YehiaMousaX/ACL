@@ -47,14 +47,6 @@
 
   }
    
-  .error1{
-    background-color: rgb(254, 251, 251);
-    color: rgb(162, 5, 5);
-    width: fit-content;
-    height: 60px;
-    padding: 0px;
-    font-size: x-small;
-  }
    
   .success{
     display: block;

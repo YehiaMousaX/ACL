@@ -8,59 +8,80 @@ function AdminAdd() {
   const [isInstructor, setIsInstructor] = useState(false);
   const [isCooperativeTrainee, setIsCooperativeTrainee] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can add the code to save the admin user to your database or backend
-    console.log(`Username: ${username}, Password: ${password}, Is admin: ${isAdmin},isInstructor: ${isInstructor} , isCooperativeTrainee : ${isCooperativeTrainee}`);
-  }
+ 
+  const handleAdminChange = () => {
+    setIsAdmin(true);
+    setIsInstructor(false);
+    setIsCooperativeTrainee(false);
+  };
 
+  const handleInstructorChange = () => {
+    setIsAdmin(false);
+    setIsInstructor(true);
+    setIsCooperativeTrainee(false);
+  };
+
+  const handleCooperativeTraineeChange = () => {
+    setIsAdmin(false);
+    setIsInstructor(false);
+    setIsCooperativeTrainee(true);
+  };
+
+
+
+  const  handleSubmit = e => {
+
+
+
+  }
   return (
-    <form onSubmit={handleSubmit} className="admin-form">
-      <label htmlFor="username">Username:</label>
+    <form className="admin-form">
+      <label className="label">Name:</label>
       <input
         type="text"
-        id="username"
+        id="name"
+        className="input"
         value={username}
         onChange={(event) => setUsername(event.target.value)}
       />
-      <br />
-      <label htmlFor="password">Password:</label>
+      <label className="label">Password:</label>
       <input
         type="password"
-        id="password"
+        id="password-input"
+        className="input"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
-      />
+        />
       <br />
-      <label htmlFor="is-admin">
+      <label className="label1">
         Is admin:
         <input
           type="checkbox"
           id="is-admin"
           checked={isAdmin}
-          onChange={(event) => setIsAdmin(event.target.checked)}
+          onChange={handleAdminChange}
         />
       </label>
-      <label htmlFor="isInstructor">
+      <label className="label1">
         Is Instructor:
         <input
           type="checkbox"
           id="isInstructor"
           checked={isInstructor}
-          onChange={(event) => setIsInstructor(event.target.checked)}
+          onChange={handleInstructorChange}
         />
       </label>
-      <label htmlFor="isCooperativeTrainee">
+      <label className="label1">
         Is CooperativeTrainee:
         <input
           type="checkbox"
           id="isCooperativeTrainee"
           checked={isCooperativeTrainee}
-          onChange={(event) => setIsCooperativeTrainee(event.target.checked)}
+          onChange={handleCooperativeTraineeChange}
         />
       </label>
       <br />
-      <button type="submit">Add</button>
+      <button type="submit" onClick= {handleSubmit}> Add </button>
     </form>
   );
 }

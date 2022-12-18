@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import  "./signup.css"
-import IconButton from "@mui/material/IconButton";
 
 function SignUpForm() {
   const [name, setName] = useState('');

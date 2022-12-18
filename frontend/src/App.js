@@ -1,10 +1,10 @@
-
-import SignUpForm from './components/SignUp/signup';
-import Header from './components/SignUp/header';
+import AdminAdd from "./components/adminAdd";
+import SignUpForm from "./components/SignUp/signup";
+import ProfilePage from "./components/profileInstructor";
 const App = () => {
   return (
     <div>
-     <SignUpForm />
+     < ProfilePage/>
     </div>
   );
 };

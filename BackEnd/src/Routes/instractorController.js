@@ -445,10 +445,26 @@ router.get("/MyCourses/ratingandreviews", async(req, res) => {
 // row 30 
 router.get("/Myratingandreviews", async(req, res) => {
   
-  const instractor = await Instractor.find({instractorid : req.body.instractorid}, {  rate :1 , review:1});
+  y = new Array () ;
+  const rate = await Instractor.find({instractorid : req.body.instractorid}, {  rate :1 });
+  const review = await Instractor.find({instractorid : req.body.instractorid}, {  review :1 });
+
+  var rate1 = String(rate.substring(9,rate.length-3))
+  var i = 1
+  var j = 0 
+  var result = 0
+  while (i < rate1.length ) {
+    result =result +parseInt(rate1.substring(i,i+1))
+   j++ ;
+   i = i+ 3 
   
 
-  res.send(instractor);
+  }
+
+  var Averagerate =  result/ j ;
+  y.push (Averagerate)
+  y.push (review)
+  res.send(y);
 });
 
 

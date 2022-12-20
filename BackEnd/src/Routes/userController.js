@@ -307,45 +307,19 @@ router.get("/price", async(req, res) => {
 
 // row 29 
 
-router.get("/showquestions", async(req, res) => {
+
+router.post("/showquestions", async(req, res) => {
  
-  t = new Array () ;
-  var i =0 
-  var j = 0
-  var k = 0
-  ques = new Array () 
-    Course.findOne({ Courseid:req.body.courseid }, { 'excercises': 1 }, function(error, result) {
-  t = result.excercises
-   if (error) {
-     console.log(error);
-   } else {
-     
-     while(i <t.length){
-       k =i +1 ;
-        if (j<5){
-         if (j == 0){
-          var temp = String ("Question Number " + k + " : "+ t[i][j])
-          ques.push( temp)
-         }
-        
-         else{
-          var temp = String ("Choice Number " + j + " : "+ t[i][j] )
-          ques.push(temp)
-         }
-         j++ ;
-         if(j== 5 ){
-           i ++ ;
-           j = 0 ;
-         }
-        }  
-                       
-     } 
-     res.send(ques);
+  try {
+    const courses = await Course.find({ Courseid:req.body.courseid});
 
-    
-    }
- });
-
+    // Map over the courses array and extract the excercises field from each course
+    const exercises = courses.map((course) => course.excercises);
+  
+    res.send(exercises);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
 });
 
 
@@ -513,7 +487,7 @@ router.get("/AllCourses/prices", async(req, res) => {
 
 
   // user register for course 
-  router.get("/AllCourses/register", async(req, res) => {
+  router.put("/AllCourses/register", async(req, res) => {
   
     const course = await Course.find({ Courseid : req.body.courseid} );
     if (course.length >0 ) {
@@ -530,7 +504,32 @@ router.get("/AllCourses/prices", async(req, res) => {
     });
 
 
+    // user get registered course 
 
+
+    router.get("/AllCourses/registerfor", async(req, res) => {
+  
+      const registeredCourses = await User.find({ _id: req.body.id }, { _id: 0, RegisteredCourseid: 1 });
+
+     // Extract the RegisteredCourseid array from the result
+     const registeredCourseIds = registeredCourses.map(user => user.RegisteredCourseid);
+
+      var x = new Array () ;
+      var y = new Array () ;
+      x= registeredCourseIds[0]
+      var i = 0 
+      while (i<x.length){
+         var courses = await Course.find({ courseid: x[0] });
+       
+        i++ ;
+      }
+    
+      res.send(courses);
+      });
+  
+  
+  
+  
 
 
 

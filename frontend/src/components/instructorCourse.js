@@ -8,7 +8,6 @@ const InstructorCourses = () => {
 
  
   const  handleSubmit = e => {
-alert("a7a")
   axios.get('http://localhost:8000/instractor/MyCourses/ratingandreviews', { instractorid: "639631378ff4438d6677a4b3" })
       .then(response => {
         setCourses( response.data );

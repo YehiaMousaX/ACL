@@ -1,11 +1,9 @@
-import AdminAdd from "./components/adminAdd";
-import SignUpForm from "./components/SignUp/signup";
-import ProfilePage from "./components/profileInstructor";
-import InstructorCourses from "./components/instructorCourse";
+import UseropenregisteredCourses from "./components/UseropenregisteredCourses";
 const App = () => {
   return (
     <div>
-     < InstructorCourses/>
+     < UseropenregisteredCourses
+     />
     </div>
   );
 };

@@ -1,6 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var url = require('url');
+
+const questionOptionSchema = new mongoose.Schema({
+    text: {
+      type: String,
+      required: true
+    },
+    options: [
+      {
+        id: {
+          type: Number,
+          required: true
+        },
+        text: {
+          type: String,
+        },
+        isCorrect: {
+          type: Boolean,
+          required: true
+        }
+      }
+    ]
+  });
+  
 
 const CourseSchema = new Schema({
     Courseid: {
@@ -36,11 +58,7 @@ const CourseSchema = new Schema({
         type: Array,
         required: false,
     },
-    excercises: {
-        type: Array,
-        required: false,
-
-    },
+    excercises: [questionOptionSchema],
     price: {
         type: Number,
         required: true
@@ -78,8 +96,6 @@ const CourseSchema = new Schema({
 
 
 }, { timestamps: true });
-
-
 
 const Course = mongoose.model('Course', CourseSchema);
 module.exports = Course;

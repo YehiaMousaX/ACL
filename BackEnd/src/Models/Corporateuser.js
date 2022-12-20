@@ -40,6 +40,9 @@ const CorporateuserSchema = new Schema({
     Job: {
         type: String,
         required: false,
+    },
+    RegisteredCourseid :{
+    type: Array
     }
 }, { timestamps: true });
 

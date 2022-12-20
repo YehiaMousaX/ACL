@@ -472,7 +472,7 @@ router.get("/Myratingandreviews", async(req, res) => {
 
 router.post("/createquestion", async(req, res) => {
   
-  Course.updateOne({ Courseid: req.body.courseid }, { $push: { excercises: [String(req.body.question) , String(req.body.choice1) , String(req.body.choice2 ), String(req.body.choice3 ), String(req.body.choice4 ), String(req.body.correctanswer)] } }, function(error) {
+  Course.updateOne({ Courseid: req.body.courseid }, { $push: { excercises: req.body.question} }, function(error) {
     if (error) {
       console.log(error);
     } else {
@@ -608,7 +608,6 @@ router.get("/AllCourses/:courseId", async(req, res) => {
 });
 
 
-<<<<<<< Updated upstream
 // get instractor profile 
 
 
@@ -648,8 +647,5 @@ router.post("/MyProfile", async(req, res) => {
 });
 
 
-=======
 
-// 
->>>>>>> Stashed changes
 module.exports = router;

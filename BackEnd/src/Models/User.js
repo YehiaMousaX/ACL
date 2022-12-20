@@ -49,6 +49,7 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
       },
+
       RegisteredCourseid: {
         type: Array,
         

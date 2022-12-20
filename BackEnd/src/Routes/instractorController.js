@@ -435,7 +435,8 @@ router.put("/ChangePassword", async(req, res) => {
 // row 23 
 router.get("/MyCourses/ratingandreviews", async(req, res) => {
   
-  const courses = await Course.find({instractorid : req.body.instractorid}, {  rate :1 , review:1});
+
+  const courses = await Course.find({instractorid : req.body.instractorid});
   
 
   res.send(courses);

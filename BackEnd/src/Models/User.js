@@ -49,9 +49,11 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
       },
-      RegisteredCourseid :{
-      type: Array
-      }
+
+      RegisteredCourseid: {
+        type: Array,
+        
+    }
 }, { timestamps: true });
 
 

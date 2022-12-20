@@ -12,6 +12,13 @@ const InstructorCourses = () => {
       .then(response => {
         setCourses( response.data );
         setName(response.data)
+ 
+ 
+  const  handleSubmit = e => {
+
+  axios.get('http://localhost:8000/instractor/MyCourses/ratingandreviews', { instractorid: "639631378ff4438d6677a4b3" })
+      .then(response => {
+        setCourses( response.data );
       })
       .catch(error => {
         console.error(error);

@@ -422,6 +422,26 @@ router.put("/rateinstractor", async(req, res) => {
 
   });
 
+
+     // user register for course 
+  router.put("/AllCourses/register", async(req, res) => {
+  
+    const course = await Course.find({ Courseid : req.body.courseid} );
+    if (course.length >2 ) {
+    await User.updateOne({ _id : req.body.id} ,{ $set: { RegisteredCourseid: req.body.courseid} } )
+     console.log("Done Added to your registered course")
+
+  }
+    
+    else {
+      console.log(" Not Valid Course")
+
+    }
+    res.sendStatus(200);
+    });
+
+
+
   //row 36 
   router.put("/ratecourse", async(req, res) => {
    

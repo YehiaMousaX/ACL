@@ -749,6 +749,89 @@ router.post("/MyProfile", async(req, res) => {
 
 });
 
+router.post('/:instructorId/change-password', async (req, res) => {
+  try {
+    const instructorId = req.params.instructorId;
+    const { currentPassword, newPassword } = req.body;
+
+    const instructor = await Instractor.findById(instructorId);
+    if (!instructor) { return res.status(404).send({ error: 'Instructor not found' });
+    }
+
+    if (currentPassword !== instructor.password) {
+       return res.status(400).send({ error: 'Incorrect current password' });
+    }
+
+    instructor.password = newPassword;
+    await instructor.save();
+
+    res.send({ message: 'Password updated successfully' });
+  } 
+  
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error changing password' });
+  }
+});
+
+router.post('/reset-password-email', async (req, res) => {
+  try {
+
+    const { email } = req.body;
+
+    // Find the instructor with the matching email
+    const instructor = await Instractor.findOne({ email });
+    if (!instructor) {
+
+      return res.status(404).send({ error: 'Instructor not found' });
+    }
+
+    // Send the password reset email
+    const mailFormat = {
+      from: 'support@example.com',
+      to: email,
+      subject: 'Password reset request',
+      html: `
+        <p>You are receiving this email because you (or someone else) have requested a password reset for your account.</p>
+        <p>Please click the following link to complete the process:</p>
+        <p><a href="http://localhost:8000/reset-password">http://localhost:8000/reset-password</a></p>
+        <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+      `,
+    };
+    await transport.sendMail(mailFormat);
+
+    res.send({ message: 'Password reset email sent' });
+ }
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error sending password reset email' });
+  }
+});
+
+router.post('/:instructorId/reset-password', async (req, res) => {
+  try {
+    const instructorId = req.params.instructorId;
+    const { newPassword } = req.body;
+
+    const instructor = await Instractor.findById(instructorId);
+    if (!instructor) {  return res.status(404).send({ error: 'Instructor not found' });
+    }
+
+    if (currentPassword !== instructor.password) {
+      return res.status(400).send({ error: 'Incorrect current password' });
+    }
+
+    instructor.password = newPassword;
+    await instructor.save();
+
+    res.send({ message: 'Password updated successfully' });
+  }
+   catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error changing password' });
+  }
+});
+
 
 
 module.exports = router;

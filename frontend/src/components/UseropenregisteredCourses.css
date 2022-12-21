@@ -31,7 +31,31 @@
     border-radius: 20px;
     font-size: 20px;
   }
-  
+  li:hover {
+    background-color: darkblue;
+  }
+
+  /* Button active effect */
+  li:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  .li1 {
+    margin-top: 8px;
+    background-color: darkgray;
+    padding: 16px;
+    border: 3px solid white;
+    border-radius: 20px;
+    font-size: 20px;
+  }
+
+  .text {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+
+}
+ 
   .question-text {
     color: darkblue;
     font-size: 24px;
@@ -70,6 +94,65 @@
   
     border-radius: 24px;
   }
+
+  button1 {
+    background-color: rgb(116, 225, 131); /* Green */
+    border: none;
+    color: white;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+  
+    border-radius: 24px;
+  }
+
+  button:hover {
+    background-color: rgb(186, 186, 223);
+  }
+
+  /* Button active effect */
+  button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
+  }
+
+  button1:hover {
+    background-color: rgb(186, 186, 223);
+  }
+
+  /* Button active effect */
+  button1:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
+  }
+
+
+  button2 {
+    background-color: rgb(0, 72, 132); /* Green */
+    border: none;
+    color: white;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+  
+    border-radius: 24px;
+  }
+  button2:hover {
+    background-color: rgb(186, 186, 223);
+  }
+
+  /* Button active effect */
+  button2:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
+  }
+
   .btn{
     color: white;
     background-color: rgb(2, 41, 46);

@@ -482,8 +482,15 @@ router.post("/createquestion", async(req, res) => {
   res.sendStatus(200);
 });
 
+// helper method 
 
-
+router.post("/coursevalid", async(req, res) => {
+  
+  const course = await Course.find({ Courseid: req.body.courseid , instractorid: req.body.instractorid } )
+    
+     res.send(course);
+  
+});
 
 /*
 */

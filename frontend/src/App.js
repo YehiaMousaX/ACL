@@ -1,4 +1,4 @@
-import UseropenregisteredCourses from "./components/UseropenregisteredCourses";
+import UseropenregisteredCourses from "./components/UseropenExamCourses";
 const App = () => {
   return (
     <div>

@@ -283,27 +283,28 @@ router.get("/search", async(req, res) => {
 // row 11 
 
 router.get("/rate", async(req, res) => {
-    const Courses = await Course.find({ rate: req.params.rate });
+    const Courses = await Course.find({ rate: req.body.rate });
     res.send(Courses);
 
 });
 
 
 router.get("/sub", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject });
+    const Courses = await Course.find({ Subject: req.body.Subject });
     res.send(Courses);
 });
 
 router.get("/subrate", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject, rate: req.params.rate });
+    const Courses = await Course.find({ Subject: req.body.Subject, rate: req.body.rate });
     res.send(Courses);
 });
 
 //row 12
 router.get("/price", async(req, res) => {
-    const Courses = await Course.find({ price: req.params.price });
-    res.send(Courses);
+  const Courses = await Course.find({ price: req.body.price });
+  res.send(Courses);
 });
+
 
 // row 29 
 
@@ -379,9 +380,9 @@ router.post('/SelectCountry', async(req, res) => {
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rate : 1 }));
+    const course = await Course.find( {} ,{ _id: 0 ,title : 1, totalHours : 1, rate : 1 });
     
-  res.send(X);
+  res.send(course);
   });
  
   // 
@@ -391,12 +392,11 @@ router.get("/AllCourses", async(req, res) => {
     res.send(X);
   });
   
-  // row 10 
-router.get("/AllCourses/prices", async(req, res) => {
+  router.get("/AllCourses/prices", async(req, res) => {
     
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, price : 1}));
+    const x = await Course.find({}, {Courseid : 1, price : 1});
     
-  res.send(X);
+  res.send(x);
   });
 
 
@@ -433,25 +433,19 @@ router.get("/AllCourses/prices", async(req, res) => {
    }
     t2.push(parseInt(req.body.rate)) ;
     await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
 
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
+    const t3 =  await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1})
+    
+       
+       res.send(t3);
 
   });
+
 
   //row 36 
   router.put("/ratecourse", async(req, res) => {
    
-    var t1 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
+    var t1 = String( await Course.findOne({Courseid: req.body.courseid},{_id : 0 , rate:1}))
     var t2= new Array();
     var i = 10 ;
     if (t1.length > 12) {
@@ -461,19 +455,11 @@ router.get("/AllCourses/prices", async(req, res) => {
    }
    }
     t2.push(parseInt(req.body.rate)) ;
-    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
+    await Course.updateOne({Courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
 
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
+    const t3 = await Course.findOne({Courseid: req.body.courseid},{_id : 0 , rate:1})
+   
+       res.send(t3);
 
   });
 
@@ -502,6 +488,38 @@ router.get("/AllCourses/prices", async(req, res) => {
     }
     res.sendStatus(200);
     });
+
+// row 13 
+
+router.get("/searchcourse/title", async(req, res) => {
+  
+ 
+  const course = await Course.find({ title : req.body.title}  )
+ 
+  
+   res.send(course);
+   });
+ 
+ 
+   router.get("/searchcourse/subject", async(req, res) => {
+   
+  
+     const course = await Course.find({ Subject : req.body.subject}  )
+   
+    
+     res.send(course);
+   });
+     
+     
+     router.get("/searchcourse/instractor", async(req, res) => {
+   
+  
+       const course = await Course.find({ instractorid : req.body.instractorid}  )
+     
+      
+       res.send(course);
+     });
+ 
 
 
     // user get registered course 

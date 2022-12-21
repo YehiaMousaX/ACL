@@ -21,11 +21,11 @@ router.post('/AddAdmin', async(req, res) => {
   });
 
   // row 58
-  router.post('/AddInstractor', async(req, res) => {
+  router.put('/AddInstractor', async(req, res) => {
     {
         const Instractor = new instractor({
             Name: req.body.UserName,
-            Password: req.body.Password
+            password: req.body.Password
         });
         await Instractor.save();
         res.sendStatus(200);

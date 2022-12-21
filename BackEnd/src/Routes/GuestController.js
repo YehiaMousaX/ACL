@@ -273,19 +273,17 @@ router.post('/SelectCountry', async(req, res) => {
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, totalHours : 1, rating : 1 }));
+    const course = await Course.find( {} ,{ _id: 0 ,title : 1, totalHours : 1, rate : 1 });
     
-  res.send(X);
+  res.send(course);
   });
 
 
-
- // row 10 
- router.get("/AllCourses/prices", async(req, res) => {
+  router.get("/AllCourses/prices", async(req, res) => {
     
-    X.push ( await Course.find({Courseid: req.body.courseid}, { _id: 0 ,title : 1, price : 1}));
+    const x = await Course.find({}, {Courseid : 1, price : 1});
     
-  res.send(X);
+  res.send(x);
   });
 
 
@@ -300,52 +298,58 @@ router.get("/AllCourses", async(req, res) => {
 // row 11 
 
 router.get("/rate", async(req, res) => {
-    const Courses = await Course.find({ rate: req.params.rate });
+    const Courses = await Course.find({ rate: req.body.rate });
     res.send(Courses);
 
 });
 
 
 router.get("/sub", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject });
+    const Courses = await Course.find({ Subject: req.body.Subject });
     res.send(Courses);
 });
 
 router.get("/subrate", async(req, res) => {
-    const Courses = await Course.find({ Subject: req.params.Subject, rate: req.params.rate });
+    const Courses = await Course.find({ Subject: req.body.Subject, rate: req.body.rate });
     res.send(Courses);
 });
 
 //row 12
 router.get("/price", async(req, res) => {
-    const Courses = await Course.find({ price: req.params.price });
+    const Courses = await Course.find({ price: req.body.price });
     res.send(Courses);
 });
 
-  router.get("/AllCourses/:courseId", async(req, res) => {
+// row 13 
 
-    const course = await Course.findOne({Courseid: req.params.courseId});
-      if (!course) {
-          return res.status(404).send("Course not found");
-      }
+router.get("/searchcourse/title", async(req, res) => {
   
-      const guest = await Guest.findById(req.body.guestId);
-      if (!guest) {
-          return res.status(404).send("User not found");
-      }
-  
-      // Calculate the price with the discount if applicable
-      let price = course.price;
-      if (course.discount && guest.Country === course.discount.country) {
-          price = price - (price * course.discount.percentage / 100);
-      }
-  
-      res.send({
-          subtitles: course.subtitles,
-          excercises: course.excercises,
-          totalHours: course.totalHours,
-          price: price,
-      });
-  });
+ 
+    const course = await Course.find({ title : req.body.title}  )
+   
+    
+     res.send(course);
+     });
+   
+   
+     router.get("/searchcourse/subject", async(req, res) => {
+     
+    
+       const course = await Course.find({ Subject : req.body.subject}  )
+     
+      
+       res.send(course);
+     });
+       
+       
+       router.get("/searchcourse/instractor", async(req, res) => {
+     
+    
+         const course = await Course.find({ instractorid : req.body.instractorid}  )
+       
+        
+         res.send(course);
+       });
+   
 
 module.exports = router;

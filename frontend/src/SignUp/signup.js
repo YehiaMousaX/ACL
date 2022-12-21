@@ -200,6 +200,8 @@ function SignUpForm() {
       setErrorPassword(false)
       setSubmitted(false);
       setErrorMail (false);
+      setEmailValid(false)
+
 
 
     }
@@ -210,6 +212,8 @@ function SignUpForm() {
       setError(false); 
       setSubmitted(false);
       setErrorMail (false);
+      setEmailValid(false)
+
 
 
     } 
@@ -219,6 +223,8 @@ function SignUpForm() {
       setErrorPassword(true)
       setSubmitted(false);
       setErrorMail (false);
+      setEmailValid(false)
+
 
     }
     else if (emailFound === true){
@@ -227,6 +233,8 @@ function SignUpForm() {
      setError(false);
      setErrorConfirmPassword(false);
      setErrorPassword(false)
+     setEmailValid(false)
+
     }
     else if (isValidEmail(Email) === false) {
       setErrorMail (false);

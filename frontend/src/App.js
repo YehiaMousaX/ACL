@@ -1,3 +1,5 @@
+import ChangePassword from "./components/changePassword";
+import ResetPassword from "./components/resetPassword";
 import UseropenregisteredCourses from "./components/UseropenExamCourses";
 import Addquestion from "./components/Addquestion";
 import UserRateCourse from "./components/userratecourse";
@@ -6,6 +8,7 @@ const App = () => {
   return (
     <div>
      < UserRateCourse
+    
      />
     </div>
   );

@@ -1,8 +1,10 @@
+import ChangePassword from "./components/changePassword";
+import ResetPassword from "./components/resetPassword";
 import UseropenregisteredCourses from "./components/UseropenExamCourses";
 const App = () => {
   return (
     <div>
-     < UseropenregisteredCourses
+     < ChangePassword
      />
     </div>
   );

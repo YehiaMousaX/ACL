@@ -1,9 +1,12 @@
 
-import UserRateCourse from "./components/userratecourse";
+import SignUpForm from "./SignUp/signup";
+import ProfilePage from "./components/profileInstructor";
+import LandingPage from "./components/landingPage";
+import AddCourseForm from "./components/addCourse";
 const App = () => {
   return (
     <div>
-     < UserRateCourse
+     < AddCourseForm
     
      />
     </div>

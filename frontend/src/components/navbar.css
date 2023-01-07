@@ -1,75 +1,78 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
     background-color: #333;
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-.navbar-brand {
-    font-size: 1.5em;
-    text-decoration: none;
-    color: #fff;
+.navbar .logo {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-.navbar-nav {
+.navbar .item ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
 }
 
-.nav-item {
-    margin-left: 20px;
+.navbar .item ul li {
+    margin: 0 10px;
 }
 
-.nav-link {
-    font-size: 1.1em;
+.navbar .item ul li a {
+    color: white;
     text-decoration: none;
-    color: #fff;
+    font-size: 18px;
+    transition: color 0.2s;
 }
 
-.nav-link:hover {
-    color: #ccc;
+.navbar .item ul li a:hover {
+    color: lightgray;
 }
 
-.navbar-actions {
-    display: flex;
-}
-
-.navbar-actions .nav-link {
-    margin-left: 20px;
-}
-
-.navbar-actions {
+.navbar .search-form {
     display: flex;
     align-items: center;
 }
 
-.search-form {
-    display: flex;
-    align-items: center;
-    margin-right: 1rem;
-}
-
-.search-form input[type="text"] {
+.navbar .search-form input {
+    border: none;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(51, 49, 49);
+    font-size: 16px;
+    padding: 10px;
     width: 300px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
+    transition: width 0.2s;
 }
 
-.search-form button[type="submit"] {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0 5px 5px 0;
-    background-color: white;
+.navbar .search-form input:focus {
+    width: 500px;
+}
+
+.navbar .search-form button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
     cursor: pointer;
 }
 
-.filter-select {
-    width: 200px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
+.navbar .search-form button:hover {
+    color: lightgray;
+}
+
+@media (max-width: 992px) {
+    .navbar .item ul {
+        display: none;
+    }
+    .navbar .search-form {
+        display: block;
+    }
 }

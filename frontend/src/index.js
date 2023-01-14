@@ -17,7 +17,6 @@ ReactDOM.render(
         <Route path='/'element={<App/>}/>
         <Route path = '/SignUp' element={<SignUpForm/>}/>
         <Route path = '/Login' element={<Loginform/>}/>
-
         <Route path = '/UserLandingPage' element={<UserLandingPage/>}/>
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>

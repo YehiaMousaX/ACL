@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { WindowSharp } from '@mui/icons-material';
-
+import axios from 'axios';
 function Loginform() {
 
  
@@ -95,8 +95,24 @@ function Loginform() {
           {
             localStorage.setItem('UserEmail',response.data.Email);
             localStorage.setItem('UserType',response.data.type);
+            if (response.data.type=== "instractor") {
+              window.location.href = '/InstructorLandingPage'
 
+            }
+            if (response.data.type=== "admin") 
+            {
+              window.location.href = '/AdminLandingPage'
 
+            }
+            if (response.data.type=== "user") 
+            {
+              window.location.href = '/UserLandingPage'
+
+            }
+            if (response.data.type=== "coroporateuser") 
+            {
+                
+            }
           }
 
       })

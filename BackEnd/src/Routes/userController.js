@@ -1,10 +1,12 @@
 // #Task route solution
+require("dotenv").config();
 const express = require("express");
 const Course = require("../Models/Course");
 const Instractor = require("../Models/Instractor");
 const Admin = require("../Models/Admin");
 const InstractorCourse = require("../Models/InstractorCourse");
 const User = require("../Models/User");
+const newuser = require("../Models/NewUser");
 const { response } = require("express");
 const router = express.Router()
 const NumberofCountry = 0;
@@ -264,6 +266,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+
 router.get("/search", async(req, res) => {
     const a = await Course.find({title : req.body.search } , {_id : 0});
     const b = await Course.find({Subject : req.body.search} , {_id : 0});
@@ -330,6 +333,7 @@ router.post("/showquestions", async(req, res) => {
 
 
 router.post("/signup",async(req,res)=>{
+  const hashedPassword = await bcrypt.hash(req.body.Password, 10);
 
   const user = new User({
     password : req.body.password ,
@@ -344,9 +348,15 @@ router.post("/signup",async(req,res)=>{
     Country : req.body.Country
 });
 
-
+const user1 = new newuser({
+  Password : hashedPassword ,
+  Email: req.body.Email,
+  type : "user"
+});
       
-         await  user.save()
+         await  user.save() ;
+         await  user1.save()
+
          res.send({message:"user success added"})
 
 
@@ -511,7 +521,7 @@ router.get("/searchcourse/title", async(req, res) => {
    });
      
      
-     router.get("/searchcourse/instractor", async(req, res) => {
+     router.get("/searchcourse/instractor",authenticateToken, async(req, res) => {
    
   
        const course = await Course.find({ instractorid : req.body.instractorid}  )
@@ -546,45 +556,36 @@ router.get("/searchcourse/title", async(req, res) => {
       });
   
   
-  
+  function authenticateToken(req, res, next) {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+        if(token == null) return res.sendStatus(401);
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if(err) return res.sendStatus(403);
+            req.user = user;
+            next();
+        });
+    }
+    
   
 
-
-
-  router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-  
-    // find the user by email
-    User.findOne({ email })
-      .then((user) => {
-        // if the user doesn't exist, return an error
-        if (!user) {
-          return res.status(404).send({ error: 'User not found' });
+  router.post('/login', async(req, res) => {
+       
+    const user = await newuser.findOne({ Email :req.body.Email });
+    if (user) {
+        const auth = await bcrypt.compare(req.body.Password, user.Password);
+        if (auth) {
+            // const token = jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET);
+            res.send(user);
         }
-  
-        // compare the provided password with the hashed password in the database
-        bcrypt.compare(password, user.password)
-          .then((isMatch) => {
-            // if the password doesn't match, return an error
-            if (!isMatch) {
-              return res.status(400).send({ error: 'Invalid password' });
-            }
-  
-            // create a JWT
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-  
-            // send the JWT in the response
-            res.send({ token });
-          })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send({ error: 'Error comparing passwords' });
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send({ error: 'Error finding user' });
-      });
+        else {
+        res.send();
+        }
+    }
+    else{
+      res.send();
+    }
+
   });
   
   module.exports = router;

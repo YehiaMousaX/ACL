@@ -9,7 +9,6 @@ const CorporateuserSchema = new Schema({
         },
     Name: {
         type: String,
-        required: true,
 
     },
     Email: {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import React, { useState } from 'react';
 import  "./login.css"
 import { useHistory } from "react-router-dom";
@@ -14,6 +14,7 @@ function Loginform() {
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
+
 
   const [password, setPassword] = useState('');
   const [Email, setEmail] = useState('');
@@ -50,25 +51,6 @@ function Loginform() {
     );
   };
 
-
-
-
-
-
-
- 
-  
-
-  
-
-
-  
-
-
-
-  
-
- 
 
 
  
@@ -144,6 +126,24 @@ function Loginform() {
   return (
 
     <div className="form">
+      <div className='navbar'>
+      <div className='logo'>
+        Online Courses
+      </div>
+      <nav className='item'>
+        <ul className='ul'>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/About'>About</Link>
+          </li>
+          <li>
+            <Link to='/Contacts'>Contacts</Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
       <div>
         <h1>User Login </h1>
       </div>
@@ -184,8 +184,6 @@ function Loginform() {
         <Link to = '/signup'> Donot have an account ? Register here .</Link>
       </li>
       <button id = "LOGIN" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary"> LOGIN </button>
-      
-
 
 </div>
 </div>

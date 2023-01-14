@@ -1,28 +1,29 @@
-.form{
+.form {
     text-align: center;
-    background-color:rgb(255, 255, 255);
-  }
-   
-  .form1{
+    background-color: rgb(255, 255, 255);
+}
+
+.form1 {
     text-align: center;
-    background-color:rgb(10, 178, 234);
+    background-color: rgb(10, 178, 234);
     padding: 50px;
     margin: 10px;
-  }
-  .label{
+}
+
+.label {
     display: block;
     font-size: larger;
     color: white;
     padding: 5px;
-  }
-   
-  .input{
+}
+
+.input {
     font-size: larger;
     padding: 5px;
     margin: 15px;
-    
-  }
-  .btn{
+}
+
+.btn {
     color: white;
     background-color: rgb(2, 41, 46);
     border-radius: 10px;
@@ -30,33 +31,32 @@
     display: block;
     padding: 5px;
     margin: 10px auto;
-  }
-   
-  .messages{
+}
+
+.messages {
     display: flex;
     justify-content: center;
-  }
-   
-  .error{
+}
+
+.error {
     background-color: rgb(254, 251, 251);
     color: rgb(162, 5, 5);
     width: fit-content;
     height: 60px;
     padding: 0px;
     font-size: x-small;
+}
 
-  }
-   
-   
-  .success{
+.success {
     display: block;
     background-color: rgb(255, 255, 255);
     color: rgb(52, 239, 0);
     width: fit-content;
     height: 60px;
     padding: 0px;
-  }
-  .modal {
+}
+
+.modal {
     /* Style the modal container */
     position: fixed;
     z-index: 1;
@@ -66,37 +66,121 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-  }
-    /* Style the modal content */
+}
+
+
+/* Style the modal content */
+
 .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      width: 80%;
-    }
-  
-  
-  /* Style the close button */
-  #close-modal-button {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+}
+
+
+/* Style the close button */
+
+#close-modal-button {
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  /* This is the CSS code for the password strength meter */
+}
+
+
+/* This is the CSS code for the password strength meter */
+
 
 /* Style the password strength meter container */
+
 .btn:hover {
-  background-color: darkblue;
+    background-color: darkblue;
 }
 
+
 /* Button active effect */
+
 .btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.checkbox-group {
-  font-size: 22px; /* Increase font size */
-  display: flex;
+
+.navbar {
+    background-color: rgb(139, 195, 198);
+    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
 }
+
+.navbar .logo {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar .item ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar .item ul li {
+    margin: 0 10px;
+}
+
+.navbar .item ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+.navbar .item ul li a:hover {
+    color: lightgray;
+}
+
+.navbar .search-form {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .search-form input {
+    border: none;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(8, 240, 252);
+    font-size: 16px;
+    padding: 10px;
+    width: 300px;
+    transition: width 0.2s;
+}
+
+.navbar .search-form input:focus {
+    width: 500px;
+}
+
+.navbar .search-form button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.navbar .search-form button:hover {
+    color: lightgray;
+}
+
+@media (max-width: 992px) {
+    .navbar .item ul {
+        display: none;
+    }
+    .navbar .search-form {
+        display: block;
+    }
+}
+

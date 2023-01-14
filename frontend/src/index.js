@@ -10,7 +10,7 @@ import SignUpForm from './SignUp/signup';
 import UserLandingPage from './User/UserLandingPage/UserLanding';
 import InstructorLandingPage  from './Instructor/instructorLandingPage/InstructorLanding';
 import AdminLandingPage from './Admin/AdminLandingPage/AdminLanding';
-
+import CorporateuserLandingPage from './Corporateuser/CorporateuserLandingPage/CorporateuserLanding';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -21,8 +21,7 @@ ReactDOM.render(
         <Route path = '/UserLandingPage' element={<UserLandingPage/>}/>
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>
-
-
+        <Route path = '/CorporateuserLandingPage' element={<CorporateuserLandingPage/>}/>
     </Routes>
   </Router>,
   document.getElementById('root') 

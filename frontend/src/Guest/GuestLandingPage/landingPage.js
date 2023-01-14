@@ -1,8 +1,8 @@
 import React from 'react';
 import './landingPage.css';
-import CS from "../images/CS.jpg";
-import Math from "../images/Math.jpg";
-import Mangement from "../images/Mangement.jpg";
+import CS from "./images/CS.jpg";
+import Math from "./images/Math.jpg";
+import Mangement from "./images/Mangement.jpg";
 
 function LandingPage() {
   return (

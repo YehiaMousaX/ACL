@@ -89,8 +89,8 @@ function Addquestion() {
  
   const  handleSubmit = e => {
      
-
-     axios.post('http://localhost:8000/instractor/coursevalid', { courseid : courseid , instractorid : "639631378ff4438d6677a4b3" })
+     const instractorEmail =  " "+ localStorage.getItem('UserEmail') ;
+     axios.post('http://localhost:8000/instractor/coursevalid', { courseid : courseid , instractorid : instractorEmail })
     .then(response => {
       console.log(response.data)
       setvalidcourse(response.data)
@@ -114,7 +114,7 @@ function Addquestion() {
 
 
     }
-    else if (validcourse.length ===0) {
+    else if (validcourse === '') {
         setErrorcorr(false );
         setError(false);
         setErrorcorrs(true) ;

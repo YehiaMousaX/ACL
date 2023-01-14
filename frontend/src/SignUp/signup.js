@@ -687,7 +687,9 @@ function SignUpForm() {
 
         </select>
 
-
+        <li>
+        <Link to = '/login'> have an account ? Login in here </Link>
+      </li>
       <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
        
       

@@ -1,10 +1,20 @@
 
 import React, { useState } from 'react';
 import  "./login.css"
+import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
-
+import { Alert } from '@mui/material';
+import { WindowSharp } from '@mui/icons-material';
 
 function Loginform() {
+
+ 
+  const [selected, setSelected] = useState("");
+
+  const handleChange = (event) => {
+    setSelected(event.target.value);
+  };
+
 
   const [password, setPassword] = useState('');
   const [Email, setEmail] = useState('');
@@ -62,35 +72,59 @@ function Loginform() {
   
 
   
-    else {
+    else  {
+     
+      axios.post('http://localhost:8000/user/login', {
+        Password: password,
+        Email: Email
+       
+    } ,{
+            headers: {
+            'Content-Type': "application/json",
+            'Accept': "application/json",
+            } 
+      } )
+      .then((response) => {
+        // console.log (response.data);
 
-    
-    const response = await fetch('http://localhost:8000/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          password: password,
-          Email: Email,
-        }),
+          if(response.data==="")
+          {
+              console.log('Wrong Email or password')
+          }
+          else
+          {
+            localStorage.setItem('UserEmail',response.data.Email);
+            localStorage.setItem('UserType',response.data.type);
+
+
+          }
+
       })
-
-      const data = await response.json()
-     if (data.user!== false) {
-        window.location.href = '/users'
+      .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        });
     }
-     else {
-        alert ('please check your user name and password')
-     }
+    }
     
-    
-  }
-  }
-  
+   
 
+
+  
   return (
+
     <div className="form">
       <div className='navbar'>
       <div className='logo'>
@@ -142,9 +176,15 @@ function Loginform() {
         onChange={(event) => setPassword(event.target.value)}
         />
      
-
-
+     <div>
+     
+    </div>
+     
+      <li>
+        <Link to = '/signup'> Donot have an account ? Register here .</Link>
+      </li>
       <button id = "LOGIN" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary"> LOGIN </button>
+
 </div>
 </div>
 

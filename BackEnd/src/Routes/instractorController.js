@@ -586,9 +586,12 @@ router.post("/createquestion", async(req, res) => {
 router.post("/coursevalid", async(req, res) => {
   
   const course = await Course.find({ Courseid: req.body.courseid , instractorid: req.body.instractorid } )
-    
+    if (course.length >0) {
      res.send(course);
-  
+    }
+    else {
+      res.send();
+    }
 });
 
 // helper method 

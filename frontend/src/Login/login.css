@@ -94,3 +94,9 @@
   transform: translateY(2px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+.checkbox-group {
+  font-size: 22px; /* Increase font size */
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}

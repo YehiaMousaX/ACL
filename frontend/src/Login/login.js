@@ -7,10 +7,7 @@ function Loginform() {
 
  
 
-const signup = () => {
-    window.location.href = '/signup'
 
-}
   const [password, setPassword] = useState('');
   const [Email, setEmail] = useState('');
 
@@ -151,7 +148,6 @@ const signup = () => {
 
 
       <button id = "LOGIN" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary"> LOGIN </button>
-      <button id = "got to users" className="btn" type="submit"  variant="contained" color="primary" onClick={signup} >got to signup page</button>
 
 
 </div>

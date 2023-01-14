@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import  "./signup.css"
+import { Link } from 'react-router-dom';
 
 function SignUpForm() {
   const [name, setName] = useState('');
@@ -669,7 +670,9 @@ function SignUpForm() {
 
         </select>
 
-
+        <li>
+        <Link to = '/login'> have an account ? Login in here </Link>
+      </li>
       <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
        
       

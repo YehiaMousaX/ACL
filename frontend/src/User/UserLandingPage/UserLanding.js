@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import axios from 'axios';
 function UserLandingPage() {
 
-    const Logout = (event) => {
+    function Logout () {
        localStorage.clear();
     };
 

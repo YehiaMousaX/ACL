@@ -90,6 +90,8 @@ function Addquestion() {
   const  handleSubmit = e => {
      
      const instractorEmail =  " "+ localStorage.getItem('UserEmail') ;
+     console.log (localStorage.getItem('UserEmail'));
+
      axios.post('http://localhost:8000/instractor/coursevalid', { courseid : courseid , instractorid : instractorEmail })
     .then(response => {
       console.log(response.data)

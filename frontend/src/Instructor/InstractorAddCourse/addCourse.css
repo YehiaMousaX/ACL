@@ -1,46 +1,54 @@
-.add-course-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    margin: 0 auto;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.form1 {
+    text-align: center;
+    background-color: rgb(10, 178, 234);
+    padding: 50px;
+    margin: 10px;
 }
 
-.add-course-form h2 {
-    margin-bottom: 1rem;
-}
-
-.add-course-form label {
+.label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+    font-size: larger;
+    color: white;
+    padding: 5px;
 }
 
-.add-course-form input[type="text"],
-.add-course-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.input {
+    font-size: larger;
+    padding: 5px;
+    margin: 15px;
 }
 
-.add-course-form textarea {
-    height: 5rem;
-}
-
-.add-course-form button[type="submit"] {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+.btn {
+    color: white;
+    background-color: rgb(2, 41, 46);
+    border-radius: 10px;
+    font-size: x-large;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
     cursor: pointer;
+
 }
 
-.add-course-form button[type="submit"]:hover {
-    background-color: #0069d9;
+.messages {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    background-color: rgb(254, 251, 251);
+    color: rgb(162, 5, 5);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
+    font-size: x-small;
+}
+
+.success {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 239, 0);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
 }

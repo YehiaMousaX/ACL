@@ -41,7 +41,7 @@ function UserShowAllCourse3() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/GuestLandingPage'>Home</Link>
+                      <Link to='/'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>

@@ -17,6 +17,7 @@ function Loginform() {
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [error1, setError1] = useState(false);
 
   
   const successMessage = () => {
@@ -46,6 +47,19 @@ function Loginform() {
     );
   };
 
+  const errorMessage1 = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error1 ? '' : 'none',
+        }}>
+        <h1>* invalid email or password *</h1>
+      
+      
+    </div>
+    );
+  };
 
 
  
@@ -57,7 +71,7 @@ function Loginform() {
     if ( Email === '' || password === '' ) {
       setError(true); 
       setSubmitted(false);
-      
+      setError1(false)
 
 
 
@@ -80,29 +94,35 @@ function Loginform() {
 
           if(response.data==="")
           {
-              console.log('Wrong Email or password')
+            setError(false)
+           setError1(true);
           }
           else
           {
             localStorage.setItem('UserEmail',response.data.Email);
             localStorage.setItem('UserType',response.data.type);
             if (response.data.type=== "instractor") {
+             
               window.location.href = '/InstructorLandingPage'
 
             }
             if (response.data.type=== "admin") 
             {
+           
               window.location.href = '/AdminLandingPage'
 
             }
             if (response.data.type=== "user") 
             {
+              
               window.location.href = '/UserLandingPage'
 
             }
             if (response.data.type=== "coroporateuser") 
             {
-                
+              
+              window.location.href = '/CorporateuserLandingPage'
+
             }
           }
 
@@ -157,6 +177,7 @@ function Loginform() {
       {/* Calling to the methods */}
       <div className="messages">
         {errorMessage()}
+        {errorMessage1()}
         {successMessage()}
        
       </div>

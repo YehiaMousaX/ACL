@@ -82,6 +82,12 @@ const helper3 = () => {
             <li>
                 <Link to='/Contacts'>Contacts</Link>
             </li>
+            <li>
+                      <Link to='/Login'>Login</Link>
+                  </li>
+                  <li>
+                      <Link to='/SignUp'>signup</Link>
+                  </li>
         </ul>
         </nav>
         <div className="dropdown">

@@ -415,7 +415,7 @@ router.get("/searchcourse/title", async(req, res) => {
 router.post('/AddCourse', async(req, res) => {
 
      var t2= new Array();
-     var t3= [String(req.body.Subtitle),"",""];
+     var t3= ["","",""];
      var t4= new Array();
 
      t2.push(t3)

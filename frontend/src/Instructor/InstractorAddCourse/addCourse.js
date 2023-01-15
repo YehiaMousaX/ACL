@@ -111,6 +111,8 @@ const AddCourseForm = () => {
     </div>
     );
   };
+
+
   return (
    
     <><div className='navbar'>
@@ -195,6 +197,7 @@ const AddCourseForm = () => {
         <button className='btn' type="submit" onClick={handleSubmit}>Add Course</button>
       </div></>
   );
+  
 };
 
 export default AddCourseForm;

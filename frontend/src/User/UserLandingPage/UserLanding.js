@@ -69,6 +69,7 @@ const helper3 = () => {
 .catch((err) => console.log(err));
 };
 
+
   return (
  
       <><div className='navbar'>
@@ -208,5 +209,6 @@ const helper3 = () => {
          
   );
 }
+
 
 export default UserLandingPage;

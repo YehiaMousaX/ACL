@@ -10,6 +10,9 @@ import SignUpForm from './SignUp/signup';
 import UserLandingPage from './User/UserLandingPage/UserLanding';
 import InstructorLandingPage  from './Instructor/instructorLandingPage/InstructorLanding';
 import AdminLandingPage from './Admin/AdminLandingPage/AdminLanding';
+import ViewAllCourse from './Instructor/InstructorViewAllCourses/ViewAllCourse';
+import ProfileInstructorPage from './Instructor/InstractorProfileAndEdit/profileInstructor';
+import ChangePassword from './Instructor/InstractorChangePassword/changePassword';
 
 ReactDOM.render(
   <Router>
@@ -17,12 +20,12 @@ ReactDOM.render(
         <Route path='/'element={<App/>}/>
         <Route path = '/SignUp' element={<SignUpForm/>}/>
         <Route path = '/Login' element={<Loginform/>}/>
-
         <Route path = '/UserLandingPage' element={<UserLandingPage/>}/>
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>
-
-
+        <Route path = '/ViewAllCourse' element={<ViewAllCourse/>}/>
+        <Route path = '/ProfileInstructorPage' element={<ProfileInstructorPage/>}/>
+        <Route path = '/ChangePassword' element={<ChangePassword/>}/>
     </Routes>
   </Router>,
   document.getElementById('root') 

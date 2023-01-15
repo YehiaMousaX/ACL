@@ -3,14 +3,14 @@ import Navbar from './Guest/GuestLandingPage/navbar';
 import LandingPage from './Guest/GuestLandingPage/landingPage';
 
 //import InstructorCourses from './components/instructorCourse';
-import UserLandingPage from "./User/UserLandingPage/UserLanding"
+//import UserLandingPage from "./User/UserLandingPage/UserLanding"
 
 
 const App = () => {
   return (
     <div>
-      
-      <UserLandingPage/>
+      <Navbar/>
+      <LandingPage/>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import  "./signup.css"
 import { Link } from 'react-router-dom';
+import Modal from "react-modal";
 
 function SignUpForm() {
   const [name, setName] = useState('');
@@ -17,6 +18,9 @@ function SignUpForm() {
   const [country, setCountry] = useState("Afghanistan");
 
   const [submitted, setSubmitted] = useState(false);
+  
+  const [errorpolicy, seterrorpolicy] = useState(true);
+
   const [error, setError] = useState(false);
   const [errormail, setErrorMail] = useState(false);
   const [errorpassword, setErrorPassword] = useState(false);
@@ -24,7 +28,15 @@ function SignUpForm() {
   const [emailFound, setEmailFound] = useState(true);
 
   const [emailvalid, setEmailValid] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [policyAccepted, setPolicyAccepted] = useState(false);
 
+  const handlePolicyAccept = () => {
+    setPolicyAccepted(true);
+    setIsModalOpen(false);
+    seterrorpolicy(false);
+
+  };
   
   const successMessage = () => {
     return (
@@ -53,6 +65,20 @@ function SignUpForm() {
     );
   };
 
+  
+  const errorPolicy = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: errorpolicy ? '' : 'none',
+        }}>
+        <h1>* Please read policy of our website click in the button of view and accept refund/pazment policy*</h1>
+      
+      
+    </div>
+    );
+  };
 
   const errorconfirpassword = () => {
     return (
@@ -194,8 +220,8 @@ function SignUpForm() {
         console.error(error);
       });
 
-
-    if (name === '' || Email === '' || password === '' || age === ''|| bornIn === ''|| passwordconfirm === ''|| job === ''|| phoneNumber === ''|| martialStatus === '') {
+      
+       if (name === '' || Email === '' || password === '' || age === ''|| bornIn === ''|| passwordconfirm === ''|| job === ''|| phoneNumber === ''|| martialStatus === '') {
       setError(true); 
       setErrorConfirmPassword(false);
       setErrorPassword(false)
@@ -248,6 +274,9 @@ function SignUpForm() {
 
 
     }
+    
+
+
     else {
     setSubmitted(true);
     setError(false);
@@ -260,7 +289,7 @@ function SignUpForm() {
      
     axios.post('http://localhost:8000/user/signup', {
       Name: name,
-      password: password,
+      Password : password,
       Email: Email,
       Age: age,
       BornIn: bornIn,
@@ -328,6 +357,7 @@ function SignUpForm() {
         {errorpasssword()}
         {erroremail()}
         {validmail()}
+        {errorPolicy()}
       </div>
 
       <div className="form1">
@@ -690,9 +720,48 @@ function SignUpForm() {
         <li>
         <Link to = '/login'> have an account ? Login in here </Link>
       </li>
-      <button id = "signup" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary">Sign up</button>
+      <button type="button" className="btn" onClick={() => setIsModalOpen(true)}>
+          View and accept refund/payment policy
+        </button>
        
+      <button id = "signup" className="btn" type="submit" onClick={handleSubmit} disabled={!policyAccepted} variant="contained" color="primary">Sign up</button>
       
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+      >
+        <h2>Refund/Payment Policy</h2>
+
+<p>At our Company, customer satisfaction is our top priority. We understand that sometimes a product or service may not meet your expectations, and we are committed to resolving any issues you may have.</p>
+
+<h3>Refund Policy</h3>
+
+<p>Our refund policy is as follows:</p>
+
+<ul>
+  <li>If you are not satisfied with your purchase and request a refund within 24 hours of purchase, we will issue a full refund.</li>
+  <li>If you request a refund after 24 hours of purchase, we will issue a partial refund, taking into account the value of the product or service used.</li>
+  <li>We do not issue refunds for digital products, including online courses, e-books, and software.</li>
+  <li>Refunds will be processed through the original method of payment within 7-10 business days.</li>
+</ul>
+
+<h3>Payment Policy</h3>
+
+<p>Our payment policy is as follows:</p>
+
+<ul>
+  <li>We accept all major credit cards and PayPal.</li>
+  <li>All payments are processed securely through our payment gateway.</li>
+  <li>We do not store any credit card or PayPal information on our servers.</li>
+  <li>If you have any issues with your payment, please contact our customer support team for assistance.</li>
+</ul>
+
+<p>If you have any further questions or concerns about our refund/payment policy, please contact our customer support team.</p>
+
+        <button type="button" className="btn" onClick={handlePolicyAccept}>
+          I accept the policy
+        </button>
+      </Modal>
 </div>
 </div>
 

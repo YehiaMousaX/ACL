@@ -1,17 +1,14 @@
 import React from 'react';
-import './UserLanding.css';
+import './CorporateuserLanding.css';
 import CS from "./images/CS.jpg";
 import Math from "./images/Math.jpg";
 import Mangement from "./images/Mangement.jpg";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useState } from 'react';
 import Modal from "react-modal";
-import axios from 'axios';
-function UserLandingPage() {
 
-    function Logout () {
-       localStorage.clear();
-    };
+function CorporateuserLandingPage() {
 
     const [isModal1Open, setIsModal1Open] = useState(false);
     const [close1, setclose1] = useState(false);
@@ -90,15 +87,14 @@ const helper3 = () => {
               </ul>
               </nav>
               <div className="dropdown">
-                  <button className="dropbtn">User
+                  <button className="dropbtn">corporateuser
                       <i className="fa fa-caret-down"></i>
                   </button>
                   <div className="dropdown-content">
                       <Link to='/MyProfile'>My Profile</Link>
-                      <Link to='/' onClick={Logout()}>Logout</Link>
-                      <Link to='/user/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/Logout'>Logout</Link>
+                      <Link to='/coporateuser/UserShowAllCourse' > All Courses</Link>
 
-                      
                   </div>
               </div>
           
@@ -210,5 +206,4 @@ const helper3 = () => {
   );
 }
 
-
-export default UserLandingPage;
+export default CorporateuserLandingPage;

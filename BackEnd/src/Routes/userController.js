@@ -336,7 +336,7 @@ router.post("/signup",async(req,res)=>{
   const hashedPassword = await bcrypt.hash(req.body.Password, 10);
 
   const user = new User({
-    password : req.body.password ,
+    password : req.body.Password ,
     Name: req.body.Name,
     Email: req.body.Email,
     Age: req.body.Age,
@@ -390,7 +390,7 @@ router.post('/SelectCountry', async(req, res) => {
 // row 9
 router.get("/AllCourses", async(req, res) => {
     
-    const course = await Course.find( {} ,{ _id: 0 ,title : 1, totalHours : 1, rate : 1 });
+    const course = await Course.find( {} ,{ });
     
   res.send(course);
   });
@@ -588,4 +588,15 @@ router.get("/searchcourse/title", async(req, res) => {
 
   });
   
+  router.post('/search/substring', async (req, res) => {
+    const substring = req.body.substring + "";
+
+    // Find courses with titles that contain the substring
+    const courses = await Course.find({ Courseid: { $regex: substring, $options: 'i' } });
+
+
+    res.send(courses);
+});
+
+
   module.exports = router;

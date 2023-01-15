@@ -31,7 +31,10 @@
     display: block;
     padding: 5px;
     margin: 10px auto;
+    cursor: pointer;
+
 }
+
 
 .messages {
     display: flex;
@@ -171,3 +174,35 @@
         display: block;
     }
 }
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .accept-policy-btn {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+  }
+  

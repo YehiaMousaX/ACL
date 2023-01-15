@@ -213,3 +213,75 @@ footer {
 footer p {
     margin: 0;
 }
+.btn {
+    color: white;
+    background-color: rgb(141, 142, 142);
+    border-radius: 10px;
+    font-size: x-large;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+    cursor: pointer;
+
+}
+.btn:hover {
+    background-color: rgb(31, 31, 32);
+}
+
+
+/* Button active effect */
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.btn1 {
+    color: white;
+    background-color: rgb(43, 43, 43);
+    border-radius: 10px;
+    font-size: xx-large;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+    cursor: pointer;
+
+}
+.btn1:hover {
+    background-color: rgb(99, 97, 97);
+}
+
+
+/* Button active effect */
+
+.btn1:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.Course1-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  
+  .Course1 {
+    width: 50%;
+    border: 1px solid rgba(254, 254, 254, 0.984);
+    background-color: rgba(181, 180, 180, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+
+  }
+  .Coursee {
+    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.984);
+    background-color: rgba(225, 248, 244, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+
+  }
+  
+  .Course h3 {
+    margin-bottom: 10px;
+  }
+  

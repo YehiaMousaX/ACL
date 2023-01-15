@@ -1,4 +1,52 @@
-.navbar {
+.Course-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  
+  .Course {
+    width: 50%;
+    border: 1px solid rgba(1, 198, 242, 0.984);
+    background-color: rgba(108, 199, 184, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+
+  }
+  .Coursee {
+    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.984);
+    background-color: rgba(225, 248, 244, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+
+  }
+  
+  .Course h3 {
+    margin-bottom: 10px;
+  }
+  
+  .Course button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+
+   
+  }
+  
+  .Course button:hover {
+    background-color: rgb(101, 103, 103);
+  }
+  .Course button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;

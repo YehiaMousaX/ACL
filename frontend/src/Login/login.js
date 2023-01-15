@@ -9,11 +9,6 @@ import axios from 'axios';
 function Loginform() {
 
  
-  const [selected, setSelected] = useState("");
-
-  const handleChange = (event) => {
-    setSelected(event.target.value);
-  };
 
 
   const [password, setPassword] = useState('');
@@ -67,11 +62,7 @@ function Loginform() {
 
 
     }
-    
-    
-  
 
-  
     else  {
      
       axios.post('http://localhost:8000/user/login', {

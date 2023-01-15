@@ -37,7 +37,9 @@ router.post('/AddAdmin', async(req, res) => {
     {
         const Instractor = new instractor({
             Email: req.body.Email,
-            password: req.body.Password
+            password: req.body.Password,
+            Name : req.body.Name
+
         });
         const Instractor1 = new newuser({
             Email: req.body.Email,
@@ -57,11 +59,12 @@ router.post('/AddAdmin', async(req, res) => {
 
     {
         const coroporateuser = new Coroporateuser({
-            Name: req.body.UserName,
-            Password: req.body.Password
+            Email: req.body.Email,
+            password: req.body.Password,
+            Name : req.body.Name
         });
         const coroporateuser1 = new newuser({
-            Name: req.body.UserName,
+            Email: req.body.Email,
             Password: hashedPassword,
             type : "coroporateuser"
         });

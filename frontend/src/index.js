@@ -12,12 +12,19 @@ import LandingPage from './Guest/GuestLandingPage/landingPage';
 import UserLandingPage from './User/UserLandingPage/UserLanding';
 import InstructorLandingPage  from './Instructor/instructorLandingPage/InstructorLanding';
 import AdminLandingPage from './Admin/AdminLandingPage/AdminLanding';
+
+import ViewAllCourse from './Instructor/InstructorViewAllCourses/ViewAllCourse';
+import ProfileInstructorPage from './Instructor/InstractorProfileAndEdit/profileInstructor';
+import ChangePassword from './Instructor/InstractorChangePassword/changePassword';
+
+
 import CorporateuserLandingPage from './Corporateuser/CorporateuserLandingPage/CorporateuserLanding';
 import UserShowAllCourse from './Instructor/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse1 from './User/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse2 from './Corporateuser/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse3 from './Guest/UserShowAllCourses/UserShowAllCourse';
 import AddCourseForm  from './Instructor/InstractorAddCourse/addCourse';
+
 ReactDOM.render(
   <Router>
     <Routes>
@@ -27,6 +34,10 @@ ReactDOM.render(
         <Route path = '/UserLandingPage' element={<UserLandingPage/>}/>
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>
+
+        <Route path = '/ViewAllCourse' element={<ViewAllCourse/>}/>
+        <Route path = '/ProfileInstructorPage' element={<ProfileInstructorPage/>}/>
+        <Route path = '/ChangePassword' element={<ChangePassword/>}/>
         <Route path = '/CorporateuserLandingPage' element={<CorporateuserLandingPage/>}/>
         <Route path = '/user/UserShowAllCourse' element={<UserShowAllCourse1/>}/>
         <Route path = '/instractor/UserShowAllCourse' element={<UserShowAllCourse/>}/>
@@ -37,6 +48,7 @@ ReactDOM.render(
 
         
         
+
     </Routes>
   </Router>,
   document.getElementById('root') 

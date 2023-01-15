@@ -68,7 +68,6 @@ function InstructorLandingPage() {
  };
 
 
-
     return (
  
       <><div className='navbar'>
@@ -94,7 +93,7 @@ function InstructorLandingPage() {
                   </button>
                   <div className="dropdown-content">
                       <Link to='/MyProfile'>My Profile</Link>
-                      <Link to='/' on onClick={Logout()}>Logout</Link>
+                      <Link to='/' on onClick={Logout}>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
 
@@ -209,4 +208,5 @@ function InstructorLandingPage() {
          
   );
 }
+
 export default InstructorLandingPage;

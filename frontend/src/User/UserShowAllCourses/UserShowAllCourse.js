@@ -32,7 +32,8 @@ function UserShowAllCourse1() {
     return sum / arr.length;
   }
 
- 
+
+
   return  (
     <><div className='navbar'>
           <div className='logo'>
@@ -57,7 +58,7 @@ function UserShowAllCourse1() {
               </button>
               <div className="dropdown-content">
                   <Link to='/MyProfile'>My Profile</Link>
-                  <Link to='/' onClick={Logout()}>Logout</Link>
+                  <Link to='/' onClick={Logout}>Logout</Link>
                   <Link to='/user/UserShowAllCourse'> All Courses</Link>
 
 

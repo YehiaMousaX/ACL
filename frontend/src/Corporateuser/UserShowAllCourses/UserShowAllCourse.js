@@ -80,6 +80,6 @@ function UserShowAllCourse2() {
               ))}
           </div></>
   );
-}
 
+}
 export default UserShowAllCourse2;

@@ -32,7 +32,8 @@ function UserShowAllCourse() {
     return sum / arr.length;
   }
 
- 
+
+
   return  (
     <><div className='navbar'>
           <div className='logo'>
@@ -80,6 +81,6 @@ function UserShowAllCourse() {
               ))}
           </div></>
   );
-}
 
+}
 export default UserShowAllCourse;

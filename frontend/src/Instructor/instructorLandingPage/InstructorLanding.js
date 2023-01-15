@@ -97,7 +97,9 @@ function InstructorLandingPage() {
                       <Link to='/Logout'>Logout</Link>
                       <Link to='/ViewAllCourse'>ViewCourse</Link>
                       <Link to='/ChangePassword'>ChangePassword</Link>
-                      <Link to='/ChangePassword'>Performance</Link>
+                      <Link to='/Performance'>Performance</Link>
+                      <Link to='/InstructorCourses'>ViewMyCourses</Link>
+                      
 
                   </div>
               </div>

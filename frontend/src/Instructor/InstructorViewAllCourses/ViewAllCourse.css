@@ -1,4 +1,48 @@
-/* CSS for navbar */
+.Course-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Course {
+    width: 50%;
+    border: 1px solid rgba(1, 198, 242, 0.984);
+    background-color: rgba(108, 199, 184, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.Coursee {
+    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.984);
+    background-color: rgba(225, 248, 244, 0.973);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.Course h3 {
+    margin-bottom: 10px;
+}
+
+.Course button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+}
+
+.Course button:hover {
+    background-color: rgb(101, 103, 103);
+}
+
+.Course button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 .navbar {
     display: flex;
@@ -15,6 +59,7 @@
 
 .item {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin-right: 1em;
 }
@@ -24,6 +69,7 @@
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: center;
 }
 
 .ul li {
@@ -35,49 +81,181 @@
     text-decoration: none;
 }
 
-.FilterSubject,
-.FilterPrice {
-    width: 150px;
-    height: 35px;
-    margin-right: 1em;
-    box-sizing: border-box;
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.FilterSubject select {
-    padding: 0.5em;
+.dropbtn {
+    background-color: #333;
+    color: #fff;
+    padding: 1.5em;
     font-size: 1em;
     border: none;
-    background-color: #fff;
-    color: #333;
+    cursor: auto;
 }
 
-.FilterPrice select {
-    padding: 0.5em;
-    font-size: 1em;
-    border: none;
-    background-color: #fff;
-    color: #333;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 0;
 }
 
-.search {
+.dropdown-content a {
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
+/* Additional styles for fa icon */
+
+.fa {
+    padding-left: 0.5em;
+}
+
+.landing-page {
     display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
-.search input {
-    padding: 0.5em;
-    font-size: 1em;
-    border: none;
-    background-color: #fff;
-    color: #333;
-    margin-right: 0.5em;
-    flex-grow: 1;
+.featured-courses {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
-.search button {
-    padding: 0.5em 1em;
+.featured-courses h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.featured-courses-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.featured-course {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.featured-course img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.featured-course h3 {
+    margin: 10px 0;
+}
+
+.featured-course p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.featured-course button {
+    padding: 10px 20px;
     background-color: #333;
     color: #fff;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.featured-course button:hover {
+    background-color: #444;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.categories h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.categories-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.category {
+    width: 20%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.category h3 {
+    margin: 10px 0;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
 }

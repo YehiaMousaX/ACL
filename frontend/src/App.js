@@ -1,5 +1,4 @@
 
-import Navbar from './Guest/GuestLandingPage/navbar';
 import LandingPage from './Guest/GuestLandingPage/landingPage';
 
 //import InstructorCourses from './components/instructorCourse';
@@ -9,7 +8,6 @@ import LandingPage from './Guest/GuestLandingPage/landingPage';
 const App = () => {
   return (
     <div>
-            <Navbar/>
 
       <LandingPage/>
     </div>

@@ -7,10 +7,16 @@ import App from './App';
 import Loginform from './Login/login';
 import SignUpForm from './SignUp/signup';
 
+import LandingPage from './Guest/GuestLandingPage/landingPage';
+
 import UserLandingPage from './User/UserLandingPage/UserLanding';
 import InstructorLandingPage  from './Instructor/instructorLandingPage/InstructorLanding';
 import AdminLandingPage from './Admin/AdminLandingPage/AdminLanding';
 import CorporateuserLandingPage from './Corporateuser/CorporateuserLandingPage/CorporateuserLanding';
+import UserShowAllCourse from './Instructor/UserShowAllCourses/UserShowAllCourse';
+import UserShowAllCourse1 from './User/UserShowAllCourses/UserShowAllCourse';
+import UserShowAllCourse2 from './Corporateuser/UserShowAllCourses/UserShowAllCourse';
+import UserShowAllCourse3 from './Guest/UserShowAllCourses/UserShowAllCourse';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -21,6 +27,14 @@ ReactDOM.render(
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>
         <Route path = '/CorporateuserLandingPage' element={<CorporateuserLandingPage/>}/>
+        <Route path = '/user/UserShowAllCourse' element={<UserShowAllCourse1/>}/>
+        <Route path = '/instractor/UserShowAllCourse' element={<UserShowAllCourse/>}/>
+        <Route path = '/coporateuser/UserShowAllCourse' element={<UserShowAllCourse2/>}/>
+        <Route path = '/Guest/UserShowAllCourse' element={<UserShowAllCourse3/>}/>
+        <Route path = '/GuestLandingPage' element={<LandingPage/>}/>
+
+        
+        
     </Routes>
   </Router>,
   document.getElementById('root') 

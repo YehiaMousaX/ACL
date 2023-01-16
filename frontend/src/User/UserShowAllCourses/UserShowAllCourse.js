@@ -58,31 +58,99 @@ const handleClick1 = () => {
         
         else {
           
-          const filteredCourses = [];
-          const filteredCourses1 = [];
-          const filteredCourses2 = [];
+          const filteredCourses = [] ;
+          const filteredCourses1 = [] ;
+          const filteredCourses2 = [] ;
 
 
-         courses.filter((course) => {
-          if (course.Subject === filterQuery) {
-            filteredCourses.push(course);
-          }
-          
-        })
-        courses.filter((course) => {
-          if (parseInt(course.price) <parseInt(filterQuery1)) {
-            filteredCourses1.push(course);
-          }
-          
-        })
-        courses.filter((course) => {
-          if (parseInt(course.rate) > parseInt(filterQuery2)) {
-            filteredCourses2.push(course);
-          }
-          
-        })
-        setCourses(filteredCourses);
-      }
+         if (filterQuery !== '' && filterQuery1 ==='' && filterQuery2 === '') {
+           courses.filter((course) => {
+             if (course.Subject === filterQuery) {
+               filteredCourses.push(course);
+             }
+           })
+           setCourses(filteredCourses) ;
+         }
+         if (filterQuery === '' && filterQuery1 !=='' && filterQuery2 === '') {
+           courses.filter((course) => {
+             if (parseInt(course.price) <= parseInt(filterQuery1)) {
+               filteredCourses.push(course);
+             }
+           })
+           setCourses(filteredCourses) ;
+         }
+         
+         if (filterQuery === '' && filterQuery1 ==='' && filterQuery2 !== '') {
+           courses.filter((course) => {
+             if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+               filteredCourses.push(course);
+             }
+           })
+           setCourses(filteredCourses) ;
+         }
+
+         if (filterQuery !== '' && filterQuery1 !=='' && filterQuery2 === '') {
+           courses.filter((course) => {
+             if (course.Subject === filterQuery) {
+               filteredCourses.push(course);
+             }
+           })
+           filteredCourses.filter((course) => {
+             if (parseInt(course.price) <= parseInt(filterQuery1)) {
+               filteredCourses1.push(course);
+             }
+           })
+           setCourses(filteredCourses1) ;
+         }
+
+         if (filterQuery !== '' && filterQuery1 ==='' && filterQuery2 !== '') {
+           courses.filter((course) => {
+             if (course.Subject === filterQuery) {
+               filteredCourses.push(course);
+             }
+           })
+           filteredCourses.filter((course) => {
+             if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+               filteredCourses1.push(course);
+             }
+           })
+           setCourses(filteredCourses1) ;
+         }
+       
+         if (filterQuery === '' && filterQuery1 !=='' && filterQuery2 !== '') {
+           courses.filter((course) => {
+             if (parseInt(course.price) <= parseInt(filterQuery1)) {
+               filteredCourses.push(course);
+             }
+           })
+           filteredCourses.filter((course) => {
+             if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+               filteredCourses1.push(course);
+             }
+           })
+           setCourses(filteredCourses1) ;
+         }
+
+         if (filterQuery !== '' && filterQuery1 !=='' && filterQuery2 !== '') {
+           courses.filter((course) => {
+             if (course.Subject === filterQuery) {
+               filteredCourses.push(course);
+             }
+           })
+           filteredCourses.filter((course) => {
+             if (parseInt(course.price) <= parseInt(filterQuery1)) {
+               filteredCourses1.push(course);
+             }
+           })
+           filteredCourses1.filter((course) => {
+             if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+               filteredCourses2.push(course);
+             }
+           })
+           setCourses(filteredCourses2) ;
+         }
+
+       }
 
     }
 
@@ -117,6 +185,9 @@ const handleClick1 = () => {
         else {
           
            const filteredCourses = [] ;
+           const filteredCourses1 = [] ;
+           const filteredCourses2 = [] ;
+
 
           if (filterQuery !== '' && filterQuery1 ==='' && filterQuery2 === '') {
             courses.filter((course) => {
@@ -137,16 +208,73 @@ const handleClick1 = () => {
           
           if (filterQuery === '' && filterQuery1 ==='' && filterQuery2 !== '') {
             courses.filter((course) => {
-              if (parseInt(courserate(course.rate)) <= parseInt(filterQuery1)) {
+              if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
                 filteredCourses.push(course);
               }
             })
             setCourses(filteredCourses) ;
           }
-         
 
-          
+          if (filterQuery !== '' && filterQuery1 !=='' && filterQuery2 === '') {
+            courses.filter((course) => {
+              if (course.Subject === filterQuery) {
+                filteredCourses.push(course);
+              }
+            })
+            filteredCourses.filter((course) => {
+              if (parseInt(course.price) <= parseInt(filterQuery1)) {
+                filteredCourses1.push(course);
+              }
+            })
+            setCourses(filteredCourses1) ;
+          }
+
+          if (filterQuery !== '' && filterQuery1 ==='' && filterQuery2 !== '') {
+            courses.filter((course) => {
+              if (course.Subject === filterQuery) {
+                filteredCourses.push(course);
+              }
+            })
+            filteredCourses.filter((course) => {
+              if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+                filteredCourses1.push(course);
+              }
+            })
+            setCourses(filteredCourses1) ;
+          }
         
+          if (filterQuery === '' && filterQuery1 !=='' && filterQuery2 !== '') {
+            courses.filter((course) => {
+              if (parseInt(course.price) <= parseInt(filterQuery1)) {
+                filteredCourses.push(course);
+              }
+            })
+            filteredCourses.filter((course) => {
+              if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+                filteredCourses1.push(course);
+              }
+            })
+            setCourses(filteredCourses1) ;
+          }
+
+          if (filterQuery !== '' && filterQuery1 !=='' && filterQuery2 !== '') {
+            courses.filter((course) => {
+              if (course.Subject === filterQuery) {
+                filteredCourses.push(course);
+              }
+            })
+            filteredCourses.filter((course) => {
+              if (parseInt(course.price) <= parseInt(filterQuery1)) {
+                filteredCourses1.push(course);
+              }
+            })
+            filteredCourses1.filter((course) => {
+              if (parseInt(courserate(course.rate)) >= parseInt(filterQuery2)) {
+                filteredCourses2.push(course);
+              }
+            })
+            setCourses(filteredCourses2) ;
+          }
 
         }
       }
@@ -160,7 +288,7 @@ const handleClick1 = () => {
     }
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
-      sum += arr[i];
+      sum += parseInt(arr[i]);
     }
     return sum / arr.length;
   }

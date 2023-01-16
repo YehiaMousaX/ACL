@@ -24,6 +24,8 @@ import UserShowAllCourse1 from './User/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse2 from './Corporateuser/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse3 from './Guest/UserShowAllCourses/UserShowAllCourse';
 import AddCourseForm  from './Instructor/InstractorAddCourse/addCourse';
+import Addquestion from './Instructor/InstractorAddQuestionForCourse/Addquestion';
+
 
 ReactDOM.render(
   <Router>
@@ -45,6 +47,7 @@ ReactDOM.render(
         <Route path = '/Guest/UserShowAllCourse' element={<UserShowAllCourse3/>}/>
         <Route path = '/' element={<LandingPage/>}/>
         <Route path = '/instractor/createnewcourse' element={<AddCourseForm/>}/>
+        <Route path = '/instractor/Addquestion' element={<Addquestion/>}/>
 
         
         

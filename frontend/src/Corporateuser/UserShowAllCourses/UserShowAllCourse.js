@@ -72,7 +72,6 @@ function UserShowAllCourse2() {
                       <h3>Courseid : {course.Courseid}</h3>
                       <h3>title : {course.title}</h3>
                       <h3>totalHours : {course.totalHours}</h3>
-                      <h3>price : {course.price}</h3>
                       <h3>rate : {courserate(course.rate)}</h3>
 
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import  "./Addquestion.css"
+import { Link } from 'react-router-dom';
 
 function Addquestion() {
   const [courseid, setcourseid] = useState('');
@@ -91,6 +92,7 @@ function Addquestion() {
      
      const instractorEmail =  " "+ localStorage.getItem('UserEmail') ;
 
+   
      axios.post('http://localhost:8000/instractor/coursevalid', { courseid : courseid , instractorid : instractorEmail })
     .then(response => {
       console.log(response.data)
@@ -149,7 +151,33 @@ function Addquestion() {
   }
  
   return (
-    <div className="form">
+
+      
+    <><div className='navbar'>
+    <div className='logo'>
+      Online Courses
+    </div>
+    <nav className='item'>
+      <ul className='ul'>
+        <li>
+          <Link to='/InstructorLandingPage'>Home</Link>
+        </li>
+        <li>
+          <Link to='/About'>About</Link>
+        </li>
+        <li>
+          <Link to='/Contacts'>Contacts</Link>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div>
+
+
+ 
+
+    
+    </div><div className="form">
       <div>
         <h1>Add Question </h1>
       </div>
@@ -277,7 +305,7 @@ function Addquestion() {
        
       
 </div>
-</div>
+</div></>
 
   );
 }

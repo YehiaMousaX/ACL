@@ -503,6 +503,11 @@ router.put("/rateinstractor", async(req, res) => {
 
   });
 
-
+  router.get("/AddCountryCurrency", async(req, res) => {
+   
+  
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
+  
+  });
 
 module.exports = router;

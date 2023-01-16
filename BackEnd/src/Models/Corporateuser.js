@@ -42,6 +42,9 @@ const CorporateuserSchema = new Schema({
     },
     RegisteredCourseid :{
     type: Array
+    } ,
+    Countrycurrency : {
+        type: String,
     }
 }, { timestamps: true });
 

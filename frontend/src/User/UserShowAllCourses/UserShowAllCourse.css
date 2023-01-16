@@ -48,10 +48,12 @@
   }
   .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #333;
     color: #fff;
+
+    
 }
 
 .logo {
@@ -72,6 +74,7 @@
     padding: 0;
     display: flex;
     justify-content: center;
+
 }
 
 .ul li {
@@ -261,3 +264,51 @@ footer {
 footer p {
     margin: 0;
 }
+
+
+.btn1 {
+    color: white;
+    background-color: rgb(153, 202, 174);
+    border-radius: 10px;
+    font-size: large;
+    display: block;
+    padding: 5px;
+    margin: 15px auto;
+    cursor: pointer;
+
+}
+.btn1:hover {
+    background-color: rgb(99, 97, 97);
+}
+
+
+/* Button active effect */
+
+.btn1:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.search-container {
+
+    display: flex;
+    flex-direction: row;
+    
+    }
+.input {
+    font-size: large;
+    width: 250px;
+    height: 22px;
+    border-radius: 10px;
+   width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+    font-family: TheSansUHH;
+    font-size: 16px;
+    padding: 0 71px 0 20px;
+  
+  }
+  .input::placeholder {
+    font-size: 14px; /* adjust as needed */
+  }
+  

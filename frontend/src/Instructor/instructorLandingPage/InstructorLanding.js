@@ -96,7 +96,7 @@ function InstructorLandingPage() {
                       <Link to='/' on onClick={Logout}>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
-
+                     <Link to='/instractor/Addquestion' > Add question for a Course</Link>
 
                   </div>
               </div>

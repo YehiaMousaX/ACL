@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import  "./login.css"
 import { useHistory } from "react-router-dom";
@@ -102,24 +101,27 @@ function Loginform() {
             localStorage.setItem('UserEmail',response.data.Email);
             localStorage.setItem('UserType',response.data.type);
             if (response.data.type=== "instractor") {
-             
+
               window.location.href = '/InstructorLandingPage'
 
             }
             if (response.data.type=== "admin") 
             {
-           
+
               window.location.href = '/AdminLandingPage'
 
             }
             if (response.data.type=== "user") 
             {
-              
+
               window.location.href = '/UserLandingPage'
 
             }
             if (response.data.type=== "coroporateuser") 
             {
+
+                
+
               
               window.location.href = '/CorporateuserLandingPage'
 
@@ -219,6 +221,3 @@ function Loginform() {
   );
 }
 export default Loginform;
-
-
-

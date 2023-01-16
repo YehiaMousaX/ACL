@@ -837,6 +837,11 @@ router.post('/:instructorId/reset-password', async (req, res) => {
   }
 });
 
+router.get("/AddCountryCurrency", async(req, res) => {
+   
+  
+  await Instractor.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
 
+});
 
 module.exports = router;

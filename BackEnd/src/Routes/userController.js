@@ -622,4 +622,12 @@ const courses3 = await Course.find({
   res.send(courses);
 });
 
+router.get("/AddCountryCurrency", async(req, res) => {
+   
+  
+  await User.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
+
+});
+
+
   module.exports = router;

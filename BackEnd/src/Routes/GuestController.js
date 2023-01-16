@@ -351,5 +351,10 @@ router.get("/searchcourse/title", async(req, res) => {
          res.send(course);
        });
    
-
+       router.get("/AddCountryCurrency", async(req, res) => {
+   
+  
+        await Guest.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
+      
+      });
 module.exports = router;

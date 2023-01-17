@@ -31,7 +31,12 @@ const handleClick1 = () => {
 
 function handleSubmit(x) {
   localStorage.setItem("usercourse", JSON.stringify(x));  
+  axios.post('http://localhost:8000/user/Addregisteredinstractor' ,{ RegisteredCourseid : x.instractorid , Email :   localStorage.getItem("UserEmail")})
+  .then((res) => {
+    setCourses(res.data);
 
+  })
+  .catch((err) => console.log(err));
    window.location.href = '/user/userpayforcourse'
 
 }
@@ -390,7 +395,7 @@ function handleSubmit(x) {
         <div class="button-container">
                       
 
-                      <button id = "register" className='btn' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course)}> Register </button>
+                      <button id = "register" className='btn1' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course)}> Register </button>
 
                  </div>
         

@@ -1,15 +1,15 @@
 import React from 'react';
-import "./userratecourse.css"
+import "./coroporateuserRateCourse.css"
 import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function UserRateCourse() {
+function CoroporateRateCourse() {
   const [courses, setCourses] = useState([]);
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    axios.post('http://localhost:8000/user/AllCourses/registerfor1' , { Email:localStorage.getItem('UserEmail') })
+    axios.post('http://localhost:8000/Coroporateuser/AllCourses/registerfor1' , { Email:localStorage.getItem('UserEmail') })
 
     .then((res) => {
          setCourses(res.data)
@@ -31,7 +31,7 @@ function UserRateCourse() {
 
   function handleSubmit(course) {
     if (rating <=5 && rating >=0) {
-    axios.put('http://localhost:8000/user/ratecourse', { courseid: course.Courseid , rate:  parseInt(rating) ,Email:localStorage.getItem('UserEmail') })
+    axios.put('http://localhost:8000/Coroporateuser/ratecourse', { courseid: course.Courseid , rate:  parseInt(rating) ,Email:localStorage.getItem('UserEmail') })
       .then((response) => {
       })
       .catch((error) => {
@@ -122,4 +122,4 @@ function UserRateCourse() {
   );
 }
 
-export default UserRateCourse;
+export default CoroporateRateCourse;

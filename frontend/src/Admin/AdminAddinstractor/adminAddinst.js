@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import  "./adminAdd.css"
+import  "./adminAddinst.css"
 import { Link } from 'react-router-dom';
 import Modal from "react-modal";
 
-function AdminAdd() {
+function AdminAddinstr() {
 
   const [password, setPassword] = useState('');
   const [Email, setEmail] = useState('');
 
+  const [Name, setName] = useState('');
 
   const [submitted, setSubmitted] = useState(false);
   
@@ -23,7 +24,7 @@ function AdminAdd() {
         style={{
           display: submitted ? '' : 'none',
         }}>
-        <h1>Admin successfully registered!!</h1>
+        <h1>Instructor successfully registered!!</h1>
       </div>
     );
   };
@@ -57,7 +58,7 @@ function AdminAdd() {
 
    
       
-     if(Email === '' || password === '') {
+     if(Email === '' || password === '' || Name ==='') {
 
      setError(true); 
 
@@ -76,10 +77,11 @@ function AdminAdd() {
 
     
      
-    axios.post('http://localhost:8000/admin/AddAdmin', {
+    axios.put('http://localhost:8000/admin/AddInstractor', {
      
       Password : password,
       Email: Email,
+      Name:Name ,
       
   } ,{
           headers: {
@@ -140,6 +142,18 @@ function AdminAdd() {
       </div>
 
       <div className="admin-form">
+
+      <label className="label">Name:</label>
+      <input
+        type="email"
+        id="email"
+        className="input"
+        value={Name}
+        onChange={(event) => setName(event.target.value)}
+      />
+
+
+
       <label className="label">Email:</label>
       <input
         type="email"
@@ -165,7 +179,7 @@ function AdminAdd() {
     
 
      
-      <button id = "signup" className="btn" type="submit" onClick={handleSubmit}  variant="contained" color="primary">ADD ADMIN</button>
+      <button id = "signup" className="btn" type="submit" onClick={handleSubmit}  variant="contained" color="primary">ADD Instructor</button>
       
     
 </div>
@@ -174,7 +188,7 @@ function AdminAdd() {
   );
 }
 
-export default AdminAdd;
+export default AdminAddinstr;
 
 
 

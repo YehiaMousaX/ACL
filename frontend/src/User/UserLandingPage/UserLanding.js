@@ -123,7 +123,10 @@ const helper3 = () => {
                       <Link to='/user/UserShowAllCourse' > All Courses</Link>
                       <Link to='/user/userchoosecountry' > Choose Country</Link>
                       <Link to='/user/UserShowAllCourseregistered' > Registered Courses</Link>
+                      <Link to='/user/UserRateCourse' > rate your Courses</Link>
+                      <Link to='/user/UserRateInstractor' > rate your instructors</Link>
 
+                      
                       
                   </div>
               </div>
@@ -142,7 +145,7 @@ const helper3 = () => {
                               <img src={CS} alt="Course 1" />
                               <h3>Network Course</h3>
                               <p>A network course teaches students about computer networking principles and technologies. It may cover topics such as network architecture, protocols, security, and performance optimization. Network courses may be offered at various levels and formats and may prepare students for careers as network administrators or IT professionals. They may also be useful for pursuing professional certifications.</p>
-                              <button className='btn' onClick={helper1}>Learn More </button>
+                              <button className='btn1' onClick={helper1}>Learn More </button>
                               <Modal
                                 isOpen={isModal1Open}
                                onRequestClose={() => setIsModal1Open(false)}
@@ -169,7 +172,7 @@ const helper3 = () => {
                               <img src={Math} alt="Course 2" />
                               <h3>Discrete Math Course</h3>
                               <p>Discrete math is a branch of math focused on discrete objects, such as integers and graphs. It is used to model and analyze algorithms, data structures, and computer systems. A discrete math course teaches students about topics like set theory, combinatorics, and graph theory, and helps them develop problem-solving skills. It may be useful for careers in computer science, software development, and data analysis.</p>
-                              <button className='btn' onClick={helper2}>Learn More </button>
+                              <button className='btn1' onClick={helper2}>Learn More </button>
                               <Modal
                                 isOpen={isModal2Open}
                                onRequestClose={() => setIsModal2Open(false)}
@@ -197,7 +200,7 @@ const helper3 = () => {
                               <img src={Mangement} alt="Course 3" />
                               <h3>Mangement Course</h3>
                               <p>Management is the process of leading and directing an organization to achieve its goals. A management course teaches students about leadership, communication, financial management, and other management principles and practices. It may prepare students for careers as managers or leaders in various industries. Management courses may also be useful for individuals pursuing careers in business, healthcare, education.</p>
-                              <button className='btn' onClick={helper3}>Learn More </button>
+                              <button className='btn1' onClick={helper3}>Learn More </button>
                               <Modal
                                 isOpen={isModal3Open}
                                onRequestClose={() => setIsModal3Open(false)}

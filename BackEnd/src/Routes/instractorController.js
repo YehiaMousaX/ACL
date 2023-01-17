@@ -608,13 +608,24 @@ router.post("/coursevalid", async(req, res) => {
 
 // helper method 
 
-router.post("/getallinstractors", async(req, res) => {
-  
-  const instractor = await Instractor.find({} ,{rate:1 ,Name:1, Email:1 , Biography :1 , Age :1 ,Country:1 } )
+
+
+  router.post("/getallinstractors", async(req, res) => {
+    const instractors = await User.find({Email : req.body.Email} ,{_id:0 ,RegisteredCourseid2 :1 } )
+    const extractedData = instractors.map(instractor => instractor.RegisteredCourseid2);
+    const mergedData = [].concat.apply([], extractedData);
     
-     res.send(instractor);
+    const instractor1 = new Array() ;
+    for (let i = 0 ; i < mergedData.length ; i= i+1 ){
+      instractor1.push(await instractor.find({Email : mergedData[i]} ))
+    }
+    const singleArray = Array.prototype.concat.apply([], instractor1);
+
+    res.send(singleArray);
+  });
   
-});
+  
+
 
 
 router.post("/getallcourses", async(req, res) => {

@@ -33,6 +33,13 @@ import CreditCardPayment from './User/Userpayforcourse/userpayforcourse';
 import UserRegisteredCourses from './User/userRegisteredCourses/userRegisteredCourses';
 import CoroporateRegisteredCourses from './Corporateuser/coroporateRegisteredCourses/coroporateRegisteredCourses';
 import UseropenExamCourses from './User/UserSolveExcersice/UseropenExamCourses';
+import UserRateCourse from './User/UserRateCourse/userratecourse';
+import UserRateInstructor from './User/UserRateInstractor/userrateinstractor';
+import CoroporateRateCourse from './Corporateuser/coroporateuserRateCourse/coroporateuserRateCourse';
+import CoroporateRateInstructor from './Corporateuser/coroporateuserRateInstractor/coroporateuserRateInstractor';
+import AdminAdd from './Admin/AdminAddAdmin/adminAdd';
+import AdminAddinstr from './Admin/AdminAddinstractor/adminAddinst';
+import AdminAddcouser from './Admin/AdminAddcoporateuser/adminAddcouser';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -63,6 +70,14 @@ ReactDOM.render(
         
         <Route path = '/corporateuser/CoroporateRegisteredCourses' element={<CoroporateRegisteredCourses/>}/>
         <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>
+        <Route path = '/user/UserRateCourse' element={<UserRateCourse/>}/>
+        <Route path = '/user/UserRateInstractor' element={<UserRateInstructor/>}/>
+        
+        <Route path = '/coroporateuser/UserRateInstractor' element={<CoroporateRateCourse/>}/>
+        <Route path = '/coroporateuser/CoroporateRateInstructor' element={<CoroporateRateInstructor/>}/>
+        <Route path = '/admin/AdminAdd' element={<AdminAdd/>}/>
+        <Route path = '/admin/AdminAddinst' element={<AdminAddinstr/>}/>
+        <Route path = '/admin/AdminAddcouser' element={<AdminAddcouser/>}/>
 
         
 

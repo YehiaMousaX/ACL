@@ -511,7 +511,7 @@ router.put("/rateinstractor", async(req, res) => {
   });
 
   router.post("/AllCourses/registerfor", async(req, res) => {
-    const registeredCourses = await User.aggregate([
+    const registeredCourses = await Coroporateuser.aggregate([
       {$match: {Email: req.body.Email }},
       {$unwind: "$RegisteredCourseid"},
       {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
@@ -520,4 +520,59 @@ router.put("/rateinstractor", async(req, res) => {
     res.send(registeredCourses);
     });
     
+    router.put("/ratecourse", async(req, res) => {
+   
+      await Course.updateOne({Courseid: req.body.courseid} ,{ $push: { rate: req.body.rate } } )
+      await Coroporateuser.updateOne({ Email: req.body.Email, "RegisteredCourseid.Courseid": req.body.courseid}, { $push: { "RegisteredCourseid.$.rate": req.body.rate } });
+      await Coroporateuser.updateOne({ Email: req.body.Email }, { $pull: { "RegisteredCourseid1": { "Courseid": req.body.courseid } } });
+  
+    
+  
+      res.send("true");
+  
+    });
+  
+    
+    router.post("/AllCourses/registerfor1", async(req, res) => {
+      const registeredCourses = await Coroporateuser.aggregate([
+        {$match: {Email: req.body.Email }},
+        {$unwind: "$RegisteredCourseid1"},
+        {$replaceRoot: {newRoot: "$RegisteredCourseid1"}}
+      ]);
+     
+      
+      res.send(registeredCourses);
+      });
+     
+      router.post("/AllCourses/registerfor1", async(req, res) => {
+        const registeredCourses = await User.aggregate([
+          {$match: {Email: req.body.Email }},
+          {$unwind: "$RegisteredCourseid1"},
+          {$replaceRoot: {newRoot: "$RegisteredCourseid1"}}
+        ]);
+       
+        
+        res.send(registeredCourses);
+        });
+
+        router.put("/rateinstractor", async(req, res) => {
+   
+          await instractor.updateOne({ Email: req.body.Email}, { $push: { rate: req.body.rate } });
+          await Coroporateuser.updateOne({ Email: req.body.Emailuser }, { $pull: { RegisteredCourseid2 : req.body.Email} });
+      
+        });
+
+        router.post("/getallinstractors", async(req, res) => {
+          const instractors = await Coroporateuser.find({Email : req.body.Email} ,{_id:0 ,RegisteredCourseid2 :1 } )
+          const extractedData = instractors.map(instractor => instractor.RegisteredCourseid2);
+          const mergedData = [].concat.apply([], extractedData);
+          
+          const instractor1 = new Array() ;
+          for (let i = 0 ; i < mergedData.length ; i= i+1 ){
+            instractor1.push(await instractor.find({Email : mergedData[i]} ))
+          }
+          const singleArray = Array.prototype.concat.apply([], instractor1);
+      
+          res.send(singleArray);
+        });
 module.exports = router;

@@ -1,15 +1,15 @@
 import React from 'react';
-import "./userrateinstractor.css"
+import "./coroporateuserRateInstractor.css"
 import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function UserRateInstructor() {
+function CoroporateRateInstructor() {
   const [instructors, setinstructors] = useState([]);
   const [rating, setRating] = useState('');
 
   useEffect(() => {
-    axios.post('http://localhost:8000/instractor/getallinstractors', {Email :localStorage.getItem("UserEmail")})
+    axios.post('http://localhost:8000/Coroporateuser/getallinstractors', {Email :localStorage.getItem("UserEmail")})
       .then((res) => {
         setinstructors(res.data);
       })
@@ -28,7 +28,7 @@ function UserRateInstructor() {
   }
 
   function handleSubmit(instructor) {
-    axios.put('http://localhost:8000/user/rateinstractor', { Email: instructor.Email, rate: rating , Emailuser : localStorage.getItem("UserEmail") })
+    axios.put('http://localhost:8000/Coroporateuser/rateinstractor', { Email: instructor.Email, rate: rating , Emailuser : localStorage.getItem("UserEmail") })
       .then((response) => {
         console.log(response.data);
       })
@@ -45,7 +45,7 @@ function UserRateInstructor() {
     <nav className='item'>
       <ul className='ul'>
         <li>
-          <Link to='/UserLandingPage'>Home</Link>
+          <Link to='/corporateuserLandingPage'>Home</Link>
         </li>
         <li>
           <Link to='/About'>About</Link>
@@ -104,4 +104,4 @@ function UserRateInstructor() {
   );
 }
 
-export default UserRateInstructor;
+export default CoroporateRateInstructor;

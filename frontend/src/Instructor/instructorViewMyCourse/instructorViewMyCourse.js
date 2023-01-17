@@ -1,5 +1,5 @@
 import React from 'react';
-import "./UserShowAllCourse.css"
+import "./instructorViewMyCourse"
 import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -340,7 +340,7 @@ const handleClick1 = () => {
                       <i className="fa fa-caret-down"></i>
                   </button>
                   <div className="dropdown-content">
-                      <Link to='/ProfileInstructorPage'>My Profile</Link>
+                      <Link to='/MyProfile'>My Profile</Link>
                       <Link to='/'>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>

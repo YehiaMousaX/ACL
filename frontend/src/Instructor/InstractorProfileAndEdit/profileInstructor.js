@@ -1,6 +1,7 @@
 import "./profileInstructor.css";
 import axios from "axios";
 import React, {useState} from "react";
+import { Link } from 'react-router-dom';
 
 function ProfileInstructorPage() {
   const [formVisible, setFormVisible] = useState();
@@ -8,6 +9,7 @@ function ProfileInstructorPage() {
   const [email, setemail] = useState("");
   const [bio, setbio] = useState("");
   const [rate, setrate] = useState("");
+  const [balance, setbalance] = useState("");
   const [newbio, setnewbio] = useState("");
   const [newemail, setnewemail] = useState("");
   const [emailvalid, setEmailValid] = useState(false);
@@ -118,6 +120,7 @@ function ProfileInstructorPage() {
         setemail(response.data[1]);
         setbio(response.data[2]);
         setrate(response.data[3]);
+        setbalance(response.data[4]);
       });
   };
 
@@ -150,7 +153,44 @@ function ProfileInstructorPage() {
   };
 
   return (
+
+    <> <div className='navbar'>
+          <div className='logo'>
+              Online Courses
+          </div>
+          <nav className='item'>
+              <ul className='ul'>
+                  <li>
+                      <Link to='/'>Home</Link>
+                  </li>
+                  <li>
+                      <Link to='/About'>About</Link>
+                  </li>
+                  <li>
+                      <Link to='/Contacts'>Contacts</Link>
+                  </li>
+              </ul>
+              </nav>
+              <div className="dropdown">
+                  <button className="dropbtn">Instructor
+                      <i className="fa fa-caret-down"></i>
+                  </button>
+                  <div className="dropdown-content">
+                      <Link to='/ProfileInstructorPage'>My Profile</Link>
+                      <Link to='/'>Logout</Link>
+                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/instractor/createnewcourse' > Create Course</Link>
+                      <Link to='/instractor/Addquestion' > Add question for a Course</Link>
+                      <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
+                      <Link to='/instractor/InstructorCourses' > ViewMyCourses </Link>
+
+                      
+                  </div>
+              </div>
+          
+      </div>
     <div className="profile-page">
+      
       <div className="messages">{validmail()}</div>
 
       <p className="text">Name : {name}</p>
@@ -158,6 +198,8 @@ function ProfileInstructorPage() {
 
       <p className="text">Biography : {bio}</p>
       <p className="text">Average rate : {rate}</p>
+      <p className="text">My Balance : {balance}</p>
+
 
       <button
         id="set"
@@ -207,6 +249,7 @@ function ProfileInstructorPage() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

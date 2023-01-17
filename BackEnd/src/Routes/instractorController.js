@@ -5,6 +5,7 @@ const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Instractor = require("../Models/Instractor");
+const NewUser = require("../Models/NewUser")
 var url = require('url');
 const nodemailer = require("nodemailer");
 
@@ -909,8 +910,47 @@ router.post('/ForgetPassword', async(req, res) => {
   
   router.post("/ResetPassword", async (req, res) => {
   
-        await Instractor.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
-  
+        await Instractor.updateOne({Email: req.body.id} , { password: req.body.password } )
+
   });
 
+  router.post("/ChangePassword", async (req, res) => {
+  
+    await Instractor.updateOne({Email: req.body.id} ,{  password: req.body.password } )
+
+});
+
+
+
+router.post("/AllCourses1", async(req, res) => {
+    
+  const course = await Course.find( {instractorid : req.body.instractorid} ,{ });
+
+  
+res.send(course);
+});
+
+router.post('/search/substring1', async (req, res) => {
+  const substring = req.body.substring+"";
+
+  const courses1 = await Course.find({
+       title: { $regex: substring, $options: 'i' } ,Email : req.body.Email
+    
+  });
+  const courses2 = await Course.find({
+    Subject: { $regex: substring, $options: 'i' } ,Email : req.body.Email
+ 
+ });
+const courses3 = await Course.find({
+  instractorid: { $regex: substring, $options: 'i' } ,Email : req.body.Email
+
+ });
+
+ const Allcourses = courses1.concat(courses2).concat(courses3)
+ const courses = Allcourses.filter((item,index)=>{
+     return Allcourses.findIndex(i => JSON.stringify(i) === JSON.stringify(item)) === index
+ })
+ 
+  res.send(courses);
+});
 module.exports = router;

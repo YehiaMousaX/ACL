@@ -91,12 +91,12 @@ function InstructorLandingPage() {
                   </button>
                   <div className="dropdown-content">
                       <Link to='/ProfileInstructorPage'>My Profile</Link>
-                      <Link to='/'>Logout</Link>
-                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/'>Logout</Link>                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
                       <Link to='/instractor/Addquestion' > Add question for a Course</Link>
                       <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
                       <Link to='/instractor/InstructorCourses' > ViewMyCourses </Link>
+                      <Link to='/ChangePassword' > ChangePassword </Link>
 
                       
                   </div>

@@ -6,7 +6,8 @@ const Instractor = require("../Models/Instractor");
 const Admin = require("../Models/Admin");
 const InstractorCourse = require("../Models/InstractorCourse");
 const User = require("../Models/User");
-const newuser = require("../Models/NewUser");
+const newuser = require("../Models/NewUser")
+
 const { response } = require("express");
 const router = express.Router()
 const NumberofCountry = 0;
@@ -630,6 +631,20 @@ router.post("/Addregisteredcourses", async(req, res) => {
   
  
 });
+
+  router.post("/ResetPassword", async (req, res) => {
+  
+        await User.updateOne({Email: req.body.id} , { password: req.body.password } )
+
+  });
+
+  
+  router.post("/ChangePassword", async (req, res) => {
+    await User.updateOne({Email: req.body.id} ,{  password: req.body.password } )
+
+});
+
+
 
 router.post("/Addregisteredinstractor", async(req, res) => {
   const user = await User.find({Email: req.body.Email});

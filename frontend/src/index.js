@@ -45,13 +45,12 @@ import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
-
+import InstructorViewMyCourse from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
 import RefundMoney from './Admin/refundmoney/refundmoney';
 import Adminrviewproblem from './Admin/adminviewreportedproblems/adminviewreportedproblems';
 
 import ForgetPassword from './Login/ForgetPassword';
 import ResetPassword from './Login/ResetPassword';
- 
 
 ReactDOM.render(
   <Router>
@@ -94,7 +93,6 @@ ReactDOM.render(
 
 
         <Route path = '/instructor/ViewInstructorContract' element={<ViewInstructorContract/>}/>
-        <Route path = '/instructor/InstructorCourses' element={<InstructorCourses/>}/>
         <Route path = '/ForgetPassword' element={<ForgetPassword/>}/>
         <Route path = '/ResetPassword' element={<ResetPassword/>}/>
         
@@ -103,6 +101,7 @@ ReactDOM.render(
         
         <Route path = '/admin/refundmoney' element={<RefundMoney/>}/>
         <Route path = '/admin/viewreportedproblems' element={<Adminrviewproblem/>}/>
+        <Route path = '/instractor/InstructorCourses' element={<InstructorViewMyCourse/>}/>
 
 
     </Routes>

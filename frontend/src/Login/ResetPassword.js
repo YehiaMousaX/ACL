@@ -20,6 +20,10 @@ function ResetPassword() {
 
   const  handleSubmit = async e => {
 
+    const c = localStorage.getItem("UserType");
+    
+    if(c=="instractor"){
+    
      
       axios.post('http://localhost:8000/instractor/ResetPassword', {
         id: Email,
@@ -50,6 +54,80 @@ function ResetPassword() {
       .catch((error) => {
          
         });
+        window.location.href = '/InstructorLandingPage'
+      }
+
+
+      if(c=="User"){
+    
+     
+        axios.post('http://localhost:8000/user/ResetPassword', {
+          id: Email,
+          password: password,
+          
+         
+      } ,{
+              headers: {
+              'Content-Type': "application/json",
+              'Accept': "application/json",
+              } 
+        } )
+        .then((response) => {
+          // console.log (response.data);
+  
+            if(response.data==="")
+            {
+  
+            }
+            else
+            {
+              localStorage.setItem('UserEmail',response.data.Email);
+              localStorage.setItem('UserType',response.data.type);
+  
+            }
+  
+        })
+        .catch((error) => {
+           
+          });
+          window.location.href = '/UserLandingPage'
+        }
+        
+        if(c=="Corporateuser"){
+    
+     
+          axios.post('http://localhost:8000/Coroporateuser/ResetPassword', {
+            id: Email,
+            password: password,
+            
+           
+        } ,{
+                headers: {
+                'Content-Type': "application/json",
+                'Accept': "application/json",
+                } 
+          } )
+          .then((response) => {
+            // console.log (response.data);
+    
+              if(response.data==="")
+              {
+    
+              }
+              else
+              {
+                localStorage.setItem('UserEmail',response.data.Email);
+                localStorage.setItem('UserType',response.data.type);
+    
+              }
+    
+          })
+          .catch((error) => {
+             
+            });
+            window.location.href = '/CorporateuserLandingPage'
+          }
+
     }
     
     

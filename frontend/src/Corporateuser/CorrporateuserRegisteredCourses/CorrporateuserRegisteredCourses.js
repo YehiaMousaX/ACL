@@ -1,23 +1,36 @@
 import React from 'react';
-import "./coroporateRegisteredCourses.css"
+import "./userRegisteredCourses.css"
 import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from "react-modal";
 
-function CoroporateRegisteredCourses() {
+function UserRegisteredCourses() {
   const [courses, setCourses] = useState([]);
 
 
 
  
 
-
+  function handleSubmit(x) {
+    localStorage.setItem("usercourseID", x+"");  
+    
+   window.location.href = '/user/UseropenExamCourses'
+  
+  }
+  function checkFunction(x) {
+    if (x ===0){
+      return false ;
+    }
+  else {
+    return true ;
+  }
+  }
 
   useEffect(() => {
 
     console.log(localStorage.getItem('UserEmail'))
-    axios.post('http://localhost:8000/Coroporateuser/AllCourses/registerfor' , { Email:localStorage.getItem('UserEmail') })
+    axios.post('http://localhost:8000/corporateuser/AllCourses/registerfor' , { Email:localStorage.getItem('UserEmail') })
 
     .then((res) => {
          setCourses(res.data)
@@ -51,7 +64,7 @@ function CoroporateRegisteredCourses() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/corporateuserLanding'>Home</Link>
+                      <Link to='/CorporateuserLanding'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -66,7 +79,7 @@ function CoroporateRegisteredCourses() {
          
 
           <div className="dropdown">
-              <button className="dropbtn">Corporate User
+              <button className="dropbtn">User
                   <i className="fa fa-caret-down"></i>
               </button>
               <div className="dropdown-content">
@@ -105,6 +118,16 @@ function CoroporateRegisteredCourses() {
                ))}
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
        
+        <button 
+       id = "register" 
+    className='btn' 
+    type="submit" 
+    variant="contained" 
+    color="primary" 
+    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
+    onClick={() => handleSubmit(course.Courseid)}>
+    Take exam 
+     </button>
 
         
          
@@ -115,4 +138,4 @@ function CoroporateRegisteredCourses() {
 );
 }
 
-export default CoroporateRegisteredCourses;
+export default UserRegisteredCourses;

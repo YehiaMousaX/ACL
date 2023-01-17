@@ -15,7 +15,7 @@ function AdminLandingPage() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/'>Home</Link>
+                      <Link to='/AdminLandingPage'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -33,6 +33,10 @@ function AdminLandingPage() {
                   <div className="dropdown-content">
                       <Link to='/MyProfile'>My Profile</Link>
                       <Link to='/Logout'>Logout</Link>
+                      <Link to='/admin/AdminAdd'>Add another admin</Link>
+                      <Link to='/admin/AdminAddinst'>Add Instructor</Link>
+                      <Link to='/admin/AdminAddcouser'>Add coroporateuser</Link>
+
                   </div>
               </div>
           

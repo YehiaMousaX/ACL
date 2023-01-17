@@ -1,11 +1,11 @@
-.Course-list {
+.instructor-list {
     display: flex;
     flex-direction: column;
     align-items: center;
 
   }
   
-  .Course {
+  .instructor {
     width: 50%;
     border: 1px solid rgba(1, 198, 242, 0.984);
     background-color: rgba(108, 199, 184, 0.973);
@@ -13,20 +13,12 @@
     margin-bottom: 20px;
 
   }
-  .Coursee {
-    width: 70%;
-    border: 1px solid rgba(0, 0, 0, 0.984);
-    background-color: rgba(225, 248, 244, 0.973);
-    padding: 20px;
-    margin-bottom: 20px;
-
-  }
   
-  .Course h3 {
+  .instructor h3 {
     margin-bottom: 10px;
   }
   
-  .Course button {
+  .instructor button {
     background-color: #333;
     color: #fff;
     border: none;
@@ -39,10 +31,10 @@
    
   }
   
-  .Course button:hover {
+  .instructor button:hover {
     background-color: rgb(101, 103, 103);
   }
-  .Course button:active {
+  .instructor button:active {
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ExerciseQuestions.css';
 
 function ExerciseQuestions({ match }) {
   const [questions, setQuestions] = useState([]);
@@ -13,7 +14,7 @@ function ExerciseQuestions({ match }) {
   }, [match.params.exerciseId]);
 
   return (
-    <div>
+    <div className="ExerciseQuestions">
       <h1>Exercise Questions</h1>
       {questions.map((question) => (
         <div key={question._id}>

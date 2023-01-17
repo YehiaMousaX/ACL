@@ -90,12 +90,13 @@ function InstructorLandingPage() {
                       <i className="fa fa-caret-down"></i>
                   </button>
                   <div className="dropdown-content">
-                      <Link to='/MyProfile'>My Profile</Link>
+                      <Link to='/ProfileInstructorPage'>My Profile</Link>
                       <Link to='/'>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
                       <Link to='/instractor/Addquestion' > Add question for a Course</Link>
                       <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
+                      <Link to='/instractor/InstructorCourses' > ViewMyCourses </Link>
 
                       
                   </div>

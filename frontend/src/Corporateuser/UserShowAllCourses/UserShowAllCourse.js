@@ -13,7 +13,9 @@ function UserShowAllCourse2() {
 
   const [clicked, setClicked] = useState(false);
   const [clicked1, setClicked1] = useState(false);
- 
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+
 
   
 
@@ -23,8 +25,48 @@ function UserShowAllCourse2() {
 const handleClick1 = () => {
   setClicked1(true);
 }
+const errorMessage = () => {
+  return (
+    <div
+      className="error"
+      style={{
+        display: error ? '' : 'none',
+      }}>
+      <h1>* you have send request before wait untill admin accept*</h1>
+    
+    
+  </div>
+  );
+};
+const successMessage = () => {
+  return (
+    <div
+      className="success"
+      style={{
+        display: submitted ? '' : 'none',
+      }}>
+      <h1>Request sent successfully Wait untill admin accept</h1>
+    </div>
+  );
+};
 
+function handleSubmit(x) {
+  
+  axios.post('http://localhost:8000/Coroporateuser/Addrequest' ,{ courseId : x , userEmail : localStorage.getItem("UserEmail") })
+  .then((res) => {
+   console.log(res.data)
+   if (res.data=== true) {
+    setSubmitted(true);
+    setError(false) ;
+     }
+    else {
+      setSubmitted(false);
+    setError(true) ;
+    }
+  })
+  .catch((err) => console.log(err));
 
+}
 
   useEffect(() => {
     if (searchQuery==='' ) {
@@ -243,7 +285,11 @@ const handleClick1 = () => {
           </div>
 
           </div><div className="Course-list">
+          <div className="messages">
+        {successMessage()}
+        {errorMessage()}
 
+      </div>
 <h1>ALL Courses : </h1>
 {courses.map((course) => (
     <div className="Course">
@@ -271,7 +317,7 @@ const handleClick1 = () => {
         <div class="button-container">
         
          
-        <button id = "register" className='btn' type="submit" variant="contained" color="primary" > Register </button>
+        <button id = "register" className='btn' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course.Courseid)}> Register </button>
 
    </div>
         

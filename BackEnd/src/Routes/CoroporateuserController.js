@@ -6,6 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
 const Report = require("../Models/Report");
+const Request= require("../Models/Request");
 const router = express.Router()
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -971,6 +972,27 @@ router.put("/reports/:reportId", async (req, res) => {
 
 
 
+
+router.post("/Addrequest", async(req, res) => {
+ 
+  const req2 = await Request.find( {   userEmail : req.body.userEmail   ,
+    courseId : req.body.courseId} ,{ });
+ 
+  if (req2.length > 0){
+   res.send("false")
+    }
+    else {
+  const req1 = new Request({
+    userEmail : req.body.userEmail   ,
+    courseId : req.body.courseId
+});
+
+ await  req1.save() ;
+ res.send("true")
+
+}
+ 
+  });
 
 
 

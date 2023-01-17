@@ -16,8 +16,9 @@ function UserShowAllCourse5() {
 
   const [clicked, setClicked] = useState(false);
   const [clicked1, setClicked1] = useState(false);
+  
 
-
+  const [discount, setdiscount] = useState('');
 
 
 
@@ -30,14 +31,12 @@ const handleClick1 = () => {
 
 
 function handleSubmit(x) {
-  localStorage.setItem("usercourse", JSON.stringify(x));  
-  axios.post('http://localhost:8000/user/Addregisteredinstractor' ,{ RegisteredCourseid : x.instractorid , Email :   localStorage.getItem("UserEmail")})
+  axios.post('http://localhost:8000/admin/Adddiscount' ,{ Courseid : x.Courseid , discount : discount})
   .then((res) => {
     setCourses(res.data);
 
   })
   .catch((err) => console.log(err));
-   window.location.href = '/user/userpayforcourse'
 
 }
 
@@ -318,7 +317,7 @@ function handleSubmit(x) {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/UserLandingPage'>Home</Link>
+                      <Link to='/AdminLandingPage'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -354,7 +353,7 @@ function handleSubmit(x) {
         </div>
 
           <div className="dropdown">
-              <button className="dropbtn">User
+              <button className="dropbtn">Admin
                   <i className="fa fa-caret-down"></i>
               </button>
               <div className="dropdown-content">
@@ -378,6 +377,7 @@ function handleSubmit(x) {
         <h3>price after discount  : {course.price - (course.price * (course.discount / 100 ))}</h3>
         <h3>Subject : {course.Subject}</h3>
         <h3>Instractur Email : {course.instractorid}</h3>
+        <h3>discount : {course.discount}</h3>
         <h3>rate : {courserate(course.rate)}</h3>
 
         {course.subtitles.map((sub) => (
@@ -393,9 +393,19 @@ function handleSubmit(x) {
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
        
         <div class="button-container">
-                      
 
-                      <button id = "register" className='btn1' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course)}> Register </button>
+        <h3>
+                  discount:
+                  <input
+                    type="number"
+                    value={discount}
+                    onChange={(event) => setdiscount(event.target.value)}
+                    min="0"
+                    max="100" />
+                    <h3></h3>
+                                    <button id = "register" className='btn1' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course)}> Add discount </button>
+
+                </h3>   
 
                  </div>
         

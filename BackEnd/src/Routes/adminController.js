@@ -6,6 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser");
 const newuser = require("../Models/NewUser");
+const Request = require("../Models/Request");
 const router = express.Router()
 const bcrypt = require('bcrypt');
 
@@ -75,12 +76,24 @@ router.post('/AddAdmin', async(req, res) => {
   });
 
   
+  router.post('/Adddiscount', async(req, res) => {
+
+   await Course.updateOne({ Courseid : req.body.Courseid} ,{ discount: req.body.discount}  )
+  });
 
 
 
 
 
-
-
+  router.post("/Viewrequest", async(req, res) => {
+ 
+    const req2 = await Request.find( {} ,{ });
+  
+  
+   res.send(req2)
+  
+   
+    });
+  
 
 module.exports = router;

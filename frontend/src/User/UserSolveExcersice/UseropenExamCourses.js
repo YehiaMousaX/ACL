@@ -240,7 +240,7 @@ function UseropenExamCourses() {
               <div>   <text>  your Answer is : {chosenquestion[currentQuestion]}  </text>
                 <br>
                 </br>
-                <button className="button" onClick={() => perviousquestion()}>previous Question </button>
+                <button className="buttonnn" onClick={() => perviousquestion()}>previous Question </button>
                 <button className="button1" onClick={() => nextquestion()}>Next Question </button>
                 <br>
                 </br>

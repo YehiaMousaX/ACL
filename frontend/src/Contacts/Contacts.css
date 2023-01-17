@@ -1,0 +1,115 @@
+.form {
+    text-align: center!important;
+    background-color: rgb(255, 255, 255)!important;
+}
+
+.form1 {
+    text-align: center;
+    background-color: #0AB2EA;
+    padding: 50px;
+    margin: 10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+.label {
+    display: block !important;
+    font-size: larger !important;
+    color: white!important;
+    padding: 5px!important;
+}
+
+.input {
+    font-size: larger!important;
+    padding: 5px!important;
+    margin: 15px!important;
+}
+
+.btn {
+    color: white;
+    background-color: rgb(16, 123, 61) !important;
+    border-radius: 10px;
+    font-size: larger;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.messages {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    background-color: rgb(254, 251, 251);
+    color: rgb(162, 5, 5);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
+    font-size: x-small;
+}
+
+.success {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 239, 0);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
+}
+
+.modal {
+    /* Style the modal container */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* Style the modal content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+}
+
+
+/* Style the close button */
+
+#close-modal-button {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/* This is the CSS code for the password strength meter */
+
+
+/* Style the password strength meter container */
+
+.btn:hover {
+    background-color: rgb(8, 58, 0) !important;
+}
+
+
+/* Button active effect */
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+

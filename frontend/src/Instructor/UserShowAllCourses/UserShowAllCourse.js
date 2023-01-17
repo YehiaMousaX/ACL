@@ -340,7 +340,7 @@ const handleClick1 = () => {
                       <i className="fa fa-caret-down"></i>
                   </button>
                   <div className="dropdown-content">
-                      <Link to='/MyProfile'>My Profile</Link>
+                      <Link to='/ProfileInstructorPage'>My Profile</Link>
                       <Link to='/'>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>

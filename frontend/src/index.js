@@ -40,6 +40,7 @@ import CoroporateRateInstructor from './Corporateuser/coroporateuserRateInstract
 import AdminAdd from './Admin/AdminAddAdmin/adminAdd';
 import AdminAddinstr from './Admin/AdminAddinstractor/adminAddinst';
 import AdminAddcouser from './Admin/AdminAddcoporateuser/adminAddcouser';
+import UserShowAllCourse5 from './Admin/UserShowAllCourses/UserShowAllCourse';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -78,8 +79,9 @@ ReactDOM.render(
         <Route path = '/admin/AdminAdd' element={<AdminAdd/>}/>
         <Route path = '/admin/AdminAddinst' element={<AdminAddinstr/>}/>
         <Route path = '/admin/AdminAddcouser' element={<AdminAddcouser/>}/>
-
         
+        <Route path = '/admin/AdminAdddiscount' element={<UserShowAllCourse5/>}/>
+
 
     </Routes>
   </Router>,

@@ -36,6 +36,7 @@ function AdminLandingPage() {
                       <Link to='/admin/AdminAdd'>Add another admin</Link>
                       <Link to='/admin/AdminAddinst'>Add Instructor</Link>
                       <Link to='/admin/AdminAddcouser'>Add coroporateuser</Link>
+                      <Link to='/admin/AdminAdddiscount'>Add discount for course</Link>
 
                   </div>
               </div>

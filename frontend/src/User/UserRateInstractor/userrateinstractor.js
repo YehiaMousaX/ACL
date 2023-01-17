@@ -2,13 +2,14 @@ import React from 'react';
 import "./userrateinstractor.css"
 import axios from 'axios';
 import { useState ,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function UserRateInstructor() {
   const [instructors, setinstructors] = useState([]);
   const [rating, setRating] = useState('');
 
   useEffect(() => {
-    axios.post('http://localhost:8000/instractor/getallinstractors')
+    axios.post('http://localhost:8000/instractor/getallinstractors', {Email :localStorage.getItem("UserEmail")})
       .then((res) => {
         setinstructors(res.data);
       })
@@ -21,13 +22,13 @@ function UserRateInstructor() {
     }
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
-      sum += arr[i];
+      sum += parseInt(arr[i]);
     }
     return sum / arr.length;
   }
 
   function handleSubmit(instructor) {
-    axios.put('http://localhost:8000/user/rateinstractor', { instractorid: instructor._id, rate: rating })
+    axios.put('http://localhost:8000/user/rateinstractor', { Email: instructor.Email, rate: rating , Emailuser : localStorage.getItem("UserEmail") })
       .then((response) => {
         console.log(response.data);
       })
@@ -37,17 +38,50 @@ function UserRateInstructor() {
   }
 
   return (
+    <><div className='navbar'>
+    <div className='logo'>
+      Online Courses
+    </div>
+    <nav className='item'>
+      <ul className='ul'>
+        <li>
+          <Link to='/UserLandingPage'>Home</Link>
+        </li>
+        <li>
+          <Link to='/About'>About</Link>
+        </li>
+        <li>
+          <Link to='/Contacts'>Contacts</Link>
+        </li>
+      </ul>
+
+
+    </nav>
+
+
+    <div className="dropdown">
+      <button className="dropbtn">User
+        <i className="fa fa-caret-down"></i>
+      </button>
+      <div className="dropdown-content">
+        <Link to='/MyProfile'>My Profile</Link>
+        <Link to='/'>Logout</Link>
+        <Link to='/user/UserShowAllCourse'> All Courses</Link>
+
+
+      </div>
+    </div>
+
+  </div>
+
     <div className="instructor-list">
       <h1>ALL INSTRACTORS : </h1>
       {instructors.map((instructor) => (
         <div className="instructor">
           <h3>Name : {instructor.Name}</h3>
-          <h3>Age : {instructor.Age}</h3>
-          <h3>Country : {instructor.Country}</h3>
           <h3>Email : {instructor.Email}</h3>
           <h3>rate : {instractorrate(instructor.rate)}</h3>
 
-          <h3>My Biography : {instructor.Biography}</h3>
           <h3>
             <form>
               <label>
@@ -66,7 +100,7 @@ function UserRateInstructor() {
           </h3>
         </div>
       ))}
-    </div>
+      </div></>
   );
 }
 

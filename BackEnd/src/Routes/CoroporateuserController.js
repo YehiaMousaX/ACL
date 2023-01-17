@@ -6,6 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
 const Report = require("../Models/Report");
+const Request= require("../Models/Request");
 const router = express.Router()
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -266,63 +267,9 @@ const  countryList = [
 ];
 
 
-// row 35
-router.put("/rateinstractor", async(req, res) => {
-   
-    var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
 
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
 
-  });
-
-  //row 36 
-  router.put("/ratecourse", async(req, res) => {
-   
-    var t1 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
-
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
-
-  });
+  
 
   router.put("/ChangePassword", async(req, res) => {
 
@@ -431,34 +378,6 @@ router.put("/ChangePassword", async(req, res) => {
   
   });
 
-// row 35
-router.put("/rateinstractor", async(req, res) => {
-   
-    var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
-
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
-
-  });
 
 
      // user register for course 
@@ -480,34 +399,7 @@ router.put("/rateinstractor", async(req, res) => {
 
 
 
-  //row 36 
-  router.put("/ratecourse", async(req, res) => {
-   
-    var t1 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Course.updateOne({courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
-    var quantity = 0 ;
-    var sum = 0;
-    var i2 = 10 ;
-    var t3 = String( await Course.findOne({courseid: req.body.courseid},{_id : 0 , rate:1}))
-    while(i2 < t3.length -3) {
-        sum = sum + parseInt(t3[i2]);
-        i2 = i2 +3 ;
-        quantity =quantity+1
-       }
 
-       console.log("Average is " + " : " + sum/quantity)
-       res.sendStatus(200);
-
-  });
 
   router.get("/AddCountryCurrency", async(req, res) => {
    
@@ -526,57 +418,9 @@ router.put("/rateinstractor", async(req, res) => {
     res.send(registeredCourses);
     });
     
-  router.get('/grade/:exerciseId', async (req, res) => {
-    try {
-        const corporateuser = await Corporateuser.findById(req.params.id);
-        if (!corporateuser) {
-            return res.status(404).send({ error: 'Corporateuser not found' });
-        }
-
-        const exercise = corporateuser.exercises.find(exercise => exercise._id.toString() === req.params.exerciseId);
-        if (!exercise) {
-            return res.status(404).send({ error: 'Exercise not found' });
-        }
-
-        return res.send({ grade: exercise.grade });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'Error retrieving grade' });
-    }
-});
-
-router.get('/exercise/:exerciseId', async (req, res) => {
-  try {
-      const corporateuser = await Corporateuser.findById(req.params.id);
-      if (!corporateuser) {
-          return res.status(404).send({ error: 'Corporateuser not found' });
-      }
-
-      const exercise = corporateuser.exercises.find(exercise => exercise._id.toString() === req.params.exerciseId);
-      if (!exercise) {
-          return res.status(404).send({ error: 'Exercise not found' });
-      }
-
-      const questions = await Question.find({ exercise: exercise._id });
-
-      const result = questions.map(question => {
-          return {
-              question: question.question,
-              correctAnswer: question.correctAnswer,
-              userAnswer: question.userAnswer
-          }
-      });
-
-      return res.send({ questions: result });
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send({ error: 'Error retrieving exercise' });
-  }
-});
 
 router.get('/watch/:courseId/:videoId', async (req, res) => {
   try {
-      // Find the corporate user by their id
       const corporateuser = await Corporateuser.findById(req.params.id);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
@@ -588,7 +432,6 @@ router.get('/watch/:courseId/:videoId', async (req, res) => {
           return res.status(401).send({ error: 'You are not registered for this course' });
       }
 
-      // Find the course by its id
       const course = await Course.findById(req.params.courseId);
       if (!course) {
           return res.status(404).send({ error: 'Course not found' });
@@ -600,8 +443,26 @@ router.get('/watch/:courseId/:videoId', async (req, res) => {
           return res.status(404).send({ error: 'Video not found' });
       }
 
-      // Send the video url as a response
-      return res.send({ videoUrl: video.url });
+      try{
+        corporateuser.videosWatched.push(req.params.videoId);
+        await corporateuser.save();
+
+        const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
+        const progress = (videosWatched.length / course.videos.length) * 100;
+
+        if (progress == 100){
+          corporateuser.CompletedCourseid.push(req.params.courseId);
+          await corporateuser.save();
+        }
+
+        return res.send({ videoUrl: video.url });  
+
+    }catch(err){
+        console.error(err);
+        return res.status(500).send({ error: 'Error adding video to watch history' });
+    }
+    
+
 
   } catch (err) {
       console.error(err);
@@ -613,7 +474,6 @@ router.get('/watch/:courseId/:videoId', async (req, res) => {
 
 router.post('/receiveCertificate/:courseId', async (req, res) => {
     try {
-        // Find the corporate user by their id
         const corporateuser = await Corporateuser.findById(req.params.id);
         if (!corporateuser) {
             return res.status(404).send({ error: 'Corporate user not found' });
@@ -625,7 +485,6 @@ router.post('/receiveCertificate/:courseId', async (req, res) => {
             return res.status(401).send({ error: 'You have not completed this course' });
         }
 
-        // Find the course by its id
         const course = await Course.findById(req.params.courseId);
         if (!course) {
             return res.status(404).send({ error: 'Course not found' });
@@ -633,22 +492,14 @@ router.post('/receiveCertificate/:courseId', async (req, res) => {
 
         // Create a new PDF document
         const doc = new PDFDocument();
-
-        // Set the response headers
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
-
-        // Pipe the PDF to the response
         doc.pipe(res);
 
         // Add the certificate image
         doc.image('path/to/certificate.jpg', 0, 0, { width: 600 });
-
-        // Add the user name and course title
         doc.font('Helvetica-Bold').fontSize(20).text(corporateuser.Name, 100, 200);
         doc.font('Helvetica-Bold').fontSize(20).text(course.title, 100, 250);
-
-        // Finalize the PDF and send it
         doc.end();
 
     } catch (err) {
@@ -661,19 +512,16 @@ router.post('/receiveCertificate/:courseId', async (req, res) => {
 
 router.get('/downloadCertificate/:courseId', async (req, res) => {
     try {
-        // Find the corporate user by their id
         const corporateuser = await Corporateuser.findById(req.params.id);
         if (!corporateuser) {
             return res.status(404).send({ error: 'Corporate user not found' });
         }
 
-        // Check if the corporate user has completed the course
         const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.courseId);
         if (!isCompleted) {
             return res.status(401).send({ error: 'You have not completed this course' });
         }
 
-        // Find the course by its id
         const course = await Course.findById(req.params.courseId);
         if (!course) {
             return res.status(404).send({ error: 'Course not found' });
@@ -681,12 +529,8 @@ router.get('/downloadCertificate/:courseId', async (req, res) => {
 
         // Create a new PDF document
         const doc = new PDFDocument();
-
-        // Set the response headers to trigger a download
         res.setHeader('Content-disposition', 'attachment; filename=certificate.pdf');
         res.setHeader('Content-type', 'application/pdf');
-
-        // Pipe the PDF to the response
         doc.pipe(res);
 
         // Add content to the PDF
@@ -695,8 +539,6 @@ router.get('/downloadCertificate/:courseId', async (req, res) => {
         doc.image('path/to/course/logo.png', { align: 'center' });
         doc.moveDown();
         doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
-
-        // End the PDF and send it to the client
         doc.end();
 
     } catch (err) {
@@ -707,19 +549,16 @@ router.get('/downloadCertificate/:courseId', async (req, res) => {
 
 router.get('/progress/:courseId', async (req, res) => {
   try {
-      // Find the corporate user by their id
       const corporateuser = await Corporateuser.findById(req.params.id);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
       }
 
-      // Check if the corporate user is registered for the course
       const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.courseId);
       if (!isRegistered) {
           return res.status(401).send({ error: 'You are not registered for this course' });
       }
 
-      // Find the course by its id
       const course = await Course.findById(req.params.courseId);
       if (!course) {
           return res.status(404).send({ error: 'Course not found' });
@@ -727,11 +566,8 @@ router.get('/progress/:courseId', async (req, res) => {
 
       // Get the number of videos watched by the user
       const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
-
-      // Calculate the progress as a percentage
       const progress = (videosWatched.length / course.videos.length) * 100;
 
-      // Send the progress as a response
       return res.send({ progress });
 
   } catch (err) {
@@ -742,19 +578,16 @@ router.get('/progress/:courseId', async (req, res) => {
 
 router.post('/request-refund/:courseId', async (req, res) => {
   try {
-      // Find the corporate user by their id
       const corporateuser = await Corporateuser.findById(req.params.id);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
       }
 
-      // Check if the corporate user is registered for the course
       const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.courseId);
       if (!isRegistered) {
           return res.status(401).send({ error: 'You are not registered for this course' });
       }
 
-      // Find the course by its id
       const course = await Course.findById(req.params.courseId);
       if (!course) {
           return res.status(404).send({ error: 'Course not found' });
@@ -763,14 +596,9 @@ router.post('/request-refund/:courseId', async (req, res) => {
       // Get the number of videos watched by the user
       const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
 
-      // Calculate the progress as a percentage
       const progress = (videosWatched.length / course.videos.length) * 100;
-
-      // Check if the progress is less than 50%
       if (progress < 50) {
-          // Process the refund
-          // refund code 
-          
+          // Process the refund          
           return res.send({ message: 'Refund request has been processed successfully' });
       } else {
           return res.status(401).send({ error: 'You cannot request a refund as you have attended more than 50% of the course' });
@@ -782,9 +610,8 @@ router.post('/request-refund/:courseId', async (req, res) => {
     }
   });
 
-  router.get('/profile/:id', async (req, res) => {
+  router.get('/registerdCourses/:id', async (req, res) => {
     try {
-        // Find the corporate user by their id
         const corporateuser = await Corporateuser.findById(req.params.id);
         if (!corporateuser) {
             return res.status(404).send({ error: 'Corporate user not found' });
@@ -796,25 +623,22 @@ router.post('/request-refund/:courseId', async (req, res) => {
         // Find the details of the courses that the user is registered for
         const registeredCourses = await Course.find({ _id: { $in: registeredCourseIds } });
 
-        // Send the list of registered courses as a response
         return res.send({ registeredCourses });
 
     } catch (err) {
         console.error(err);
-        return res.status(500).send({ error: 'Error retrieving profile' });
+        return res.status(500).send({ error: 'Error retrieving registerdCourses' });
     }
 });
 
 
 router.post("/report-problem/:courseId", async (req, res) => {
   try {
-    // Find the corporate user by their id
     const corporateUser = await Corporateuser.findById(req.body.userId);
     if (!corporateUser) {
       return res.status(404).send({ error: "Corporate user not found" });
     }
 
-    // Check if the corporate user is registered for the course
     const isRegistered = corporateUser.RegisteredCourseid.find(
       (courseId) => courseId.toString() === req.params.courseId
     );
@@ -824,24 +648,24 @@ router.post("/report-problem/:courseId", async (req, res) => {
         .send({ error: "You are not registered for this course" });
     }
 
-    // Find the course by its id
     const course = await Course.findById(req.params.courseId);
     if (!course) {
       return res.status(404).send({ error: "Course not found" });
     }
 
-    // Create a new report object
+    // Create a new report 
     const report = new Report({
-      userId: corporateUser._id,
-      courseId: course._id,
-      type: req.body.type,
+      userEmail: corporateUser.userEmail,
+      courseId: course.Courseid,
+      typeoftheUser: "corporate user",
+      typeoftheProblem: req.body.typeoftheProblem,
+      status: "unsolved",
       description: req.body.description,
     });
 
     // Save the report to the database
     await report.save();
 
-    // Send a success message as a response
     return res.send({ message: "Problem reported successfully" });
   } catch (err) {
     console.error(err);
@@ -849,16 +673,14 @@ router.post("/report-problem/:courseId", async (req, res) => {
   }
 });
 
-router.get('/previous-problems/:id', async (req, res) => {
+router.get('/previous-reports/:Email', async (req, res) => {
   try {
-      // Find the corporate user by their id
-      const corporateuser = await Corporateuser.findById(req.params.id);
+      const corporateuser = await Corporateuser.findOne(req.params.Email);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
       }
 
-      // Find all the reports that were made by the user
-      const reports = await Report.find({ userId: corporateuser._id });
+      const reports = await Report.find({ userEmail: corporateuser.Email });
 
       // Send the list of reports as a response
       return res.send({ reports });
@@ -868,24 +690,7 @@ router.get('/previous-problems/:id', async (req, res) => {
   }
 });
 
-router.get("/reports/:userId", async (req, res) => {
-  try {
-    // Find the corporate user by their id
-    const corporateUser = await Corporateuser.findById(req.params.userId);
-    if (!corporateUser) {
-      return res.status(404).send({ error: "Corporate user not found" });
-    }
 
-    // Find all the reports submitted by the user
-    const reports = await Report.find({ userId: req.params.userId });
-
-    // Send the reports and their statuses as a response
-    return res.send({ reports });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send({ error: "Error retrieving reports" });
-  }
-});
 
 router.put("/reports/:reportId", async (req, res) => {
   try {
@@ -927,7 +732,26 @@ router.post("/ChangePassword", async (req, res) => {
 
 
 
+router.post("/Addrequest", async(req, res) => {
+ 
+  const req2 = await Request.find( {   userEmail : req.body.userEmail   ,
+    courseId : req.body.courseId} ,{ });
+ 
+  if (req2.length > 0){
+   res.send("false")
+    }
+    else {
+  const req1 = new Request({
+    userEmail : req.body.userEmail   ,
+    courseId : req.body.courseId
+});
 
+ await  req1.save() ;
+ res.send("true")
+
+}
+ 
+  });
 
 
 

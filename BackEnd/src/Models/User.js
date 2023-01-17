@@ -53,6 +53,14 @@ const userSchema = new Schema({
         type: Array,
         
     },
+     RegisteredCourseid1: {
+        type: Array,
+        
+    },
+    RegisteredCourseid2: {
+        type: Array,
+        
+    },
     Countrycurrency : {
         type: String,
     },

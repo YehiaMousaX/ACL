@@ -15,7 +15,10 @@
     font-size: larger;
     color: white;
     padding: 5px;
+    margin: 0 auto;
+    text-align: center;
 }
+
 
 .input {
     font-size: larger;
@@ -28,12 +31,17 @@
     background-color: rgb(2, 41, 46);
     border-radius: 10px;
     font-size: x-large;
-    display: block;
-    padding: 5px;
+    display: inline-block;
     margin: 10px auto;
     cursor: pointer;
-
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    min-width: fit-content;
+    min-height: fit-content;
 }
+
 
 
 .messages {

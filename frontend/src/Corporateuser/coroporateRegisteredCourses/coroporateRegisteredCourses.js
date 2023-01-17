@@ -51,7 +51,7 @@ function CoroporateRegisteredCourses() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/UserLandingPage'>Home</Link>
+                      <Link to='/corporateuserLanding'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -66,7 +66,7 @@ function CoroporateRegisteredCourses() {
          
 
           <div className="dropdown">
-              <button className="dropbtn">User
+              <button className="dropbtn">Corporate User
                   <i className="fa fa-caret-down"></i>
               </button>
               <div className="dropdown-content">

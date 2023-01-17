@@ -2,29 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ReportSchema = new Schema({
-  userId: {
-    type: mongoose.Types.ObjectId,
-    ref: "Corporateuser",
-    required: true,
+  userEmail: {
+    type: String,
   },
   courseId: {
-    type: mongoose.Types.ObjectId,
-    ref: "Course",
-    required: true,
+    type: String ,
   },
-  type: {
+  typeoftheUser: {
     type: String,
-    enum: ["technical", "financial", "other"],
-    required: true,
+  },
+  typeoftheProblem: {
+    type: String,
   },
   description: {
     type: String,
-    required: true,
   },
   status: {
     type: String,
-    enum: ["pending", "solved", "in-progress"],
-    default: "pending",
   },
   createdAt: {
     type: Date,

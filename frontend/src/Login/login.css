@@ -1,26 +1,26 @@
 .form {
-    text-align: center;
-    background-color: rgb(255, 255, 255);
+    text-align: center!important;
+    background-color: rgb(255, 255, 255)!important;
 }
 
 .form1 {
-    text-align: center;
-    background-color: rgb(10, 178, 234);
-    padding: 50px;
-    margin: 10px;
+    text-align: center!important;
+    background-color: rgb(10, 178, 234)!important;
+    padding: 50px!important;
+    margin: 10px!important;
 }
 
 .label {
-    display: block;
-    font-size: larger;
-    color: white;
-    padding: 5px;
+    display: block !important;
+    font-size: larger !important;
+    color: white!important;
+    padding: 5px!important;
 }
 
 .input {
-    font-size: larger;
-    padding: 5px;
-    margin: 15px;
+    font-size: larger!important;
+    padding: 5px!important;
+    margin: 15px!important;
 }
 
 .btn {

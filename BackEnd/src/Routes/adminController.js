@@ -6,8 +6,12 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser");
 const newuser = require("../Models/NewUser");
+const Request = require("../Models/Request");
+const Report = require("../Models/Report");
+
 const router = express.Router()
 const bcrypt = require('bcrypt');
+
 
 // row 57 
 router.post('/AddAdmin', async(req, res) => {
@@ -75,12 +79,75 @@ router.post('/AddAdmin', async(req, res) => {
   });
 
   
+  router.post('/Adddiscount', async(req, res) => {
+
+   await Course.updateOne({ Courseid : req.body.Courseid} ,{ discount: req.body.discount}  )
+  });
 
 
 
 
 
+  router.post("/Viewrequest", async(req, res) => {
+ 
+    const req2 = await Request.find( {} ,{ });
+  
+  
+   res.send(req2)
+  
+   
+    });
+  
+  router.post("/Acceptrequest", async(req, res) => {
+ 
+    const course1 = await Course.find( {Courseid :req.body.Courseid} ,{ });
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid : course1[0] } } )
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid1 : course1[0] } } )
+    const x = ""+course1[0].instractorid
+  
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid2 : x } } )
+    await Request.deleteOne ({userEmail: req.body.Email , courseId :req.body.Courseid}  )
+   
+    });
+    
+    router.post("/refuserequest", async(req, res) => {
+ 
+
+        await Request.deleteOne ({userEmail: req.body.Email , courseId :req.body.Courseid}  )
+       
+        });
+
+          router.post("/refundmoney", async(req, res) => {
+ 
+
+        await User.updateOne ({userEmail: req.body.Email } ,{balance :req.body.balance} )
+       
+        });
+
+        router.post("/reportedproblems", async(req, res) => {
+ 
+
+          const report = await Report.find({},{} )
+         
+          res.send(report)
+          });
 
 
+          router.post("/maketheproblemresolved", async(req, res) => {
+ 
 
+           await Report.updateOne({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status},{status : "resolved"} )
+            const report = await Report.find({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status})
+
+          res.send(report)
+          });
+
+          router.post("/maketheproblempending", async(req, res) => {
+ 
+           await Report.updateOne({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status},{status : "pending"} )
+
+            const report = await Report.find({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status} )
+           
+            res.send(report)
+            });
 module.exports = router;

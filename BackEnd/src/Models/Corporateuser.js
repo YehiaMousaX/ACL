@@ -43,9 +43,23 @@ const CorporateuserSchema = new Schema({
     RegisteredCourseid :{
     type: Array
     } ,
+    RegisteredCourseid1: {
+        type: Array,
+        
+    },
+    RegisteredCourseid2: {
+        type: Array,
+        
+    },
     Countrycurrency : {
         type: String,
-    }
+    },
+    videosWatched: {
+        type: Array,    
+    },
+    CompletedCourseid: {
+        type: Array,    
+    },
 }, { timestamps: true });
 
 

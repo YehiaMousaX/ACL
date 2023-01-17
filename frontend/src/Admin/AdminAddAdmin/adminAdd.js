@@ -1,49 +1,155 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import './adminAdd.css';
+import  "./adminAdd.css"
+import { Link } from 'react-router-dom';
+import Modal from "react-modal";
 
 function AdminAdd() {
-  const [username, setUsername] = useState('');
+
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isInstructor, setIsInstructor] = useState(false);
-  const [isCooperativeTrainee, setIsCooperativeTrainee] = useState(false);
+  const [Email, setEmail] = useState('');
+
+
+  const [submitted, setSubmitted] = useState(false);
+  
+
+  const [error, setError] = useState(false);
+
+  
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none',
+        }}>
+        <h1>Admin successfully registered!!</h1>
+      </div>
+    );
+  };
+
+
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none',
+        }}>
+        <h1>* Please enter all the fields*</h1>
+      
+      
+    </div>
+    );
+  };
+
+
+
+
+
+  
 
  
-  const handleAdminChange = () => {
-    setIsAdmin(true);
-    setIsInstructor(false);
-    setIsCooperativeTrainee(false);
-  };
-
-  const handleInstructorChange = () => {
-    setIsAdmin(false);
-    setIsInstructor(true);
-    setIsCooperativeTrainee(false);
-  };
-
-  const handleCooperativeTraineeChange = () => {
-    setIsAdmin(false);
-    setIsInstructor(false);
-    setIsCooperativeTrainee(true);
-  };
 
 
-
+ 
   const  handleSubmit = e => {
 
+   
+      
+     if(Email === '' || password === '') {
+
+     setError(true); 
+
+      setSubmitted(false);
+     
 
 
+       }
+    
+
+
+    else {
+    setSubmitted(true);
+    setError(false);
+    
+
+    
+     
+    axios.post('http://localhost:8000/admin/AddAdmin', {
+     
+      Password : password,
+      Email: Email,
+      
+  } ,{
+          headers: {
+          'Content-Type': "application/json",
+          'Accept': "application/json",
+          } 
+    } )
+    .then((response) => {
+
+    })
+    .catch((error) => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+    
   }
+  }
+  
+
   return (
-    <form className="admin-form">
-      <label className="label">Name:</label>
+    <div className="form">
+<div className='navbar'>
+      <div className='logo'>
+        Online Courses
+      </div>
+      <nav className='item'>
+        <ul className='ul'>
+          <li>
+            <Link to='/AdminLandingPage'>Home</Link>
+          </li>
+          <li>
+            <Link to='/About'>About</Link>
+          </li>
+          <li>
+            <Link to='/Contacts'>Contacts</Link>
+          </li>
+        </ul>
+      </nav>
+    </div>      <div>
+      
+      </div>
+      {/* Calling to the methods */}
+      <div className="messages">
+        {errorMessage()}
+        {successMessage()}
+      </div>
+
+      <div className="admin-form">
+      <label className="label">Email:</label>
       <input
-        type="text"
-        id="name"
+        type="email"
+        id="email"
         className="input"
-        value={username}
-        onChange={(event) => setUsername(event.target.value)}
+        value={Email}
+        onChange={(event) => setEmail(event.target.value)}
       />
+
+      
       <label className="label">Password:</label>
       <input
         type="password"
@@ -52,38 +158,23 @@ function AdminAdd() {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         />
-      <br />
-      <label className="label1">
-        Is admin:
-        <input
-          type="checkbox"
-          id="is-admin"
-          checked={isAdmin}
-          onChange={handleAdminChange}
-        />
-      </label>
-      <label className="label1">
-        Is Instructor:
-        <input
-          type="checkbox"
-          id="isInstructor"
-          checked={isInstructor}
-          onChange={handleInstructorChange}
-        />
-      </label>
-      <label className="label1">
-        Is CooperativeTrainee:
-        <input
-          type="checkbox"
-          id="isCooperativeTrainee"
-          checked={isCooperativeTrainee}
-          onChange={handleCooperativeTraineeChange}
-        />
-      </label>
-      <br />
-      <button type="submit" onClick= {handleSubmit}> Add </button>
-    </form>
+      
+
+    
+     
+    
+
+     
+      <button id = "signup" className="btn" type="submit" onClick={handleSubmit}  variant="contained" color="primary">ADD ADMIN</button>
+      
+    
+</div>
+</div>
+
   );
 }
 
 export default AdminAdd;
+
+
+

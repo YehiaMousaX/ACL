@@ -433,48 +433,38 @@ router.get("/AllCourses", async(req, res) => {
   });
 
 // row 35
-  router.put("/rateinstractor", async(req, res) => {
-   
-    var t1 = String( await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { rate: t2 } } )
 
-    const t3 =  await Instractor.findOne({_id: req.body.instractorid},{_id : 0 , rate:1})
-    
-       
-       res.send(t3);
-
-  });
 
 
   //row 36 
   router.put("/ratecourse", async(req, res) => {
    
-    var t1 = String( await Course.findOne({Courseid: req.body.courseid},{_id : 0 , rate:1}))
-    var t2= new Array();
-    var i = 10 ;
-    if (t1.length > 12) {
-   while(i < t1.length -3) {
-    t2.push(parseInt(t1[i]))
-    i = i +3 ;
-   }
-   }
-    t2.push(parseInt(req.body.rate)) ;
-    await Course.updateOne({Courseid: req.body.courseid} ,{ $set: { rate: t2 } } )
+    await Course.updateOne({Courseid: req.body.courseid} ,{ $push: { rate: req.body.rate } } )
+    await User.updateOne({ Email: req.body.Email, "RegisteredCourseid.Courseid": req.body.courseid}, { $push: { "RegisteredCourseid.$.rate": req.body.rate } });
+    await User.updateOne({ Email: req.body.Email }, { $pull: { "RegisteredCourseid1": { "Courseid": req.body.courseid } } });
 
-    const t3 = await Course.findOne({Courseid: req.body.courseid},{_id : 0 , rate:1})
-   
-       res.send(t3);
+  
+
+    res.send("true");
 
   });
+
+  router.put("/rateinstractor", async(req, res) => {
+   
+    await Instractor.updateOne({ Email: req.body.Email}, { $push: { rate: req.body.rate } });
+    await User.updateOne({ Email: req.body.Emailuser }, { $pull: { RegisteredCourseid2 : req.body.Email} });
+
+  });
+  router.post("/AllCourses/registerfor1", async(req, res) => {
+    const registeredCourses = await User.aggregate([
+      {$match: {Email: req.body.Email }},
+      {$unwind: "$RegisteredCourseid1"},
+      {$replaceRoot: {newRoot: "$RegisteredCourseid1"}}
+    ]);
+   
+    
+    res.send(registeredCourses);
+    });
 
   // row 14
   router.get("/AllCourses/TitleDetails", async(req, res) => {
@@ -545,9 +535,9 @@ router.get("/searchcourse/title", async(req, res) => {
         {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
       ]);
      
+      
       res.send(registeredCourses);
       });
-  
   
   function authenticateToken(req, res, next) {
         const authHeader = req.headers['authorization'];
@@ -635,7 +625,8 @@ router.post("/getbalance", async(req, res) => {
 router.post("/Addregisteredcourses", async(req, res) => {
   const user = await User.find({Email: req.body.Email});
   await User.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid: req.body.RegisteredCourseid } } )
-      
+  await User.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid1: req.body.RegisteredCourseid } } )
+
   
  
 });
@@ -652,5 +643,12 @@ router.post("/ChangePassword", async (req, res) => {
 
 });
 
+router.post("/Addregisteredinstractor", async(req, res) => {
+  const user = await User.find({Email: req.body.Email});
+  await User.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid2: req.body.RegisteredCourseid } } )
+
+  
+ 
+});
 
   module.exports = router;

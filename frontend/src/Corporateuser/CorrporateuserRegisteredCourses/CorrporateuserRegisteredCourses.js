@@ -29,8 +29,8 @@ function UserRegisteredCourses() {
   }
   }
 
-  function handleClick() {
-    history.push(`/watch/${match.params.Courseid}/${match.params.videoId}`);
+  function handleClick(x) {
+    history.push(`/watch/x/${match.params.videoId}`);
 }
 
   useEffect(() => {
@@ -123,7 +123,7 @@ function UserRegisteredCourses() {
 
                ))}
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
-        <button id = "video" onClick={handleClick}>Preview Video</button>
+        <button id = "video" onClick={handleClick(course.Courseid)}>Preview Video</button>
 
        
         <button 

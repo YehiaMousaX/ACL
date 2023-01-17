@@ -53,7 +53,13 @@ const CorporateuserSchema = new Schema({
     },
     Countrycurrency : {
         type: String,
-    }
+    },
+    videosWatched: {
+        type: Array,    
+    },
+    CompletedCourseid: {
+        type: Array,    
+    },
 }, { timestamps: true });
 
 

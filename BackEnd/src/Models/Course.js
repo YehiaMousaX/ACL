@@ -95,6 +95,9 @@ const CourseSchema = new Schema({
         type: String,
         required: false,
     }, 
+    videos: {
+      type: Array,
+  },
 
 
 }, { timestamps: true });

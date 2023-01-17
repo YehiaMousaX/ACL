@@ -35,6 +35,8 @@ import CoroporateRegisteredCourses from './Corporateuser/coroporateRegisteredCou
 import UseropenExamCourses from './User/UserSolveExcersice/UseropenExamCourses';
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
+import ForgetPassword from './Login/ForgetPassword';
+import ResetPassword from './Login/ResetPassword';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -67,6 +69,8 @@ ReactDOM.render(
         <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>
         <Route path = '/instructor/ViewInstructorContract' element={<ViewInstructorContract/>}/>
         <Route path = '/instructor/InstructorCourses' element={<InstructorCourses/>}/>
+        <Route path = 'ForgetPassword' element={<ForgetPassword/>}/>
+        <Route path = 'ResetPassword' element={<ResetPassword/>}/>
         
 
     </Routes>

@@ -6,6 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Instractor = require("../Models/Instractor");
 var url = require('url');
+const nodemailer = require("nodemailer");
 
 const  countryList = [
   "Afghanistan",
@@ -872,7 +873,7 @@ router.post('/ForgetPassword', async(req, res) => {
   
   const email = {
     from: 'yehiaronldo@gmail.com',
-    to: req.body.to,
+    Email: req.body.Email,
     subject: 'Reset Password',
     text: 'Click this link to reset your password: http://localhost:3000/ResetPassword' 
   };

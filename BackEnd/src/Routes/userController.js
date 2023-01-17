@@ -631,6 +631,18 @@ router.post("/Addregisteredcourses", async(req, res) => {
  
 });
 
+router.post("/ResetPassword", async (req, res) => {
+  
+  await User.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
+
+});
+
+router.post("/ChangePassword", async (req, res) => {
+  
+  await User.updateOne({Email: req.body.id} ,{  password: req.body.password } )
+
+});
+
 router.post("/Addregisteredinstractor", async(req, res) => {
   const user = await User.find({Email: req.body.Email});
   await User.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid2: req.body.RegisteredCourseid } } )

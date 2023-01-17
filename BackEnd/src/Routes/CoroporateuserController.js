@@ -717,6 +717,18 @@ router.put("/reports/:reportId", async (req, res) => {
   }
 });
 
+router.post("/ResetPassword", async (req, res) => {
+  
+  await Coroporateuser.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
+
+});
+
+router.post("/ChangePassword", async (req, res) => {
+  
+  await Coroporateuser.updateOne({Email: req.body.id} ,{  password: req.body.password } )
+
+});
+
 
 
 

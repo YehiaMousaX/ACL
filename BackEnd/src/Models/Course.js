@@ -69,6 +69,11 @@ const CourseSchema = new Schema({
         required: false
 
     },
+    discountdeadline: {
+      type: String,
+      required: false
+
+  },
     shortsummary: {
         type: String,
         required: true,
@@ -85,10 +90,7 @@ const CourseSchema = new Schema({
         required: false,
 
     },
-    videos : {
-        type: Array,
-        required: false,
-    }, 
+    
     preview : {
         type: String,
         required: false,

@@ -351,24 +351,41 @@ const handleClick1 = () => {
               </div>
           </div>
 
-      </div><div className="Course-list">
+          </div><div className="Course-list">
 
-              <h1>ALL Courses : </h1>
-              {courses.map((course) => (
-                  <div className="Course">
-                      <h3>Courseid : {course.Courseid}</h3>
-                      <h3>title : {course.title}</h3>
-                      <h3>totalHours : {course.totalHours}</h3>
-                      <h3>price : {course.price}</h3>
-                      <h3>Subject : {course.Subject}</h3>
-                      <h3>Instractur Email : {course.instractorid}</h3>
-                      <h3>rate : {courserate(course.rate)}</h3>
+<h1>ALL Courses : </h1>
+{courses.map((course) => (
+    <div className="Course">
+        <h3>Courseid : {course.Courseid}</h3>
+        <h3>title : {course.title}</h3>
+        <h3>totalHours : {course.totalHours}</h3>
+        <h3>price : {course.price}</h3>
+        <h3>price after discount  : {course.price - (course.price * (course.discount / 100 ))}</h3>
+        <h3>Subject : {course.Subject}</h3>
+        <h3>Instractur Email : {course.instractorid}</h3>
+        <h3>rate : {courserate(course.rate)}</h3>
 
+        {course.subtitles.map((sub) => (
+                <div className="Coursee1">
+                <h3>subtitle : {sub}  </h3>
+                <h3>Link Youtube :  </h3>
+                <a href={sub[1]} target="_blank" style={{color: 'blue'}}> {sub[1]}</a>
+                 <h3>total hour : {sub[2]}  </h3>
 
                   </div>
-              ))}
-          </div></>
-  );
+
+               ))}
+        <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
+       
+
+        
+         
+        
+    </div>
+))}
+</div></>
+);
 }
+
 
 export default UserShowAllCourse3;

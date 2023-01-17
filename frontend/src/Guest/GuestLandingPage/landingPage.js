@@ -97,6 +97,9 @@ const helper3 = () => {
             <div className="dropdown-content">
                 <Link to='/MyProfile'>My Profile</Link>
                 <Link to='/Guest/UserShowAllCourse' > All Courses</Link>
+                <Link to='/Guest/Guestchoosecountry' > Choose Country </Link>
+
+                
 
             </div>
         </div>

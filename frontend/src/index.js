@@ -26,7 +26,13 @@ import UserShowAllCourse3 from './Guest/UserShowAllCourses/UserShowAllCourse';
 import AddCourseForm  from './Instructor/InstractorAddCourse/addCourse';
 import Addquestion from './Instructor/InstractorAddQuestionForCourse/Addquestion';
 import Userchoosecountry from './User/UserChooseCountry/userchoosecountry';
-
+import Instractorchoosecountry from './Instructor/InstractorChooseCountry/instractorchoosecountry';
+import Corporateuserchoosecountry from './Corporateuser/CorporateuserChooseCountry/corporateuserchoosecountry';
+import Guestchoosecountry from './Guest/GuestChooseCountry/guestchoosecountry';
+import CreditCardPayment from './User/Userpayforcourse/userpayforcourse';
+import UserRegisteredCourses from './User/userRegisteredCourses/userRegisteredCourses';
+import CoroporateRegisteredCourses from './Corporateuser/coroporateRegisteredCourses/coroporateRegisteredCourses';
+import UseropenExamCourses from './User/UserSolveExcersice/UseropenExamCourses';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -49,8 +55,15 @@ ReactDOM.render(
         <Route path = '/instractor/createnewcourse' element={<AddCourseForm/>}/>
         <Route path = '/instractor/Addquestion' element={<Addquestion/>}/>
         <Route path = '/user/userchoosecountry' element={<Userchoosecountry/>}/>
-
+        <Route path = '/instractor/instractorchoosecountry' element={<Instractorchoosecountry/>}/>
+        <Route path = '/corporateuser/Corporateuserchoosecountry' element={<Corporateuserchoosecountry/>}/>
+        <Route path = '/Guest/Guestchoosecountry' element={<Guestchoosecountry/>}/>
+        <Route path = '/user/userpayforcourse' element={<CreditCardPayment/>}/>
+        <Route path = '/user/UserShowAllCourseregistered' element={<UserRegisteredCourses/>}/>
         
+        <Route path = '/corporateuser/CoroporateRegisteredCourses' element={<CoroporateRegisteredCourses/>}/>
+        <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>
+
         
 
     </Routes>

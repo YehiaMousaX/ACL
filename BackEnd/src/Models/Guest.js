@@ -7,7 +7,6 @@ const GuestSchema = new Schema({
     Countrycurrency : {
        
         type: String,
-        required: true
     }
 }, { timestamps: true });
 

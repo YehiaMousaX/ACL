@@ -37,6 +37,9 @@ const instractorSchema = new Schema({
     },
     Countrycurrency : {
         type: String,
+    },
+    balance : {
+        type: Number,
     }
 }, { timestamps: true });
 

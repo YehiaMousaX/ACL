@@ -18,6 +18,8 @@ function CorporateuserLandingPage() {
     const [close3, setclose3] = useState(false);
     const [courses, setCourses] = useState([]);
 
+
+     
     const close11 = () => {
       setclose1(true);
       setIsModal1Open(false);
@@ -92,8 +94,11 @@ const helper3 = () => {
                   </button>
                   <div className="dropdown-content">
                       <Link to='/MyProfile'>My Profile</Link>
-                      <Link to='/Logout'>Logout</Link>
+                      <Link to='/' >Logout</Link>
                       <Link to='/coporateuser/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/corporateuser/Corporateuserchoosecountry' > Choose Country </Link>
+                      
+                      <Link to='/corporateuser/CoroporateRegisteredCourses' > view registered courses </Link>
 
                   </div>
               </div>

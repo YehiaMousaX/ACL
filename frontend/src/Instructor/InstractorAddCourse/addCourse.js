@@ -9,6 +9,12 @@ const AddCourseForm = () => {
   const [summary, setSummary] = useState('');
   const [title, setTitle] = useState('');
   const [totalHours, settotalHours] = useState('');
+  const [discount, setdiscount] = useState('');
+  const [discount1, setdiscount1] = useState('');
+  const [preview, setpreview] = useState('');
+  const [titlename, settitlename] = useState('');
+  const [link, setlink] = useState('');
+  const [hour, sethour] = useState('');
   const [instractorid, setinstractorid] = useState('');
   const [review, setreview] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -20,16 +26,19 @@ const AddCourseForm = () => {
   
   
   const handleSubmit = e => {
-    
-    console.log(instractorEmail)
+   
+ 
+
     if (courseid === '' || subject === '' || price === '' || summary === ''|| title === ''|| totalHours === ''||  review === '') {
 
        setError(true);
 
     }
+   
 
     else {
       setError1(false);
+      setError(false);
       setSubmitted(true)
       
       axios.post('http://localhost:8000/instractor/AddCourse', {
@@ -40,7 +49,14 @@ const AddCourseForm = () => {
       shortsummary: summary,
       Subject: subject,
       instractorid: instractorEmail,
-      review: review 
+      review: review,
+      titlename: titlename ,
+      link : link ,
+      hour : hour ,
+      preview : preview ,
+      discount : discount ,
+      discountdeadline : discount1
+
   } ,{
           headers: {
           'Content-Type': "application/json",
@@ -193,6 +209,48 @@ const AddCourseForm = () => {
           className="input"
           value={price}
           onChange={(event) => setPrice(event.target.value)} />
+          <label className="label">preview link :</label>
+        <input
+          type="text"
+          id="name"
+          className="input"
+          value={preview}
+          onChange={(event) => setpreview(event.target.value)} />
+          <label className="label">discount number :</label>
+        <input
+          type="String"
+          id="name"
+          className="input"
+          value={discount}
+          onChange={(event) => setdiscount(event.target.value)} />
+          <label className="label">discount deadline:</label>
+        <input
+          type="date"
+          id="name"
+          className="input"
+          value={discount1}
+          onChange={(event) => setdiscount1(event.target.value)} />
+          <label className="label">tiltle name:</label>
+        <input
+          type="text"
+          id="name"
+          className="input"
+          value={titlename}
+          onChange={(event) => settitlename(event.target.value)} />
+          <label className="label">link youtube:</label>
+        <input
+          type="text"
+          id="name"
+          className="input"
+          value={link}
+          onChange={(event) => setlink(event.target.value)} />
+          <label className="label">hours :</label>
+        <input
+          type="text"
+          id="name"
+          className="input"
+          value={hour}
+          onChange={(event) => sethour(event.target.value)} />
 
         <button className='btn' type="submit" onClick={handleSubmit}>Add Course</button>
       </div></>

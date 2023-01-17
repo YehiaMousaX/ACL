@@ -15,10 +15,7 @@ function UserShowAllCourse() {
   const [clicked, setClicked] = useState(false);
   const [clicked1, setClicked1] = useState(false);
  
-  const Logout = (event) => {
-    localStorage.clear();
- };
-  
+
 
  const handleClick = () => {
   setClicked(true);
@@ -344,7 +341,7 @@ const handleClick1 = () => {
               </button>
               <div className="dropdown-content">
                   <Link to='/MyProfile'>My Profile</Link>
-                  <Link to='/' onClick={Logout}>Logout</Link>
+                  <Link to='/' >Logout</Link>
                   <Link to='/user/UserShowAllCourse'> All Courses</Link>
 
 
@@ -360,11 +357,27 @@ const handleClick1 = () => {
                       <h3>title : {course.title}</h3>
                       <h3>totalHours : {course.totalHours}</h3>
                       <h3>price : {course.price}</h3>
+                      <h3>price after discount  : {course.price - (course.price * (course.discount / 100 ))}</h3>
                       <h3>Subject : {course.Subject}</h3>
                       <h3>Instractur Email : {course.instractorid}</h3>
                       <h3>rate : {courserate(course.rate)}</h3>
 
+                      {course.subtitles.map((sub) => (
+                              <div className="Coursee1">
+                              <h3>subtitle : {sub}  </h3>
+                              <h3>Link Youtube :  </h3>
+                              <a href={sub[1]} target="_blank" style={{color: 'blue'}}> {sub[1]}</a>
+                               <h3>total hour : {sub[2]}  </h3>
 
+                                </div>
+
+                             ))}
+                      <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
+                     
+                     
+                      
+                       
+                      
                   </div>
               ))}
           </div></>

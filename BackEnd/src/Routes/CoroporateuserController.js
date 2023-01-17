@@ -516,6 +516,16 @@ router.put("/rateinstractor", async(req, res) => {
   
   });
 
+  router.post("/AllCourses/registerfor", async(req, res) => {
+    const registeredCourses = await User.aggregate([
+      {$match: {Email: req.body.Email }},
+      {$unwind: "$RegisteredCourseid"},
+      {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
+    ]);
+   
+    res.send(registeredCourses);
+    });
+    
   router.get('/grade/:exerciseId', async (req, res) => {
     try {
         const corporateuser = await Corporateuser.findById(req.params.id);

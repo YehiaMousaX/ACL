@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./UseropenregisteredCourses.css";
+import "./UseropenExamCourses.css";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 const chosenquestion = [] ;
 const correctq= [] ;
 
-function UseropenregisteredCourses() {
+function UseropenExamCourses() {
     const [showResults, setShowResults] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
@@ -18,24 +20,23 @@ function UseropenregisteredCourses() {
 
 
     useEffect(() => {
-        axios.post('http://localhost:8000/user/showquestions', {  courseid : "geo" } )
+        axios.post('http://localhost:8000/user/showquestions', {  courseid : (localStorage.getItem("usercourseID")) } )
           .then((res) => {
             // Set the questions state with the data from the API call
             
-          //  console.log(res)
-            setquestions(res.data[0]);
-            setcourseid("geo")
-            console.log(res.data)
+           
+           setquestions(res.data);
+            setcourseid( ""+localStorage.getItem("usercourseID"))
             
           })
           .catch((err) => console.log(err));
+          
       }, []);
       
 
 
-  
-  // Helper Functions
 
+  // Helper Functions
 
 
 
@@ -85,8 +86,10 @@ function UseropenregisteredCourses() {
     if (currentQuestion1 + 1 < questions.length) {
       setCurrentQuestion1(currentQuestion1 + 1);
     } else {
-      setShowResults(true);
+      setShowResults(false);
       setshowanswers(false) ;
+      window.location.href = '/user/UserShowAllCourseregistered'
+
     }          
   };
 
@@ -145,141 +148,170 @@ function UseropenregisteredCourses() {
 
 
   return (
-    <div className="App">
-      {/* 1. Header  */}
-      <h1>  Qiuz Course  "{courseid}"</h1>
 
-      {/* 2. Current Score  */}
+    <><div className='navbar'>
+      <div className='logo'>
+        Online Courses
+      </div>
+      <nav className='item'>
+        <ul className='ul'>
+          <li>
+            <Link to='/UserLandingPage'>Home</Link>
+          </li>
+          <li>
+            <Link to='/About'>About</Link>
+          </li>
+          <li>
+            <Link to='/Contacts'>Contacts</Link>
+          </li>
+        </ul>
 
-      {/* 3. Show results or show the question game  */}
-      {showResults ? (
-        /* 4. Final Results */
-        <div className="final-results">
-          <h1>Final Results</h1>
-          <h2>
-            {score} out of {questions.length} correct - (
-            {(score / questions.length) * 100}%)
-          </h2>
-          <button onClick={() => restartGame()}>Show answers</button>
+
+      </nav>
+
+
+      <div className="dropdown">
+        <button className="dropbtn">User
+          <i className="fa fa-caret-down"></i>
+        </button>
+        <div className="dropdown-content">
+          <Link to='/MyProfile'>My Profile</Link>
+          <Link to='/'>Logout</Link>
+          <Link to='/user/UserShowAllCourse'> All Courses</Link>
+
+
         </div>
-      ) : (
-        /* 5. Question Card  */
-        <div className="question-card">
-          {/* Current Question  */}
-          <h2>
-            Question: {currentQuestion + 1} out of {questions.length}
-          </h2>
-          <h3 className="question-text">{questions[currentQuestion]?.text}</h3>
+      </div>
+      
+    </div>
+    <div className="messages">
+        </div>
 
-          {/* List of possible answers  */}
-          <ul>
-            {questions[currentQuestion]?.options.map((option) => {
+    <div className="App">
+        {/* 1. Header  */}
+        <h1>  Qiuz Course  {courseid}</h1>
 
+        {/* 2. Current Score  */}
+
+        {/* 3. Show results or show the question game  */}
+        {showResults ? (
+          /* 4. Final Results */
+          <div className="final-results">
+            <h1>Final Results</h1>
+            <h2>
+              {score} out of {questions.length} correct - (
+              {(score / questions.length) * 100}%)
+            </h2>
+            <button onClick={() => restartGame()}>Show answers</button>
+          </div>
+        ) : (
+          /* 5. Question Card  */
+          <div className="question-card">
+            {/* Current Question  */}
+            <h2>
+              Question: {currentQuestion + 1} out of {questions.length}
+            </h2>
+            <h3 className="question-text">{questions[currentQuestion]?.text}</h3>
+
+            {/* List of possible answers  */}
+            <ul>
+              {questions[currentQuestion]?.options.map((option) => {
+                return (
+
+                  <div className="li1"
+                    key={option.id}
+                    onClick={() => optionClicked(option.isCorrect, option.text)}
+
+                  >
+                    {checkcorrect(option.isCorrect, option.text)}
+                    {option.text}
+
+
+                  </div>
+
+
+
+                );
+
+              }
+
+
+              )}
+              <div>   <text>  your Answer is : {chosenquestion[currentQuestion]}  </text>
+                <br>
+                </br>
+                <button className="button" onClick={() => perviousquestion()}>previous Question </button>
+                <button className="button1" onClick={() => nextquestion()}>Next Question </button>
+                <br>
+                </br>
+                {showsumbit && <button2  className="btn" onClick={() => showw()}> Submit </button2>}
+
+              </div>
+
+            </ul>
+
+          </div>
+        )}
+
+        {showanswers && (
+          <div className="question-card">
+            {/* Current Question  */}
+            <h2>
+              Question: {currentQuestion1 + 1} out of {questions.length}
+            </h2>
+            <h3 className="question-text">{questions[currentQuestion1]?.text}</h3>
+
+            {/* List of possible answers  */}
+            <ul>
+              {questions[currentQuestion1]?.options.map((option) => {
+                return (
+                  <div className="li3"
+                    key={option.id}
+                  >
+                    {option.text}
+
+                  </div>
+
+
+                );
+
+              })}
+
+
+
+            </ul>
+
+
+            {questions[currentQuestion1]?.options.map((option) => {
               return (
-                <li
-                  key={option.id}
-                  onClick={() => optionClicked(option.isCorrect , option.text)}
-                  
+                <text
                 >
-                  {checkcorrect(option.isCorrect , option.text)}
-                  {option.text}
+                  {correct(option.isCorrect, option.text)}
 
-                  
-                </li>
-
+                </text>
 
 
               );
-              
-             
+
             }
-            
-            
-            )
-            
-     
-            }
-             <div>   <text>  your Answer is : {chosenquestion[currentQuestion]}  </text>
-               <br>
-             </br>
-              <button onClick={() => perviousquestion()}>previous Question </button>
-               <button1 onClick={() => nextquestion()}>Next Question </button1>
-              <br>
-             </br>
-              {showsumbit && <button2 onClick={() => showw()}> Submit </button2>}
-
-  </div>
-
-          </ul>
-         
-        </div>
-      )
-      
-      
-      
-      
-      }
-
-      { showanswers &&(
-  <div className="question-card">
-  {/* Current Question  */}
-  <h2>
-    Question: {currentQuestion1 + 1} out of {questions.length}
-  </h2>
-  <h3 className="question-text">{questions[currentQuestion1]?.text}</h3>
-
-  {/* List of possible answers  */}
-  <ul>
-    {questions[currentQuestion1]?.options.map((option) => {
-      return (
-        <li
-          key={option.id}
-        >
-          {option.text}
-
-        </li>
-        
-
-      );
-
-    })}
-
-    
-
-  </ul>
 
 
-  {questions[currentQuestion1]?.options.map((option) => {
-      return (
-        <text
-        >
-          {correct(option.isCorrect ,option.text)}
+            )}
 
-        </text>
-        
-
-      );
-
-    }
-   
-
-    )}
-    
-    {chosenanswer()}
-    
-    
-
-  <button onClick={() => showquestions()}>next question</button>
-
-</div>
-
-
-      )
-      }
+            {chosenanswer()}
 
 
 
-    </div>
+            <button onClick={() => showquestions()}>next question</button>
+
+          </div>
+
+
+        )}
+
+
+
+      </div></>
   );
   }
-export default UseropenregisteredCourses;
+export default UseropenExamCourses;

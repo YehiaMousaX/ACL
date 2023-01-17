@@ -29,19 +29,25 @@ const handleClick1 = () => {
 }
 
 
-function handleSubmit(x) {
-  axios.get('http://localhost:8000/admin/Viewrequest' ,{ Courseid : x.Courseid , discount : discount})
+function handleSubmit(x,y) {
+
+  axios.post('http://localhost:8000/admin/Acceptrequest' ,{ Courseid : y , Email : x})
   .then((res) => {
-    setrequests(res.data);
 
   })
   .catch((err) => console.log(err));
 
 }
 
-  useEffect(() => {
-
+function handleSubmit1(x,y) {
+    axios.post('http://localhost:8000/admin/refuserequest' ,{ Courseid : y , Email : x})
+    .then((res) => {
   
+    })
+    .catch((err) => console.log(err));
+  
+  }
+  useEffect(() => {
 
     axios.post('http://localhost:8000/admin/Viewrequest')
       .then((res) => {
@@ -50,7 +56,7 @@ function handleSubmit(x) {
       })
       .catch((err) => console.log(err));
      
-  }, []);
+  }, );
 
 
 
@@ -115,7 +121,7 @@ function handleSubmit(x) {
 
           </div><div className="Course-list">
 
-<h1>ALL Courses : </h1>
+<h1>ALL Requests : </h1>
 {requests.map((course) => (
     <div className="Course">
         <h3>userEmail : {course.userEmail}</h3>
@@ -123,11 +129,10 @@ function handleSubmit(x) {
         <h3>createdAt : {course.createdAt}</h3>
 
       
-       
         <div class="button-container">
 
-                                    <button id = "register" className='butt'  variant="contained"  > Accept </button>
-                                    <button id = "register" className='butt1'  variant="contained"  > Refuse </button>
+                                    <button id = "register" className='butt'  variant="contained" onClick={() => handleSubmit(course.userEmail, course.courseId)} > Accept </button>
+                                    <button id = "register" className='butt1'  variant="contained"  onClick={() => handleSubmit1(course.userEmail, course.courseId)} > Refuse </button>
 
 
 

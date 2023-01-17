@@ -45,9 +45,14 @@ import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
+
+import RefundMoney from './Admin/refundmoney/refundmoney';
+import Adminrviewproblem from './Admin/adminviewreportedproblems/adminviewreportedproblems';
+
 import ForgetPassword from './Login/ForgetPassword';
 import ResetPassword from './Login/ResetPassword';
  
+
 ReactDOM.render(
   <Router>
     <Routes>
@@ -95,8 +100,11 @@ ReactDOM.render(
         
         <Route path = '/admin/AdminAdddiscount' element={<UserShowAllCourse5/>}/>
         <Route path = '/admin/viewrequest' element={<AdminViewRequested/>}/>
-
         
+        <Route path = '/admin/refundmoney' element={<RefundMoney/>}/>
+        <Route path = '/admin/viewreportedproblems' element={<Adminrviewproblem/>}/>
+
+
     </Routes>
   </Router>,
   document.getElementById('root') 

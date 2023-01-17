@@ -108,11 +108,12 @@ const helper3 = () => {
                   <li>
                       <Link to='/Contacts'>Contacts</Link>
                   </li>
-                 
+                  <li className="label">balance: {balance} </li>
+
               </ul>
               </nav>
               
-                  <label className="label">balance: {balance} </label>
+                 
                   
               <div className="dropdown">
                   <button className="dropbtn">User

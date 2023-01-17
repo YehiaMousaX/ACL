@@ -9,10 +9,11 @@ function CoroporateRateCourse() {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    axios.post('http://localhost:8000/Coroporateuser/AllCourses/registerfor1' , { Email:localStorage.getItem('UserEmail') })
+    axios.post('http://localhost:8000/Coroporateuser/AllCourses/registerfor1' , { Email:localStorage.getItem('UserEmail')+"" })
 
     .then((res) => {
          setCourses(res.data)
+         console.log(res)
     })
     .catch((err) => console.log(err));
   }, []);

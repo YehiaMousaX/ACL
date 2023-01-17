@@ -38,6 +38,9 @@ function AdminLandingPage() {
                       <Link to='/admin/AdminAddcouser'>Add coroporateuser</Link>
                       <Link to='/admin/AdminAdddiscount'>Add discount for course</Link>
                       <Link to='/admin/viewrequest'>View Coporateuser requests</Link>
+                      <Link to='/admin/refundmoney'>Refund Money for trainne</Link>#
+                      <Link to='/admin/viewreportedproblems'>View Reported Problems</Link>
+
 
                   </div>
               </div>

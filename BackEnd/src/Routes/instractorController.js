@@ -890,19 +890,18 @@ router.post('/ForgetPassword', async(req, res) => {
     const instractor1 = await instractor.findOne({ Email :req.body.Email });
           if(instractor1)
           {
-            res.send(instractor1.Email)
+            res.send(instractor1)
         } else{
           console.log("email not found")}
   });
   
   router.post("/ResetPassword", async (req, res) => {
     try {
-  const instractor1 = await instractor.findOne({ Email :req.body.Email });
+  const instractor1 = await instractor.findOne({ Email :req.body.id });
         if (!instractor1) {
             console.log("email not found")
         }
-        NewPassword = req.body.password ;
-        instractor1.password = NewPassword;
+        await Instractor.updateOne({Email: req.body.id} ,{ $set: { Password: req.body.password } } )
   
       }
      catch (err) {

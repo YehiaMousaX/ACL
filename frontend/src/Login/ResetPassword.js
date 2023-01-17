@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { WindowSharp } from '@mui/icons-material';
 import axios from 'axios';
-function Loginform() {
+function ResetPassword() {
 
  
 
@@ -174,7 +174,7 @@ function Loginform() {
       </nav>
     </div>
       <div>
-        <h1>User Login </h1>
+        <h1>ResetPassword </h1>
       </div>
       {/* Calling to the methods */}
       <div className="messages">
@@ -185,17 +185,6 @@ function Loginform() {
       </div>
 
       <div className="form1">
-
-
-      <label className="label">Email:</label>
-      <input
-        type="email"
-        id="email"
-        className="input"
-        value={Email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-
 
       <label className="label">Password:</label>
       <input
@@ -211,8 +200,6 @@ function Loginform() {
     </div>
      
       <li>
-        <Link to = '/signup'> Donot have an account ? Register here .</Link>
-        <Link to = '/ForgetPassword'> Forget Password ?</Link>
 
       </li>
       <button id = "LOGIN" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary"> LOGIN </button>
@@ -222,4 +209,4 @@ function Loginform() {
 
   );
 }
-export default Loginform;
+export default ResetPassword;

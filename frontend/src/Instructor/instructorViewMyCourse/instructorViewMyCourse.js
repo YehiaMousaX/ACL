@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function UserShowAllCourse() {
+function InstructorViewMyCourse() {
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterQuery, setfilterQuery] = useState('');
@@ -300,7 +300,7 @@ const handleClick1 = () => {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/UserLandingPage'>Home</Link>
+                      <Link to='/InstructorLandingPage'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -388,4 +388,4 @@ const handleClick1 = () => {
   );
 }
 
-export default UserShowAllCourse;
+export default InstructorViewMyCourse;

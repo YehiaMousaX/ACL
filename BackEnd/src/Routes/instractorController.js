@@ -866,14 +866,14 @@ router.post('/ForgetPassword', async(req, res) => {
   const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'yehiaronldo@@gmail.com',
+      user: 'yehiaronldo@gmail.com',
       pass: 'ulywxspvyrwthxct'
     }
   });
   
   const email = {
     from: 'yehiaronldo@gmail.com',
-    Email: req.body.Email,
+    to: req.body.to,
     subject: 'Reset Password',
     text: 'Click this link to reset your password: http://localhost:3000/ResetPassword' 
   };
@@ -882,10 +882,10 @@ router.post('/ForgetPassword', async(req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
+      console.log("200");
     }
-  });
-  
+});
+});
   router.get('/FindEmail', async(req, res) => {
   
     const instractor1 = await instractor.findOne({ Email :req.body.Email });
@@ -897,16 +897,9 @@ router.post('/ForgetPassword', async(req, res) => {
   });
   
   router.post("/ResetPassword", async (req, res) => {
-    try {
-  const instractor1 = await instractor.findOne({ Email :req.body.id });
-        if (!instractor1) {
-            console.log("email not found")
-        }
-        await Instractor.updateOne({Email: req.body.id} ,{ $set: { Password: req.body.password } } )
   
-      }
-     catch (err) {
-      console.error(err);
-  }});
-});
+        await Instractor.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
+  
+  });
+
 module.exports = router;

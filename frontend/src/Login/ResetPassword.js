@@ -15,72 +15,16 @@ function ResetPassword() {
 
 
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
-  const [error1, setError1] = useState(false);
 
-  
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? '' : 'none',
-        }}>
-        <h1>User {} successfully registered!!</h1>
-      </div>
-    );
-  };
+    
 
-
-  const errorMessage = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error ? '' : 'none',
-        }}>
-        <h1>* Please enter all the fields*</h1>
-      
-      
-    </div>
-    );
-  };
-
-  const errorMessage1 = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error1 ? '' : 'none',
-        }}>
-        <h1>* invalid email or password *</h1>
-      
-      
-    </div>
-    );
-  };
-
-
- 
   const  handleSubmit = async e => {
 
-   
-  
-
-    if ( Email === '' || password === '' ) {
-      setError(true); 
-      setSubmitted(false);
-      setError1(false)
-
-
-
-    }
-
-    else  {
      
-      axios.post('http://localhost:8000/user/login', {
-        Password: password,
-        Email: Email
+      axios.post('http://localhost:8000/instractor/ResetPassword', {
+        id: Email,
+        password: password,
+        
        
     } ,{
             headers: {
@@ -93,60 +37,21 @@ function ResetPassword() {
 
           if(response.data==="")
           {
-            setError(false)
-           setError1(true);
+
           }
           else
           {
             localStorage.setItem('UserEmail',response.data.Email);
             localStorage.setItem('UserType',response.data.type);
-            if (response.data.type=== "instractor") {
 
-              window.location.href = '/InstructorLandingPage'
-
-            }
-            if (response.data.type=== "admin") 
-            {
-
-              window.location.href = '/AdminLandingPage'
-
-            }
-            if (response.data.type=== "user") 
-            {
-
-              window.location.href = '/UserLandingPage'
-
-            }
-            if (response.data.type=== "coroporateuser") 
-            {
-
-                
-
-              
-              window.location.href = '/CorporateuserLandingPage'
-
-            }
           }
 
       })
       .catch((error) => {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-          }
-          console.log(error.config);
+         
         });
     }
-    }
+    
     
    
 
@@ -178,14 +83,19 @@ function ResetPassword() {
       </div>
       {/* Calling to the methods */}
       <div className="messages">
-        {errorMessage()}
-        {errorMessage1()}
-        {successMessage()}
+
        
       </div>
 
       <div className="form1">
-
+      <label className="label">Email:</label>
+      <input
+        type="text"
+        id="password-input"
+        className="input"
+        value={Email}
+        onChange={(event) => setEmail(event.target.value)}
+        />
       <label className="label">Password:</label>
       <input
         type="password"
@@ -207,6 +117,6 @@ function ResetPassword() {
 </div>
 </div>
 
-  );
-}
+)};
+
 export default ResetPassword;

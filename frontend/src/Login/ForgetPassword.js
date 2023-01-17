@@ -7,22 +7,16 @@ import axios from 'axios';
 function ForgetPassword() {
 
  
-    const [Email, setEmail] = useState('');
+    const [to1, setto1] = useState('');
   
   
   
    
     const  handleSubmit = async e => {
-  
-     
-    
-  
-  
-    
-       
-        axios.post('http://localhost:8000/instractor/FindEmail', {
 
-          Email: Email
+        axios.post('http://localhost:8000/instractor/ForgetPassword', {
+
+          to : to1
          
       } ,{
               headers: {
@@ -39,7 +33,7 @@ function ForgetPassword() {
             }
             else
             {
-              localStorage.setItem('UserEmail',response.data.Email);
+              localStorage.setItem("ForgetEmail",response.data.Email);
             }
   
         })
@@ -87,8 +81,8 @@ function ForgetPassword() {
           type="email"
           id="email"
           className="input"
-          value={Email}
-          onChange={(event) => setEmail(event.target.value)}
+          value={to1}
+          onChange={(event) => setto1(event.target.value)}
         />
 
        <div>

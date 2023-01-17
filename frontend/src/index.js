@@ -45,13 +45,14 @@ import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
-import InstructorViewMyCourse from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
+
 import RefundMoney from './Admin/refundmoney/refundmoney';
 import Adminrviewproblem from './Admin/adminviewreportedproblems/adminviewreportedproblems';
 
 import ForgetPassword from './Login/ForgetPassword';
 import ResetPassword from './Login/ResetPassword';
-
+ import About from './About/About';
+import Contacts from './Contacts/Contacts';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -62,7 +63,6 @@ ReactDOM.render(
         <Route path = '/InstructorLandingPage' element={<InstructorLandingPage/>}/>
         <Route path = '/AdminLandingPage' element={<AdminLandingPage/>}/>
 
-        <Route path = '/ViewAllCourse' element={<ViewAllCourse/>}/>
         <Route path = '/ProfileInstructorPage' element={<ProfileInstructorPage/>}/>
         <Route path = '/ChangePassword' element={<ChangePassword/>}/>
         <Route path = '/CorporateuserLandingPage' element={<CorporateuserLandingPage/>}/>
@@ -93,6 +93,7 @@ ReactDOM.render(
 
 
         <Route path = '/instructor/ViewInstructorContract' element={<ViewInstructorContract/>}/>
+        <Route path = '/instructor/InstructorCourses' element={<InstructorCourses/>}/>
         <Route path = '/ForgetPassword' element={<ForgetPassword/>}/>
         <Route path = '/ResetPassword' element={<ResetPassword/>}/>
         
@@ -101,7 +102,8 @@ ReactDOM.render(
         
         <Route path = '/admin/refundmoney' element={<RefundMoney/>}/>
         <Route path = '/admin/viewreportedproblems' element={<Adminrviewproblem/>}/>
-        <Route path = '/instractor/InstructorCourses' element={<InstructorViewMyCourse/>}/>
+        <Route path = '/About' element={<About/>}/>
+        <Route path = '/Contacts' element={<Contacts/>}/>
 
 
     </Routes>

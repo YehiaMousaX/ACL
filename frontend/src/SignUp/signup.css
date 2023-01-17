@@ -15,7 +15,10 @@
     font-size: larger;
     color: white;
     padding: 5px;
+    margin: 0 auto;
+    text-align: center;
 }
+
 
 .input {
     font-size: larger;

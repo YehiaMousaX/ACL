@@ -41,7 +41,7 @@ import AdminAdd from './Admin/AdminAddAdmin/adminAdd';
 import AdminAddinstr from './Admin/AdminAddinstractor/adminAddinst';
 import AdminAddcouser from './Admin/AdminAddcoporateuser/adminAddcouser';
 import UserShowAllCourse5 from './Admin/UserShowAllCourses/UserShowAllCourse';
-
+import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
@@ -89,8 +89,9 @@ ReactDOM.render(
         <Route path = '/instructor/InstructorCourses' element={<InstructorCourses/>}/>
         
         <Route path = '/admin/AdminAdddiscount' element={<UserShowAllCourse5/>}/>
+        <Route path = '/admin/viewrequest' element={<AdminViewRequested/>}/>
 
-
+        
     </Routes>
   </Router>,
   document.getElementById('root') 

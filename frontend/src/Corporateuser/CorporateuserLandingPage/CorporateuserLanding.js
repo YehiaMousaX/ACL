@@ -49,7 +49,7 @@ function CorporateuserLandingPage() {
    const helper2 = () => {
 
     setIsModal1Open(true);
-    axios.post('http://localhost:8000/user/search/substring' , { substring:"Math" })
+    axios.post('http://localhost:8000/useruser/search/substring' , { substring:"Math" })
     .then((res) => {
      setCourses(res.data);
 

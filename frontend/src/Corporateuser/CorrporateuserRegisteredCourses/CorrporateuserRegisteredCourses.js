@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useState ,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from "react-modal";
+import { useHistory } from 'react-router-dom'
+const history = useHistory();
 
 function UserRegisteredCourses() {
   const [courses, setCourses] = useState([]);
@@ -27,10 +29,14 @@ function UserRegisteredCourses() {
   }
   }
 
+  function handleClick() {
+    history.push(`/watch/${match.params.Courseid}/${match.params.videoId}`);
+}
+
   useEffect(() => {
 
     console.log(localStorage.getItem('UserEmail'))
-    axios.post('http://localhost:8000/corporateuser/AllCourses/registerfor' , { Email:localStorage.getItem('UserEmail') })
+    axios.post('http://localhost:8000/user/AllCourses/registerfor' , { Email:localStorage.getItem('UserEmail') })
 
     .then((res) => {
          setCourses(res.data)
@@ -117,6 +123,8 @@ function UserRegisteredCourses() {
 
                ))}
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
+        <button id = "video" onClick={handleClick}>Preview Video</button>
+
        
         <button 
        id = "register" 

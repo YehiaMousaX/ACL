@@ -340,6 +340,7 @@ footer p {
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 10px;
     grid-area: 2 / 3 / 3 / 4;
+    
 }
 
 

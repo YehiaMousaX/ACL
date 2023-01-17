@@ -95,5 +95,23 @@ router.post('/AddAdmin', async(req, res) => {
    
     });
   
+  router.post("/Acceptrequest", async(req, res) => {
+ 
+    const course1 = await Course.find( {Courseid :req.body.Courseid} ,{ });
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid : course1[0] } } )
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid1 : course1[0] } } )
+    const x = ""+course1[0].instractorid
+  
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid2 : x } } )
+    await Request.deleteOne ({userEmail: req.body.Email , courseId :req.body.Courseid}  )
+   
+    });
+    
+    router.post("/refuserequest", async(req, res) => {
+ 
+
+        await Request.deleteOne ({userEmail: req.body.Email , courseId :req.body.Courseid}  )
+       
+        });
 
 module.exports = router;

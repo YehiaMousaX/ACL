@@ -6,7 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
 const Report = require("../Models/Report");
-const AccessRequest = require("../Models/AccessRequest");
+//const AccessRequest = require("../Models/AccessRequest");
 const router = express.Router()
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -826,7 +826,7 @@ router.put("/reports/:reportId", async (req, res) => {
   }
 });
 
-
+/*
 router.post("/request-access/:Courseid", async (req, res) => {
   try {
     const corporateUser = await Corporateuser.findOne(req.body.Email);
@@ -860,7 +860,7 @@ router.post("/request-access/:Courseid", async (req, res) => {
     console.error(err);
     return res.status(500).send({ error: "Error sending access request" });
   }
-});
+});  */
 
 
 

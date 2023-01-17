@@ -640,5 +640,17 @@ router.post("/Addregisteredcourses", async(req, res) => {
  
 });
 
+router.post("/ResetPassword", async (req, res) => {
+  
+  await User.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
+
+});
+
+router.post("/ChangePassword", async (req, res) => {
+  
+  await User.updateOne({Email: req.body.id} ,{  password: req.body.password } )
+
+});
+
 
   module.exports = router;

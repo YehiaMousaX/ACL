@@ -25,7 +25,7 @@
 
 .btn {
     color: white;
-    background-color: rgb(2, 41, 46);
+    background-color: rgb(16, 123, 61) !important;
     border-radius: 10px;
     font-size: larger;
     display: block;
@@ -94,7 +94,7 @@
 /* Style the password strength meter container */
 
 .btn:hover {
-    background-color: darkblue;
+    background-color: rgb(8, 58, 0) !important;
 }
 
 

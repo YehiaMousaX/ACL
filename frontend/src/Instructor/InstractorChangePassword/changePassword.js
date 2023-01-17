@@ -29,6 +29,8 @@ const ChangePassword = () => {
   };
 
   return (
+    <div className="form1">
+
     <form onSubmit={handleSubmit}>
       <label htmlFor="current-password">Current Password:</label>
 
@@ -61,6 +63,7 @@ const ChangePassword = () => {
       {message && <p>{message}</p>}
 
     </form>
+    </div>
   );
 };
 

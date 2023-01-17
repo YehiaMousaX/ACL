@@ -27,22 +27,24 @@ const handleClick1 = () => {
 
 
   useEffect(() => {
+ 
     if (searchQuery==='' ) {
-
-    axios.get('http://localhost:8000/user/AllCourses')
+      axios.post('http://localhost:8000/instractor/AllCourses1' , {instractorid : localStorage.getItem("UserEmail")})
       .then((res) => {
         setCourses(res.data);
-
+  
       })
       .catch((err) => console.log(err));
+   
       if (clicked1 === true) {
         if (filterQuery === '' && filterQuery1 ==='' && filterQuery2 === '') {
-          axios.get('http://localhost:8000/user/AllCourses')
+          axios.get('http://localhost:8000/instractor/AllCourses1')
           .then((res) => {
             setCourses(res.data);
           })
           .catch((err) => console.log(err));
-          axios.post('http://localhost:8000/user/search/substring1' , { substring : searchQuery })
+
+          axios.post('http://localhost:8000/instractor/search/substring1' , { substring : searchQuery , Email : localStorage.getItem("UserEmail") })
 
           .then((res) => {
             setCourses(res.data);
@@ -154,7 +156,7 @@ const handleClick1 = () => {
 
     }
     else {
-      axios.post('http://localhost:8000/user/search/substring1' , { substring : searchQuery })
+      axios.post('http://localhost:8000/instractor/search/substring1' , { substring : searchQuery })
 
       .then((res) => {
         setCourses(res.data);
@@ -164,12 +166,12 @@ const handleClick1 = () => {
 
       if (clicked1 === true) {
         if (filterQuery === '' && filterQuery1 ==='' && filterQuery2 === '') {
-          axios.get('http://localhost:8000/user/AllCourses')
+          axios.get('http://localhost:8000/instractor/AllCourses1')
           .then((res) => {
             setCourses(res.data);
           })
           .catch((err) => console.log(err));
-          axios.post('http://localhost:8000/user/search/substring1' , { substring : searchQuery })
+          axios.post('http://localhost:8000/instractor/search/substring1' , { substring : searchQuery })
 
           .then((res) => {
             setCourses(res.data);

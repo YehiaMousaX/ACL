@@ -268,7 +268,7 @@ footer p {
 
 .btn1 {
     color: white;
-    background-color: rgb(153, 202, 174);
+    background-color: rgb(37, 173, 96) !important;
     border-radius: 10px;
     font-size: large;
     display: block;
@@ -278,7 +278,7 @@ footer p {
 
 }
 .btn1:hover {
-    background-color: rgb(99, 97, 97);
+    background-color: rgb(99, 97, 97) !important;
 }
 
 

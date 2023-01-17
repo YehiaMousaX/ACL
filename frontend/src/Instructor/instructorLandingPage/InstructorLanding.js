@@ -75,7 +75,7 @@ function InstructorLandingPage() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/'>Home</Link>
+                      <Link to='/InstructorLandingPage'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>

@@ -300,7 +300,7 @@ const handleClick1 = () => {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/UserLandingPage'>Home</Link>
+                      <Link to='/InstructorLandingPage'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>

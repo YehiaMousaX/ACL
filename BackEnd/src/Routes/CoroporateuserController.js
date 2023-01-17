@@ -509,6 +509,12 @@ router.put("/rateinstractor", async(req, res) => {
 
   });
 
+  router.get("/AddCountryCurrency", async(req, res) => {
+
+    await Coroporateuser.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
+    
+  });
+
   router.get('/grade/:exerciseId', async (req, res) => {
     try {
         const corporateuser = await Corporateuser.findById(req.params.id);

@@ -96,6 +96,7 @@ function InstructorLandingPage() {
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
                       <Link to='/instractor/Addquestion' > Add question for a Course</Link>
                       <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
+                      <Link to='/instractor/InstructorCourses' > ViewMyCourses </Link>
 
                       
                   </div>

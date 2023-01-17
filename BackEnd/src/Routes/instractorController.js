@@ -856,4 +856,53 @@ router.get("/AddCountryCurrency", async(req, res) => {
 
 });
 
+router.post('/ForgetPassword', async(req, res) => {
+
+  const transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'yehiaronldo@@gmail.com',
+      pass: 'ulywxspvyrwthxct'
+    }
+  });
+  
+  const email = {
+    from: 'yehiaronldo@gmail.com',
+    to: req.body.to,
+    subject: 'Reset Password',
+    text: 'Click this link to reset your password: http://localhost:3000/ResetPassword' 
+  };
+  
+  transport.sendMail(email, function(err, info) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info);
+    }
+  });
+  
+  router.get('/FindEmail', async(req, res) => {
+  
+    const instractor1 = await instractor.findOne({ Email :req.body.Email });
+          if(instractor1)
+          {
+            res.send(instractor1.Email)
+        } else{
+          console.log("email not found")}
+  });
+  
+  router.post("/ResetPassword", async (req, res) => {
+    try {
+  const instractor1 = await instractor.findOne({ Email :req.body.Email });
+        if (!instractor1) {
+            console.log("email not found")
+        }
+        NewPassword = req.body.password ;
+        instractor1.password = NewPassword;
+  
+      }
+     catch (err) {
+      console.error(err);
+  }});
+});
 module.exports = router;

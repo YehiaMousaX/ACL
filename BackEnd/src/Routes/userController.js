@@ -317,10 +317,12 @@ router.post("/showquestions", async(req, res) => {
   try {
     const courses = await Course.find({ Courseid:req.body.courseid});
 
+  
     // Map over the courses array and extract the excercises field from each course
     const exercises = courses.map((course) => course.excercises);
   
-    res.send(exercises);
+    res.send(exercises[0]);
+    
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -345,7 +347,8 @@ router.post("/signup",async(req,res)=>{
     PhoneNumber: req.body.PhoneNumber,
     Job: req.body.Job,
     Gender: req.body.Gender,
-    Country : req.body.Country
+    Country : req.body.Country,
+    balance : 0
 });
 
 const user1 = new newuser({
@@ -535,24 +538,14 @@ router.get("/searchcourse/title", async(req, res) => {
     // user get registered course 
 
 
-    router.get("/AllCourses/registerfor", async(req, res) => {
-  
-      const registeredCourses = await User.find({ _id: req.body.id }, { _id: 0, RegisteredCourseid: 1 });
-
-     // Extract the RegisteredCourseid array from the result
-     const registeredCourseIds = registeredCourses.map(user => user.RegisteredCourseid);
-
-      var x = new Array () ;
-      var y = new Array () ;
-      x= registeredCourseIds[0]
-      var i = 0 
-      while (i<x.length){
-         var courses = await Course.find({ courseid: x[0] });
-       
-        i++ ;
-      }
-    
-      res.send(courses);
+    router.post("/AllCourses/registerfor", async(req, res) => {
+      const registeredCourses = await User.aggregate([
+        {$match: {Email: req.body.Email }},
+        {$unwind: "$RegisteredCourseid"},
+        {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
+      ]);
+     
+      res.send(registeredCourses);
       });
   
   
@@ -627,6 +620,24 @@ router.get("/AddCountryCurrency", async(req, res) => {
   
   await User.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
 
+});
+
+router.post("/getbalance", async(req, res) => {
+  const user = await User.findOne({Email: req.body.Email});
+  if (user) {
+  res.send(user.balance.toString());
+  }
+  else {
+    res.send("false")
+  }
+});
+
+router.post("/Addregisteredcourses", async(req, res) => {
+  const user = await User.find({Email: req.body.Email});
+  await User.updateOne({Email: req.body.Email} ,{ $push: { RegisteredCourseid: req.body.RegisteredCourseid } } )
+      
+  
+ 
 });
 
 

@@ -510,4 +510,14 @@ router.put("/rateinstractor", async(req, res) => {
   
   });
 
+  router.post("/AllCourses/registerfor", async(req, res) => {
+    const registeredCourses = await User.aggregate([
+      {$match: {Email: req.body.Email }},
+      {$unwind: "$RegisteredCourseid"},
+      {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
+    ]);
+   
+    res.send(registeredCourses);
+    });
+    
 module.exports = router;

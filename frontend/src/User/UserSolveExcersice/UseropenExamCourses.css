@@ -19,34 +19,38 @@
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
   }
   
-  ul {
-    list-style: none;
-  }
+
+
+  /* Button active effect */
   
-  li {
+  .li {
     margin-top: 8px;
-    background-color: darkgray;
+    background-color: rgba(169, 169, 169, 0.689);
     padding: 16px;
     border: 3px solid white;
     border-radius: 20px;
     font-size: 20px;
   }
-  li:hover {
-    background-color: darkblue;
+ 
+
+  .li1 {
+    background-color: rgb(0, 72, 132); /* Green */
+    margin-top: 8px;
+    padding: 16px;
+    border: 3px solid white;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+
+  }
+  .li1:hover {
+    background-color: rgb(186, 186, 223);
   }
 
   /* Button active effect */
-  li:active {
+  .li1:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  .li1 {
-    margin-top: 8px;
-    background-color: darkgray;
-    padding: 16px;
-    border: 3px solid white;
-    border-radius: 20px;
-    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
   }
 
   .text {
@@ -61,7 +65,7 @@
     font-size: 24px;
   }
   
-  /* Final Results  */
+  /* Final Resul1ts  */
   
   .final-results {
     /* Center the div  */
@@ -95,7 +99,7 @@
     border-radius: 24px;
   }
 
-  button1 {
+  .button1 {
     background-color: rgb(116, 225, 131); /* Green */
     border: none;
     color: white;
@@ -108,6 +112,16 @@
   
     border-radius: 24px;
   }
+  
+  .button1:hover {
+    background-color: rgb(186, 186, 223);
+  }
+
+  /* Button active effect */
+  .button1:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
+  }
 
   button:hover {
     background-color: rgb(186, 186, 223);
@@ -119,18 +133,9 @@
     box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
   }
 
-  button1:hover {
-    background-color: rgb(186, 186, 223);
-  }
 
-  /* Button active effect */
-  button1:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
-  }
-
-
-  button2 {
+  
+  .button2 {
     background-color: rgb(0, 72, 132); /* Green */
     border: none;
     color: white;
@@ -140,25 +145,49 @@
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
-  
+    cursor: pointer;
     border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
   }
-  button2:hover {
+  .button2:hover {
     background-color: rgb(186, 186, 223);
   }
 
   /* Button active effect */
-  button2:active {
+  .button2:active {
     transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(245, 239, 239, 0.2);
   }
 
   .btn{
     color: white;
-    background-color: rgb(2, 41, 46);
+    background-color: rgb(0, 0, 0);
     border-radius: 10px;
     font-size: x-large;
     display: block;
     padding: 5px;
-    margin: 10px auto;
+    margin: 1px auto;
+    width: 10%;
+}
+
+  .btn:hover {
+    background-color: rgb(63, 61, 61);
+  }
+
+  /* Button active effect */
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgb(255, 255, 255);
+  }
+  .li3 {
+    background-color: rgb(0, 72, 132); /* Green */
+    margin-top: 8px;
+    padding: 16px;
+    border: 3px solid white;
+    border-radius: 20px;
+    font-size: 20px;
+
   }

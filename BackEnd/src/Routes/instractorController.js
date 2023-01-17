@@ -414,12 +414,19 @@ router.get("/searchcourse/title", async(req, res) => {
 // row 25
 router.post('/AddCourse', async(req, res) => {
 
-     var t2= new Array();
-     var t3= ["","",""];
+    i1 = req.body.titlename 
+    i2 = req.body.link 
+    i3 = req.body.hour 
+
+    var t3= new Array();
+     t3.push (i1) ;
+     t3.push (i2) ;
+     t3.push (i3) ;
+
+    
      var t4= new Array();
 
-     t2.push(t3)
-  
+    
     {
       
         // Insert the new course if they do not exist yet
@@ -432,20 +439,25 @@ router.post('/AddCourse', async(req, res) => {
             Subject: req.body.Subject ,
             instractorid : req.body.instractorid ,
             review : req.body.review ,
-            subtitles:t2,
-            excercises : t4
+            excercises : t4,
+            discount : req.body.discount ,
+            discountdeadline : req.body.discountdate ,
+            preview : req.body.preview 
+            
         });
         
-        const instractorcourse = new InstractorCourse({
-          Courseid: req.body.Courseid ,
-          instractorid : req.body.instractorid 
-
-        }) ;
+      
 
          
         try{
             await course.save();
-            await instractorcourse.save() ;
+            try {
+              await Course.updateOne({ Courseid: req.body.Courseid }, { $push: { subtitles: t3 } });
+              console.log("subtitles added successfully");
+          } catch (err) {
+              console.log(err.message);
+          }
+          
             console.log("this course is added successfully : "+ req.body.Courseid);
 
         

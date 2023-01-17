@@ -8,9 +8,7 @@ import axios from 'axios';
 import Modal from "react-modal";
 function InstructorLandingPage() {
   
-    function Logout () {
-        localStorage.clear();
-     };
+  
      const [isModal1Open, setIsModal1Open] = useState(false);
      const [close1, setclose1] = useState(false);
      const [isModal2Open, setIsModal2Open] = useState(false);
@@ -93,11 +91,13 @@ function InstructorLandingPage() {
                   </button>
                   <div className="dropdown-content">
                       <Link to='/MyProfile'>My Profile</Link>
-                      <Link to='/' on onClick={Logout}>Logout</Link>
+                      <Link to='/'>Logout</Link>
                       <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
                       <Link to='/instractor/Addquestion' > Add question for a Course</Link>
+                      <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
 
+                      
                   </div>
               </div>
           

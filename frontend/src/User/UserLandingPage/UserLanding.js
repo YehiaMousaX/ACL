@@ -4,16 +4,21 @@ import CS from "./images/CS.jpg";
 import Math from "./images/Math.jpg";
 import Mangement from "./images/Mangement.jpg";
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import Modal from "react-modal";
 import axios from 'axios';
 function UserLandingPage() {
 
-    function Logout () {
-       localStorage.clear();
-   
-    };
 
+  
+
+
+
+
+   
+  
+
+    const [balance, setbalance] = useState([]);
     const [isModal1Open, setIsModal1Open] = useState(false);
     const [close1, setclose1] = useState(false);
     const [isModal2Open, setIsModal2Open] = useState(false);
@@ -21,6 +26,21 @@ function UserLandingPage() {
     const [isModal3Open, setIsModal3Open] = useState(false);
     const [close3, setclose3] = useState(false);
     const [courses, setCourses] = useState([]);
+
+
+
+    useEffect(() => {
+        const x = "" + localStorage.getItem('UserEmail')
+        axios.post('http://localhost:8000/user/getbalance', { Email : x })
+        .then((res) => {
+            setbalance(res.data);
+            
+         
+        })
+        .catch((err) => console.log(err));
+        
+        }, []);  
+
 
     const close11 = () => {
       setclose1(true);
@@ -70,7 +90,7 @@ const helper3 = () => {
 .catch((err) => console.log(err));
 };
 
-
+ 
   return (
  
       <><div className='navbar'>
@@ -88,17 +108,21 @@ const helper3 = () => {
                   <li>
                       <Link to='/Contacts'>Contacts</Link>
                   </li>
+                 
               </ul>
               </nav>
+              
+                  <label className="label">balance: {balance} </label>
+                  
               <div className="dropdown">
                   <button className="dropbtn">User
                       <i className="fa fa-caret-down"></i>
                   </button>
                   <div className="dropdown-content">
-                      <Link to='/MyProfile'>My Profile</Link>
-                      <Link to='/' onClick={Logout()}>Logout</Link>
+                      <Link to='/' >Logout</Link>
                       <Link to='/user/UserShowAllCourse' > All Courses</Link>
                       <Link to='/user/userchoosecountry' > Choose Country</Link>
+                      <Link to='/user/UserShowAllCourseregistered' > Registered Courses</Link>
 
                       
                   </div>

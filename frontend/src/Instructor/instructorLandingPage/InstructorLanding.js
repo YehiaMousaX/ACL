@@ -75,7 +75,7 @@ function InstructorLandingPage() {
           <nav className='item'>
               <ul className='ul'>
                   <li>
-                      <Link to='/InstructorLandingPage'>Home</Link>
+                      <Link to='/'>Home</Link>
                   </li>
                   <li>
                       <Link to='/About'>About</Link>
@@ -91,8 +91,7 @@ function InstructorLandingPage() {
                   </button>
                   <div className="dropdown-content">
                       <Link to='/ProfileInstructorPage'>My Profile</Link>
-                      <Link to='/'>Logout</Link>
-                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/'>Logout</Link>                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
                       <Link to='/instractor/createnewcourse' > Create Course</Link>
                       <Link to='/instractor/Addquestion' > Add question for a Course</Link>
                       <Link to='/instractor/instractorchoosecountry' > choose Country </Link>

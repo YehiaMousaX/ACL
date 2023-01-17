@@ -6,7 +6,7 @@
     border-radius: 5px;
     background-color: #f2f2f2;
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -51,4 +51,38 @@
     
 
   }
+  .loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
   
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .messages {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    background-color: rgb(254, 251, 251);
+    color: rgb(162, 5, 5);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
+    font-size: x-small;
+}
+
+.success {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 239, 0);
+    width: fit-content;
+    height: 60px;
+    padding: 0px;
+}

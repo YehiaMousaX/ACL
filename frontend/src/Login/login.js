@@ -212,6 +212,8 @@ function Loginform() {
      
       <li>
         <Link to = '/signup'> Donot have an account ? Register here .</Link>
+          <Link to = '/ForgetPassword'> Forget Password ?</Link>
+
       </li>
       <button id = "LOGIN" className="btn" type="submit" onClick={handleSubmit} variant="contained" color="primary"> LOGIN </button>
 

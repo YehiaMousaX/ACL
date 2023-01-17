@@ -335,18 +335,22 @@ const handleClick1 = () => {
 
         </div>
 
-          <div className="dropdown">
-              <button className="dropbtn">User
-                  <i className="fa fa-caret-down"></i>
-              </button>
-              <div className="dropdown-content">
-                  <Link to='/MyProfile'>My Profile</Link>
-                  <Link to='/' >Logout</Link>
-                  <Link to='/user/UserShowAllCourse'> All Courses</Link>
+        <div className="dropdown">
+                  <button className="dropbtn">Instructor
+                      <i className="fa fa-caret-down"></i>
+                  </button>
+                  <div className="dropdown-content">
+                      <Link to='/MyProfile'>My Profile</Link>
+                      <Link to='/'>Logout</Link>
+                      <Link to='/instractor/UserShowAllCourse' > All Courses</Link>
+                      <Link to='/instractor/createnewcourse' > Create Course</Link>
+                      <Link to='/instractor/Addquestion' > Add question for a Course</Link>
+                      <Link to='/instractor/instractorchoosecountry' > choose Country </Link>
+                      <Link to='/instractor/InstructorCourses' > ViewMyCourses </Link>
 
-
+                      
+                  </div>
               </div>
-          </div>
 
       </div><div className="Course-list">
 

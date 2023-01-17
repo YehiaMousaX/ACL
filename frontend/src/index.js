@@ -33,6 +33,8 @@ import CreditCardPayment from './User/Userpayforcourse/userpayforcourse';
 import UserRegisteredCourses from './User/userRegisteredCourses/userRegisteredCourses';
 import CoroporateRegisteredCourses from './Corporateuser/coroporateRegisteredCourses/coroporateRegisteredCourses';
 import UseropenExamCourses from './User/UserSolveExcersice/UseropenExamCourses';
+import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
+import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -63,7 +65,8 @@ ReactDOM.render(
         
         <Route path = '/corporateuser/CoroporateRegisteredCourses' element={<CoroporateRegisteredCourses/>}/>
         <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>
-
+        <Route path = '/instructor/ViewInstructorContract' element={<ViewInstructorContract/>}/>
+        <Route path = '/instructor/InstructorCourses' element={<InstructorCourses/>}/>
         
 
     </Routes>

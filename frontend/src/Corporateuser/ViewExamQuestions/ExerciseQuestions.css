@@ -1,0 +1,18 @@
+.ExerciseQuestions {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .ExerciseQuestions h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .ExerciseQuestions div {
+    margin-bottom: 20px;
+  }
+  
+  .ExerciseQuestions p {
+    margin: 0;
+  }
+  

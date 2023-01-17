@@ -6,7 +6,6 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser")
 const Report = require("../Models/Report");
-//const AccessRequest = require("../Models/AccessRequest");
 const router = express.Router()
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -826,41 +825,7 @@ router.put("/reports/:reportId", async (req, res) => {
   }
 });
 
-/*
-router.post("/request-access/:Courseid", async (req, res) => {
-  try {
-    const corporateUser = await Corporateuser.findOne(req.body.Email);
-    if (!corporateUser) {
-      return res.status(404).send({ error: "Corporate user not found" });
-    }
 
-    const isRegistered = corporateUser.RegisteredCourseid.find(
-      (courseId) => courseId.toString() === req.params.Courseid
-    );
-    if (isRegistered) {
-      return res.status(401).send({ error: "You are already registered for this course" });
-    }
-
-    const course = await Course.findById(req.params.Courseid);
-    if (!course) {
-      return res.status(404).send({ error: "Course not found" });
-    }
-
-    // Create a new access request object
-    const accessRequest = new AccessRequest({
-      userId: corporateUser.Email,
-      courseId: course.Courseid,
-      reason: req.body.reason,
-    });
-
-    await accessRequest.save();
-
-    return res.send({ message: "Access request sent successfully" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send({ error: "Error sending access request" });
-  }
-});  */
 
 
 

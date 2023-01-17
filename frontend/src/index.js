@@ -19,13 +19,14 @@ import ChangePassword from './Instructor/InstractorChangePassword/changePassword
 
 
 import CorporateuserLandingPage from './Corporateuser/CorporateuserLandingPage/CorporateuserLanding';
-import UserShowAllCourse from './Instructor/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse1 from './User/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse2 from './Corporateuser/UserShowAllCourses/UserShowAllCourse';
 import UserShowAllCourse3 from './Guest/UserShowAllCourses/UserShowAllCourse';
 import AddCourseForm  from './Instructor/InstractorAddCourse/addCourse';
-import InstructorCourses from './Instructor/CoursesOfInstractor/instructorCourse';
-
+import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
+import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
+import ForgetPassword from './Login/ForgetPassword';
+import ResetPassword from './Login/ResetPassword';
 ReactDOM.render(
   <Router>
     <Routes>
@@ -40,12 +41,14 @@ ReactDOM.render(
         <Route path = '/ChangePassword' element={<ChangePassword/>}/>
         <Route path = '/CorporateuserLandingPage' element={<CorporateuserLandingPage/>}/>
         <Route path = '/user/UserShowAllCourse' element={<UserShowAllCourse1/>}/>
-        <Route path = '/instractor/UserShowAllCourse' element={<UserShowAllCourse/>}/>
         <Route path = '/coporateuser/UserShowAllCourse' element={<UserShowAllCourse2/>}/>
         <Route path = '/Guest/UserShowAllCourse' element={<UserShowAllCourse3/>}/>
         <Route path = '/' element={<LandingPage/>}/>
         <Route path = '/instractor/createnewcourse' element={<AddCourseForm/>}/>
         <Route path = '/InstructorCourses' element={<InstructorCourses/>}/>
+        <Route path = '/ViewInstructorContract' element={<ViewInstructorContract/>}/>
+        <Route path = '/ForgetPassword' element={<ForgetPassword/>}/>
+        <Route path = '/ResetPassword' element={<ResetPassword/>}/>
 
         
         

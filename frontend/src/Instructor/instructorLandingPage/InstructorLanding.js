@@ -99,6 +99,8 @@ function InstructorLandingPage() {
                       <Link to='/ChangePassword'>ChangePassword</Link>
                       <Link to='/Performance'>Performance</Link>
                       <Link to='/InstructorCourses'>ViewMyCourses</Link>
+                      <Link to='/ViewInstructorContract'>ViewContract</Link>
+
                       
 
                   </div>

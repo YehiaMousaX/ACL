@@ -4,8 +4,10 @@ const Course = require("../Models/Course");
 const Admin = require("../Models/Admin");
 const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
-const Instractor = require("../Models/Instractor");
 var url = require('url');
+const nodemailer = require('nodemailer');
+const { Email } = require("@mui/icons-material");
+
 
 const  countryList = [
   "Afghanistan",
@@ -305,11 +307,7 @@ res.status(200)
 
 // row 20 
 router.get("/mycourses/titles", async(req, res) => {
-  
- 
   const course = await Course.find({instractorid : req.body.instractorid} , { title : 1}  )
-
- 
   res.send(course);
   });
 
@@ -376,6 +374,57 @@ router.post('/SelectCountry', async(req, res) => {
   await Instractor.updateOne({_id: req.body.instractorid} ,{ $set: { Country:(countryList [req.body.Country -1] )} } )
 
 
+
+});
+
+router.post('/ForgetPassword', async(req, res) => {
+
+const transport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'yehiaronldo@@gmail.com',
+    pass: 'ulywxspvyrwthxct'
+  }
+});
+
+const email = {
+  from: 'yehiaronldo@gmail.com',
+  to: req.body.to,
+  subject: 'Reset Password',
+  text: 'Click this link to reset your password: http://localhost:3000/ResetPassword' 
+};
+
+transport.sendMail(email, function(err, info) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(info);
+  }
+});
+
+router.get('/FindEmail', async(req, res) => {
+       
+  const instractor1 = await instractor.findOne({ Email :req.body.Email });
+        if(instractor1)
+        {
+          res.send(instractor1.Email)
+      } else{
+        console.log("email not found")}
+});
+
+router.post("/ResetPassword", async (req, res) => {
+  try {
+const instractor1 = await instractor.findOne({ Email :req.body.Email });
+      if (!instractor1) {
+          console.log("email not found")
+      }
+      NewPassword = req.body.password ;
+      instractor1.password = NewPassword;
+
+    }
+   catch (err) {
+    console.error(err);
+}});
 
 });
 

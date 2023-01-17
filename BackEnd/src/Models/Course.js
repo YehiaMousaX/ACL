@@ -97,5 +97,6 @@ const CourseSchema = new Schema({
 
 }, { timestamps: true });
 
+
 const Course = mongoose.model('Course', CourseSchema);
 module.exports = Course;

@@ -598,5 +598,36 @@ router.get("/searchcourse/title", async(req, res) => {
     res.send(courses);
 });
 
+router.post('/search/substring1', async (req, res) => {
+  const substring = req.body.substring+"";
+
+  const courses1 = await Course.find({
+       title: { $regex: substring, $options: 'i' } 
+    
+  });
+  const courses2 = await Course.find({
+    Subject: { $regex: substring, $options: 'i' } 
+ 
+ });
+const courses3 = await Course.find({
+  instractorid: { $regex: substring, $options: 'i' } 
+
+ });
+
+ const Allcourses = courses1.concat(courses2).concat(courses3)
+ const courses = Allcourses.filter((item,index)=>{
+     return Allcourses.findIndex(i => JSON.stringify(i) === JSON.stringify(item)) === index
+ })
+ 
+  res.send(courses);
+});
+
+router.get("/AddCountryCurrency", async(req, res) => {
+   
+  
+  await User.updateOne({Email: req.body.Email} ,{ $set: { Countrycurrency: req.body.Countrycurrency } } )
+
+});
+
 
   module.exports = router;

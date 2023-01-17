@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const GuestSchema = new Schema({
    
    
-    Country: {
+    Countrycurrency : {
+       
         type: String,
         required: true
     }

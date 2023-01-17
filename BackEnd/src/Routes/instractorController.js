@@ -6,6 +6,7 @@ const instractor = require("../Models/Instractor");
 const InstractorCourse = require("../Models/InstractorCourse");
 const Instractor = require("../Models/Instractor");
 var url = require('url');
+const nodemailer = require("nodemailer");
 
 const  countryList = [
   "Afghanistan",
@@ -876,7 +877,7 @@ router.post('/ForgetPassword', async(req, res) => {
   const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'yehiaronldo@@gmail.com',
+      user: 'yehiaronldo@gmail.com',
       pass: 'ulywxspvyrwthxct'
     }
   });
@@ -892,32 +893,24 @@ router.post('/ForgetPassword', async(req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
+      console.log("200");
     }
-  });
-  
+});
+});
   router.get('/FindEmail', async(req, res) => {
   
     const instractor1 = await instractor.findOne({ Email :req.body.Email });
           if(instractor1)
           {
-            res.send(instractor1.Email)
+            res.send(instractor1)
         } else{
           console.log("email not found")}
   });
   
   router.post("/ResetPassword", async (req, res) => {
-    try {
-  const instractor1 = await instractor.findOne({ Email :req.body.Email });
-        if (!instractor1) {
-            console.log("email not found")
-        }
-        NewPassword = req.body.password ;
-        instractor1.password = NewPassword;
   
-      }
-     catch (err) {
-      console.error(err);
-  }});
-});
+        await Instractor.updateOne({Email: req.body.id} ,{ $set: { password: req.body.password } } )
+  
+  });
+
 module.exports = router;

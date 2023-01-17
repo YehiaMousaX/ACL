@@ -71,7 +71,6 @@ function CoroporateRateCourse() {
         <div className="dropdown-content">
           <Link to='/MyProfile'>My Profile</Link>
           <Link to='/'>Logout</Link>
-          <Link to='/user/UserShowAllCourse'> All Courses</Link>
 
 
         </div>

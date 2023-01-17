@@ -419,20 +419,20 @@ router.put("/ChangePassword", async(req, res) => {
     });
     
 
-router.get('/watch/:courseId/:videoId', async (req, res) => {
+router.get('/watch/:Courseid/:videoId', async (req, res) => {
   try {
-      const corporateuser = await Corporateuser.findById(req.params.id);
+      const corporateuser = await Coroporateuser.findOne(req.params.Email);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
       }
 
       // Check if the corporate user is registered for the course
-      const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.courseId);
+      const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.Courseid);
       if (!isRegistered) {
           return res.status(401).send({ error: 'You are not registered for this course' });
       }
 
-      const course = await Course.findById(req.params.courseId);
+      const course = await Course.findOne(req.params.Courseid);
       if (!course) {
           return res.status(404).send({ error: 'Course not found' });
       }
@@ -472,20 +472,20 @@ router.get('/watch/:courseId/:videoId', async (req, res) => {
 
 
 
-router.post('/receiveCertificate/:courseId', async (req, res) => {
-    try {
-        const corporateuser = await Corporateuser.findById(req.params.id);
-        if (!corporateuser) {
-            return res.status(404).send({ error: 'Corporate user not found' });
-        }
+router.post('/receiveCertificate/:Courseid', async (req, res) => {
+  try {
+    const corporateuser = await Coroporateuser.findOne(req.params.Email);
+    if (!corporateuser) {
+        return res.status(404).send({ error: 'Corporate user not found' });
+    }
 
         // Check if the corporate user has completed the course
-        const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.courseId);
+        const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
         if (!isCompleted) {
             return res.status(401).send({ error: 'You have not completed this course' });
         }
 
-        const course = await Course.findById(req.params.courseId);
+        const course = await Course.findOne(req.params.Courseid);
         if (!course) {
             return res.status(404).send({ error: 'Course not found' });
         }
@@ -511,21 +511,21 @@ router.post('/receiveCertificate/:courseId', async (req, res) => {
 
 
 router.get('/downloadCertificate/:courseId', async (req, res) => {
-    try {
-        const corporateuser = await Corporateuser.findById(req.params.id);
-        if (!corporateuser) {
-            return res.status(404).send({ error: 'Corporate user not found' });
-        }
+  try {
+    const corporateuser = await Coroporateuser.findOne(req.params.Email);
+    if (!corporateuser) {
+        return res.status(404).send({ error: 'Corporate user not found' });
+    }
 
-        const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.courseId);
-        if (!isCompleted) {
-            return res.status(401).send({ error: 'You have not completed this course' });
-        }
+    const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
+    if (!isCompleted) {
+        return res.status(401).send({ error: 'You have not completed this course' });
+    }
 
-        const course = await Course.findById(req.params.courseId);
-        if (!course) {
-            return res.status(404).send({ error: 'Course not found' });
-        }
+    const course = await Course.findOne(req.params.Courseid);
+    if (!course) {
+        return res.status(404).send({ error: 'Course not found' });
+    }
 
         // Create a new PDF document
         const doc = new PDFDocument();
@@ -549,23 +549,23 @@ router.get('/downloadCertificate/:courseId', async (req, res) => {
 
 router.get('/progress/:courseId', async (req, res) => {
   try {
-      const corporateuser = await Corporateuser.findById(req.params.id);
-      if (!corporateuser) {
-          return res.status(404).send({ error: 'Corporate user not found' });
-      }
+    const corporateuser = await Coroporateuser.findOne(req.params.Email);
+    if (!corporateuser) {
+        return res.status(404).send({ error: 'Corporate user not found' });
+    }
 
-      const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.courseId);
-      if (!isRegistered) {
-          return res.status(401).send({ error: 'You are not registered for this course' });
-      }
+    const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
+    if (!isCompleted) {
+        return res.status(401).send({ error: 'You have not completed this course' });
+    }
 
-      const course = await Course.findById(req.params.courseId);
-      if (!course) {
-          return res.status(404).send({ error: 'Course not found' });
-      }
+    const course = await Course.findOne(req.params.Courseid);
+    if (!course) {
+        return res.status(404).send({ error: 'Course not found' });
+    }
 
       // Get the number of videos watched by the user
-      const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
+      const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === course.Courseid);
       const progress = (videosWatched.length / course.videos.length) * 100;
 
       return res.send({ progress });
@@ -576,43 +576,10 @@ router.get('/progress/:courseId', async (req, res) => {
   }
 });
 
-router.post('/request-refund/:courseId', async (req, res) => {
-  try {
-      const corporateuser = await Corporateuser.findById(req.params.id);
-      if (!corporateuser) {
-          return res.status(404).send({ error: 'Corporate user not found' });
-      }
 
-      const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.courseId);
-      if (!isRegistered) {
-          return res.status(401).send({ error: 'You are not registered for this course' });
-      }
-
-      const course = await Course.findById(req.params.courseId);
-      if (!course) {
-          return res.status(404).send({ error: 'Course not found' });
-      }
-
-      // Get the number of videos watched by the user
-      const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
-
-      const progress = (videosWatched.length / course.videos.length) * 100;
-      if (progress < 50) {
-          // Process the refund          
-          return res.send({ message: 'Refund request has been processed successfully' });
-      } else {
-          return res.status(401).send({ error: 'You cannot request a refund as you have attended more than 50% of the course' });
-      }
-
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send({ error: 'Error retrieving progress' });
-    }
-  });
-
-  router.get('/registerdCourses/:id', async (req, res) => {
+  router.get('/registerdCourses/:Email', async (req, res) => {
     try {
-        const corporateuser = await Corporateuser.findById(req.params.id);
+        const corporateuser = await Coroporateuser.findOne(req.params.Email);
         if (!corporateuser) {
             return res.status(404).send({ error: 'Corporate user not found' });
         }
@@ -632,15 +599,15 @@ router.post('/request-refund/:courseId', async (req, res) => {
 });
 
 
-router.post("/report-problem/:courseId", async (req, res) => {
+router.post("/report-problem/:Courseid", async (req, res) => {
   try {
-    const corporateUser = await Corporateuser.findById(req.body.userId);
+    const corporateUser = await Coroporateuser.findOne(req.body.Email);
     if (!corporateUser) {
       return res.status(404).send({ error: "Corporate user not found" });
     }
 
     const isRegistered = corporateUser.RegisteredCourseid.find(
-      (courseId) => courseId.toString() === req.params.courseId
+      (courseId) => courseId.toString() === req.params.Courseid
     );
     if (!isRegistered) {
       return res
@@ -648,14 +615,14 @@ router.post("/report-problem/:courseId", async (req, res) => {
         .send({ error: "You are not registered for this course" });
     }
 
-    const course = await Course.findById(req.params.courseId);
+    const course = await Course.findOne(req.params.Courseid);
     if (!course) {
       return res.status(404).send({ error: "Course not found" });
     }
 
     // Create a new report 
     const report = new Report({
-      userEmail: corporateUser.userEmail,
+      userEmail: corporateUser.Email,
       courseId: course.Courseid,
       typeoftheUser: "corporate user",
       typeoftheProblem: req.body.typeoftheProblem,
@@ -675,7 +642,7 @@ router.post("/report-problem/:courseId", async (req, res) => {
 
 router.get('/previous-reports/:Email', async (req, res) => {
   try {
-      const corporateuser = await Corporateuser.findOne(req.params.Email);
+      const corporateuser = await Coroporateuser.findOne(req.params.Email);
       if (!corporateuser) {
           return res.status(404).send({ error: 'Corporate user not found' });
       }

@@ -64,9 +64,13 @@ const userSchema = new Schema({
     Countrycurrency : {
         type: String,
     },
+    CompletedCourseid: {
+        type: Array,    
+    },
     balance : {
         type: Number,
     }
+    
 
 }, { timestamps: true });
 

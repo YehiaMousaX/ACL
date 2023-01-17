@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
+const history = useHistory();
 
 function CorporateUserVideoPlayer({ match }) {
     const [videoUrl, setVideoUrl] = useState(null);
@@ -7,7 +9,7 @@ function CorporateUserVideoPlayer({ match }) {
 
     useEffect(() => {
         // Get the video url
-        axios.get(`/watch/${match.params.courseId}/${match.params.videoId}`)
+        axios.get(`/watch/${match.params.Courseid}/${match.params.videoId}`)
             .then(res => setVideoUrl(res.data.videoUrl))
             .catch(err => console.error(err));
     }, []);

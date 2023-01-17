@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function RefundMoney() {
 
-  const [password, setPassword] = useState('');
+  const [Money, setMoney] = useState('');
   const [Email, setEmail] = useState('');
 
 
@@ -22,7 +22,7 @@ function RefundMoney() {
         style={{
           display: submitted ? '' : 'none',
         }}>
-        <h1>Admin successfully registered!!</h1>
+        <h1>refund successfully Added !!</h1>
       </div>
     );
   };
@@ -56,7 +56,7 @@ function RefundMoney() {
 
    
       
-     if(Email === '' || password === '') {
+     if(Email === '' || Money === '') {
 
      setError(true); 
 
@@ -75,9 +75,9 @@ function RefundMoney() {
 
     
      
-    axios.post('http://localhost:8000/admin/AddAdmin', {
+    axios.post('http://localhost:8000/admin/refundmoney', {
      
-      Password : password,
+      balance : Money,
       Email: Email,
       
   } ,{
@@ -149,13 +149,13 @@ function RefundMoney() {
       />
 
       
-      <label className="label">Password:</label>
+      <label className="label">Money:</label>
       <input
-        type="password"
+        type="text"
         id="password-input"
         className="input"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
+        value={Money}
+        onChange={(event) => setMoney(event.target.value)}
         />
       
 

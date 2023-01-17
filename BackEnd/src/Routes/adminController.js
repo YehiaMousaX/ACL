@@ -7,8 +7,11 @@ const InstractorCourse = require("../Models/InstractorCourse");
 const Coroporateuser = require("../Models/Corporateuser");
 const newuser = require("../Models/NewUser");
 const Request = require("../Models/Request");
+const Report = require("../Models/Report");
+
 const router = express.Router()
 const bcrypt = require('bcrypt');
+
 
 // row 57 
 router.post('/AddAdmin', async(req, res) => {
@@ -114,4 +117,37 @@ router.post('/AddAdmin', async(req, res) => {
        
         });
 
+          router.post("/refundmoney", async(req, res) => {
+ 
+
+        await User.updateOne ({userEmail: req.body.Email } ,{balance :req.body.balance} )
+       
+        });
+
+        router.post("/reportedproblems", async(req, res) => {
+ 
+
+          const report = await Report.find({},{} )
+         
+          res.send(report)
+          });
+
+
+          router.post("/maketheproblemresolved", async(req, res) => {
+ 
+
+           await Report.updateOne({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status},{status : "resolved"} )
+            const report = await Report.find({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status})
+
+          res.send(report)
+          });
+
+          router.post("/maketheproblempending", async(req, res) => {
+ 
+           await Report.updateOne({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status},{status : "pending"} )
+
+            const report = await Report.find({userEmail: req.body.userEmail, courseId : req.body.courseId, typeoftheProblem :req.body.typeoftheProblem, status : req.body.status} )
+           
+            res.send(report)
+            });
 module.exports = router;

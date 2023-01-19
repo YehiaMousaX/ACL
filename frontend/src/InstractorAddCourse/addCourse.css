@@ -1,0 +1,46 @@
+.add-course-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-course-form h2 {
+    margin-bottom: 1rem;
+}
+
+.add-course-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.add-course-form input[type="text"],
+.add-course-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-course-form textarea {
+    height: 5rem;
+}
+
+.add-course-form button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-course-form button[type="submit"]:hover {
+    background-color: #0069d9;
+}

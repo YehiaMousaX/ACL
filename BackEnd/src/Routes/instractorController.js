@@ -911,6 +911,9 @@ router.post('/ForgetPassword', async(req, res) => {
   router.post("/ResetPassword", async (req, res) => {
   
         await Instractor.updateOne({Email: req.body.id} , { password: req.body.password } )
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        await NewUser.updateOne({Email: req.body.id} , { password: hashedPassword })
+
 
   });
 

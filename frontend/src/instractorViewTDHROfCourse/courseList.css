@@ -1,0 +1,34 @@
+.courses-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course {
+    width: 300px;
+    margin: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.course:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.course-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.course-description {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.course-instructor {
+    margin: 0;
+    font-size: 14px;
+    font-style: italic;
+    color: #999;
+}

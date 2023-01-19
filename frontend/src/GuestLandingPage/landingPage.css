@@ -1,0 +1,130 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.featured-courses {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.featured-courses h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.featured-courses-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.featured-course {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.featured-course img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.featured-course h3 {
+    margin: 10px 0;
+}
+
+.featured-course p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.featured-course button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.featured-course button:hover {
+    background-color: #444;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.categories h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.categories-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.category {
+    width: 20%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.category h3 {
+    margin: 10px 0;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}

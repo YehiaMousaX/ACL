@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PreviousReports.css";
+import { Link } from 'react-router-dom';
 
-function PreviousProblems({ match }) {
+function PreviousProblems() {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Send a get request to the server to retrieve the user's previous problems
-        const res = await axios.get("/previous-problems/" + match.params.id);
-
-        if (res.data.error) {
-          setError(res.data.error);
-        } else {
-          setReports(res.data.reports);
-        }
-      } catch (err) {
-        console.error(err);
-        setError("Error retrieving previous problems");
-      }
-    };
-    fetchData();
-  }, [match.params.id]);
+    const Email = "" + localStorage.getItem('UserEmail');
+    // Send a get request to the server to retrieve the user's previous problems
+    axios.post('http://localhost:8000/user/previous-reports', { Email: Email})
+    .then((res) => {
+      setReports(res.data)  
+    }).catch((err) => console.log(err)); 
+  
+   }
+  
+    
+  , []);
 
   return (
+    
     <div>
       {error && <p>{error}</p>}
-      {reports.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -40,21 +35,22 @@ function PreviousProblems({ match }) {
             </tr>
           </thead>
           <tbody>
-            {reports.map((report) => (
-              <tr key={report._id}>
-                <td>{report.courseId}</td>
-                <td>{report.type}</td>
-                <td>{report.description}</td>
-                <td>{report.status}</td>
-                <td>{report.createdAt}</td>
-              </tr>
-            ))}
+            {reports.forEach((report) => {
+              return (
+                <tr >
+                  <td>{report.courseId}</td>
+                  <td>{report.type}</td>
+                  <td>{report.description}</td>
+                  <td>{report.status}</td>
+                  <td>{report.createdAt}</td>
+                </tr>
+              )
+            })}
+
           </tbody>
         </table>
-      ) : (
-        <p>No previous problems found</p>
-      )}
-    </div>
+
+    </div> 
   );
 }
 

@@ -1,0 +1,15 @@
+#container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+video {
+    width: 800px;
+    height: 450px;
+}
+
+textarea {
+    width: 800px;
+    height: 150px;
+}

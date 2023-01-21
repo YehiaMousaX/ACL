@@ -9,12 +9,16 @@ function UserRegisteredCourses() {
   const [courses, setCourses] = useState([]);
 
 
-
+  function handleSubmit5(x) {
+    localStorage.setItem("usercourseID", x+""); 
+  
+    window.location.href = '/user/WatchVideo'
+  }
  
 
   function handleSubmit(x) {
     localStorage.setItem("usercourseID", x+"");  
-    
+  
    window.location.href = '/user/UseropenExamCourses'
   
   }
@@ -106,6 +110,19 @@ function UserRegisteredCourses() {
         <h3>rate : {courserate(course.rate)}</h3>
         <h3>Number of Exercises : {course.excercises.length}</h3>
 
+        <button 
+       id = "register" 
+    className='btn' 
+    type="submit" 
+    variant="contained" 
+    color="primary" 
+    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
+    onClick={() => handleSubmit5(course.Courseid)}>
+    Videos
+     </button>
+
+     <h3></h3>
+
         {course.subtitles.map((sub) => (
                 <div className="Coursee1">
                 <h3>subtitle : {sub}  </h3>
@@ -113,9 +130,12 @@ function UserRegisteredCourses() {
                 <a href={sub[1]} target="_blank" style={{color: 'blue'}}> {sub[1]}</a>
                  <h3>total hour : {sub[2]}  </h3>
 
-                  </div>
-
+                                       </div>
                ))}
+
+
+
+
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
        
         <button 
@@ -128,6 +148,19 @@ function UserRegisteredCourses() {
     onClick={() => handleSubmit(course.Courseid)}>
     Take exam 
      </button>
+
+     <button 
+       id = "register" 
+    className='btn' 
+    type="submit" 
+    variant="contained" 
+    color="primary" 
+    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
+    onClick={() => handleSubmit5(course.Courseid)}>
+    Videos
+     </button>
+
+     
 
         
          

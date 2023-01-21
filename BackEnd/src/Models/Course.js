@@ -85,6 +85,17 @@ const CourseSchema = new Schema({
 
 
     },
+    videos: [
+      {
+        Courseid: {
+          type: String,
+        },
+        number: {
+          type: String,
+        }
+        
+      }
+    ],
     review: {
         type: String,
         required: false,
@@ -94,10 +105,7 @@ const CourseSchema = new Schema({
     preview : {
         type: String,
         required: false,
-    }, 
-    videos: {
-      type: Array,
-  },
+    }
 
 
 }, { timestamps: true });

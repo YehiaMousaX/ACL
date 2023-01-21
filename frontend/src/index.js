@@ -42,6 +42,9 @@ import AdminAddinstr from './Admin/AdminAddinstractor/adminAddinst';
 import AdminAddcouser from './Admin/AdminAddcoporateuser/adminAddcouser';
 import UserShowAllCourse5 from './Admin/UserShowAllCourses/UserShowAllCourse';
 import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
+import ReportProblem from './Corporateuser/Report/ReportProblem';
+import PreviousProblems from './Corporateuser/Report/PreviousReports';
+import WatchVideo from './User/WatchVideo/WatchVideo';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
@@ -79,11 +82,14 @@ ReactDOM.render(
         <Route path = '/Guest/Guestchoosecountry' element={<Guestchoosecountry/>}/>
         <Route path = '/user/userpayforcourse' element={<CreditCardPayment/>}/>
         <Route path = '/user/UserShowAllCourseregistered' element={<UserRegisteredCourses/>}/>
-        
+        <Route path = '/user/ReportProblem' element={<ReportProblem/>}/>
+        <Route path = '/user/PreviousProblems' element={<PreviousProblems/>}/>
+
         <Route path = '/corporateuser/CoroporateRegisteredCourses' element={<CoroporateRegisteredCourses/>}/>
         <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>
         <Route path = '/user/UserRateCourse' element={<UserRateCourse/>}/>
         <Route path = '/user/UserRateInstractor' element={<UserRateInstructor/>}/>
+        <Route path = '/user/WatchVideo' element={<WatchVideo/>}/>
         
         <Route path = '/coroporateuser/UserRateInstractor' element={<CoroporateRateCourse/>}/>
         <Route path = '/coroporateuser/CoroporateRateInstructor' element={<CoroporateRateInstructor/>}/>

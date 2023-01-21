@@ -51,24 +51,34 @@ const userSchema = new Schema({
 
       RegisteredCourseid: {
         type: Array,
+        required: false
         
     },
      RegisteredCourseid1: {
         type: Array,
+        required: false
         
     },
     RegisteredCourseid2: {
         type: Array,
+        required: false
         
     },
     Countrycurrency : {
         type: String,
+        required: false
     },
     CompletedCourseid: {
-        type: Array,    
+        type: Array,  
+        required: false  
+    },
+    videosWatched: {
+        type: Array,  
+        required: false  
     },
     balance : {
         type: Number,
+        required: false
     }
     
 

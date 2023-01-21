@@ -126,6 +126,7 @@ const helper3 = () => {
                       <Link to='/user/UserShowAllCourseregistered' > Registered Courses</Link>
                       <Link to='/user/UserRateCourse' > rate your Courses</Link>
                       <Link to='/user/UserRateInstractor' > rate your instructors</Link>
+                      <Link to='/user/PreviousProblems' > Your Reports</Link>
 
                       
                       

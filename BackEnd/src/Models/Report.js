@@ -20,10 +20,6 @@ const ReportSchema = new Schema({
   status: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 const Report = mongoose.model("Report", ReportSchema);

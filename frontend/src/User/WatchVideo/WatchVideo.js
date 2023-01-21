@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./ReportProblem.css";
 import { Link } from 'react-router-dom';
+import "./WatchVideo.css";
 
-function ReportProblem() {
-  const [type, setType] = useState("");
-  const [description, setDescription] = useState("");
+function WatchVideo() {
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -13,15 +12,15 @@ function ReportProblem() {
     e.preventDefault();
 
     const email = "" + localStorage.getItem('UserEmail')
-    const courseID = "" + localStorage.getItem('usercourseID5')
-    try {
+    const video = "" + localStorage.getItem('video')
+    const courseID = "" + localStorage.getItem('usercourseID')
 
+    
       // Send a post request to the server to report the problem
-      const res = await axios.put("http://localhost:8000/user/report-problem", {
-        Courseid : courseID,
+      const res = await axios.get("http://localhost:8000/user/watch", {
         Email: email,
-        type,
-        description,
+        Courseid : courseID,
+        Video: video
       });
 
       if (res.data.error) {
@@ -29,11 +28,7 @@ function ReportProblem() {
       } else {
         setSuccess(res.data.message);
       }
-    } catch (err) {
-      console.error(err);
-      setError("Error reporting problem");
-    }
-  };
+    } 
 
   return (
 
@@ -57,31 +52,19 @@ function ReportProblem() {
                 </nav>
             </div>
         </div></>
-    <div>
-      {error && <p>{error}</p>}
-      {success && <p>{success}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Type:
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="technical">Technical</option>
-            <option value="financial">Financial</option>
-            <option value="other">Other</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Report Problem</button>
-      </form>
+        <h3></h3>
+        <h3></h3>
+        <div id="container">
+      <video src="video.mp4" controls></video>
+
+      <h3>write notes</h3>
+      
+      <div id="notes">
+        <textarea id="note-input"></textarea>
+        <button id="submit-button">Submit Notes</button>
+      </div>
     </div> </>
   );
 }
 
-export default ReportProblem;
+export default WatchVideo;

@@ -7,6 +7,8 @@ import Modal from "react-modal";
 
 function UserRegisteredCourses() {
   const [courses, setCourses] = useState([]);
+  const [error, setError] = useState('');
+  const [progress, setProgress] = useState(0);
 
 
   function handleSubmit5(x) {
@@ -14,7 +16,34 @@ function UserRegisteredCourses() {
   
     window.location.href = '/user/WatchVideo'
   }
- 
+
+  const email = "" + localStorage.getItem('UserEmail');
+
+  const handleReceiveCertificate = async (courseId) => {
+    try {
+      const email = localStorage.getItem('UserEmail');
+      const res = await axios.post('http://localhost:8000/user/receiveCertificate', { Email: email, Courseid: courseId });
+      alert(res.data.message);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  }
+
+  const handleDownloadCertificate = async (courseId) => {
+    try {
+      const email = localStorage.getItem('UserEmail');
+      const res = await axios.post('http://localhost:8000/user/downloadCertificate', { Email: email, Courseid: courseId }, {responseType: 'blob'});
+      const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(pdfBlob);
+      link.download = "certificate.pdf";
+      link.click();
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  }
+  
+  
 
   function handleSubmit(x) {
     localStorage.setItem("usercourseID", x+"");  
@@ -40,7 +69,6 @@ function UserRegisteredCourses() {
          setCourses(res.data)
     })
     .catch((err) => console.log(err));
-  
       
       
   }, []);
@@ -109,6 +137,8 @@ function UserRegisteredCourses() {
         <h3>Instractur Email : {course.instractorid}</h3>
         <h3>rate : {courserate(course.rate)}</h3>
         <h3>Number of Exercises : {course.excercises.length}</h3>
+        <h3>Progress: {progress}%</h3>
+
 
         <button 
        id = "register" 
@@ -132,11 +162,15 @@ function UserRegisteredCourses() {
 
                                        </div>
                ))}
+               
+               
 
 
 
 
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
+
+        
        
         <button 
        id = "register" 
@@ -149,21 +183,15 @@ function UserRegisteredCourses() {
     Take exam 
      </button>
 
-     <button 
-       id = "register" 
-    className='btn' 
-    type="submit" 
-    variant="contained" 
-    color="primary" 
-    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
-    onClick={() => handleSubmit5(course.Courseid)}>
-    Videos
-     </button>
+     <button onClick={() => handleReceiveCertificate(course.Courseid)}>Receive Certificate</button>
+<h3></h3>
+<button onClick={() => handleDownloadCertificate(course.Courseid)}>Download Certificate</button>
+
 
      
 
-        
-         
+
+     
         
     </div>
 ))}

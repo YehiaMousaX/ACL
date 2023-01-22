@@ -30,6 +30,18 @@ function WatchVideo() {
       }
     } 
 
+   
+    const handleDownload = async () => {
+      const notes = document.getElementById("note-input").value;
+      const res = await axios.post("http://localhost:8000/user/downloadNotes", { Notes: notes}, {responseType: 'blob'});
+      const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(pdfBlob);
+      link.download = "notes.pdf";
+      link.click();
+  }
+  
+
   return (
 
     <><><div className="form">
@@ -61,7 +73,7 @@ function WatchVideo() {
       
       <div id="notes">
         <textarea id="note-input"></textarea>
-        <button id="submit-button">Submit Notes</button>
+        <button id="submit-button" onClick={handleDownload}>Download Notes</button>
       </div>
     </div> </>
   );

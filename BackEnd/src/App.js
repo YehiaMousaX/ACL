@@ -16,7 +16,7 @@ app.use(cors());
 // Mongo DB
 
 const mongoose = require('mongoose')
-const url = `mongodb+srv://MDawod8:123456asdmido@mernapp.kznc6n6.mongodb.net/test`;
+const url = `mongodb+srv://seifzeweeta:112233445566778899@cluster0.q4z1cf4.mongodb.net/test`;
 const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true

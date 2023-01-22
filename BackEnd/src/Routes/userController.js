@@ -2,6 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const Course = require("../Models/Course");
+const Request = require("../Models/Request");
 const Instractor = require("../Models/Instractor");
 const Admin = require("../Models/Admin");
 const InstractorCourse = require("../Models/InstractorCourse");
@@ -10,6 +11,7 @@ const newuser = require("../Models/NewUser")
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
+
 
 
 const { response } = require("express");
@@ -675,31 +677,49 @@ router.post('/watch', async (req, res) => {
       }
 
       // Find the video by its id
-      const video = course.videos.number.findOne({number: req.body.Number});
+      const video = course.videos.find(v => v.id === req.body.id);
       if (!video) {
           return res.status(404).send({ error: 'Video not found' });
       }
 
       try{
+        console.log(`checking if the video watched before`);
+
+        const videowatched = user.videosWatched.find(v => v.id === req.body.id);
+        if (!videowatched) {
+
+          console.log(`adding the video to videos watched`);
+
         user.videosWatched.push(video);
+        console.log(`added the video to videos watched`);
+
         await user.save();
+        console.log(`user saved`);
 
-        const videosWatched = user.videosWatched.filter(video.Courseid === course.Courseid);
+      }
+      console.log(`calculating progress1`);
+
+        const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
+        console.log(`calculating progress2`);
         const progress = (videosWatched.length / course.videos.length) * 100;
+        console.log(`calculating progress3`);
 
-        if (progress == 100){
-          user.CompletedCourseid.push(video.Number);
+        if (progress >= 100){
+          console.log(`calculating progress4`);
+          if(!user.CompletedCourseid.includes(course.Courseid)){
+            console.log(`calculating progress5`);
+          user.CompletedCourseid.push(video.courseID);
+          console.log(`calculating progress6`);
           await user.save();
-        }
+          console.log(`calculating progress7`);
+        }}
+
+        return res.send({ message: 'Video Watched!' });
         
-
-
     }catch(err){
         console.error(err);
         return res.status(500).send({ error: 'Error adding video to watch history' });
     }
-    
-
 
   } catch (err) {
       console.error(err);
@@ -711,63 +731,73 @@ router.post('/watch', async (req, res) => {
 
 router.post('/receiveCertificate', async (req, res) => {
   
+  console.log(`Pass1`);
     const user = await User.findOne({Email: req.body.Email});
     if (!user) {
         return res.status(404).send({ error: 'Corporate user not found' });
     }
 
-    
+    console.log(`Pass2`);
     const course = await Course.findOne({Courseid: req.body.Courseid});
     if (!course) {
         return res.status(404).send({ error: 'Course not found' });
     }
 
+    console.log(`Pass3`);
         // Check if the corporate user has completed the course
-        const isCompleted = user.CompletedCourseid.find(course.Courseid);
+        const isCompleted = user.CompletedCourseid.includes(course.Courseid);
+        console.log(`Pass4`);
         if (!isCompleted) {
             return res.status(401).send({ error: 'You have not completed this course' });
         }
+        console.log(`Pass5`);
+
+         // Create a new PDF document
+    const doc = new PDFDocument();
+    console.log(`Pass6`);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+    const pdfPath = '\certificate.pdf';
+    doc.pipe(fs.createWriteStream(pdfPath));
+    console.log(`Pass7`);
+
+    // Add the certificate image
+    doc.font('Helvetica-Bold').text('Certificate of Completion', { align: 'center' });
+        doc.font('Helvetica').text(`This is to certify that ${user.Name} has completed the course "${course.title}"`, { align: 'center' });
+        doc.moveDown();
+        doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+
+    console.log(`Pass8`);
+    // make sure that the document has been fully written before calling the end method
+    console.log(`Pass9`);
 
 
-        // Create a new PDF document
-        const doc = new PDFDocument();
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
-        doc.pipe(res);
-
-        // Add the certificate image
-        doc.font('Helvetica-Bold').fontSize(20).text(user.Name, 100, 200);
-        doc.font('Helvetica-Bold').fontSize(20).text(course.title, 100, 250);
         doc.end();
-
-        if (!(doc>0)) {
-          return res.status(500).send({ error: 'Error Handling Document' });}
+   
+    
+    console.log(`Pass10`);
 
          // Set up the transporter for sending email
-    const transporter = nodemailer.createTransport({
+    let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: 'midodawod5@gmail.com',
-          pass: '123456asdmido'
+          user: 'yehiaronldo@gmail.com',
+          pass: 'ulywxspvyrwthxct'
       }
   });
-
-  if (!(transporter>0)) {
-    return res.status(500).send({ error: 'Error Handling transporter' });}
+  console.log(`Pass15`);
 
          // Send the email
     const mailOptions = {
-      from: 'midodawod5@gmail.com',
+      from: 'yehiaronldo@gmail.com',
       to: 'mohameddawod7551@gmail.com',
       subject: 'Certificate for ' + course.title,
       text: 'Congratulations on completing the course! Please find your certificate attached.',
       attachments: [{path: 'certificate.pdf'}]
   };
-
-  if (!(mailOptions>0)) {
-    return res.status(500).send({ error: 'Error Handling mailOptions' });}
-
+  console.log(`Pass16`);
   transporter.sendMail(mailOptions, function(error, info){
+    console.log(`Pass21`);
       if (error) {
           console.log(error);
           return res.status(500).send({ error: 'Error sending email' });
@@ -782,95 +812,176 @@ router.post('/receiveCertificate', async (req, res) => {
 
 
 
-router.get('/downloadCertificate/:courseId', async (req, res) => {
-  try {
-    const user = await User.findOne(req.params.Email);
+router.post('/downloadCertificate', async (req, res) => {
+  console.log(`Pass1`);
+    const user = await User.findOne({Email: req.body.Email});
     if (!user) {
         return res.status(404).send({ error: 'Corporate user not found' });
     }
 
-    const isCompleted = user.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-    if (!isCompleted) {
-        return res.status(401).send({ error: 'You have not completed this course' });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
+    console.log(`Pass2`);
+    const course = await Course.findOne({Courseid: req.body.Courseid});
     if (!course) {
         return res.status(404).send({ error: 'Course not found' });
     }
 
-        // Create a new PDF document
-        const doc = new PDFDocument();
-        res.setHeader('Content-disposition', 'attachment; filename=certificate.pdf');
-        res.setHeader('Content-type', 'application/pdf');
-        doc.pipe(res);
+    console.log(`Pass3`);
+        // Check if the corporate user has completed the course
+        const isCompleted = user.CompletedCourseid.includes(course.Courseid);
+        console.log(`Pass4`);
+        if (!isCompleted) {
+            return res.status(401).send({ error: 'You have not completed this course' });
+        }
+        console.log(`Pass5`);
 
-        // Add content to the PDF
-        doc.font('Helvetica-Bold').text('Certificate of Completion', { align: 'center' });
-        doc.font('Helvetica').text(`This is to certify that ${user.Name} has completed the course "${course.title}"`, { align: 'center' });
-        doc.image('path/to/course/logo.png', { align: 'center' });
+         // Create a new PDF document
+    const doc = new PDFDocument();
+    console.log(`Pass6`);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+    const pdfPath = '\certificate.pdf';
+    doc.pipe(fs.createWriteStream(pdfPath));
+    console.log(`Pass7`);
+
+    // Add the certificate image
+    doc.font('Helvetica-Bold').text('Certificate of Completion', { align: 'center' });
+        doc.font('Helvetica').text(`This is to certify that ${user.Name} has completed the course "${course.Courseid}"`, { align: 'center' });
         doc.moveDown();
         doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+
+    console.log(`Pass8`);
+    // make sure that the document has been fully written before calling the end method
+    console.log(`Pass9`);
+
+
         doc.end();
 
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'Error processing request' });
-    }
+        doc.pipe(res);
+   
+    
+    console.log(`Pass10`);
+
+ 
 });
 
-router.get('/progress/:courseId', async (req, res) => {
+router.post('/downloadNotes', async (req, res) => {
+
+
+         // Create a new PDF document
+    const doc = new PDFDocument();
+    console.log(`Pass6`);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+    const pdfPath = '\certificate.pdf';
+    doc.pipe(fs.createWriteStream(pdfPath));
+    console.log(`Pass7`);
+
+    // Add the certificate image
+    doc.font('Helvetica-Bold').text('My Notes', { align: 'center' });
+        doc.font('Helvetica').text(`"${req.body.Notes}"`, { align: 'center' });
+        doc.moveDown();
+        doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+
+    console.log(`Pass8`);
+    // make sure that the document has been fully written before calling the end method
+    console.log(`Pass9`);
+
+
+        doc.end();
+
+        doc.pipe(res);
+   
+    
+    console.log(`Pass10`);
+
+ 
+});
+
+router.get('/progress', async (req, res) => {
   try {
-    const user = await User.findOne(req.params.Email);
+    const user = await User.findOne({Email: req.body.Email});
     if (!user) {
-        return res.status(404).send({ error: 'Corporate user not found' });
+        return res.status(404).send({ error: 'user not found' });
     }
 
-    const isCompleted = user.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-    if (!isCompleted) {
-        return res.status(401).send({ error: 'You have not completed this course' });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
+    const course = await Course.findOne({Courseid: req.body.Courseid});
     if (!course) {
         return res.status(404).send({ error: 'Course not found' });
     }
 
-      // Get the number of videos watched by the user
-      const videosWatched = user.videosWatched.filter(video => video.courseId.toString() === course.Courseid);
-      const progress = (videosWatched.length / course.videos.length) * 100;
+    try{
+    
+    
+    console.log(`calculating progress1`);
+
+      const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
+      console.log(`calculating progress2`);
+      const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+      console.log(`calculating progress3`);
 
       return res.send({ progress });
 
-  } catch (err) {
+     
+
+      
+  }catch(err){
       console.error(err);
-      return res.status(500).send({ error: 'Error retrieving progress' });
+      return res.status(500).send({ error: 'Errorrr ' });
   }
+
+} catch (err) {
+    console.error(err);
+      return res.status(500).send({ error: 'Error retrieving progress' });
+}
 });
 
-router.post('/request-refund/:courseId', async (req, res) => {
+router.post('/request-refund', async (req, res) => {
   try {
-    const user = await User.findOne(req.params.Email);
+    console.log(`Pass1`);
+    const user = await User.findOne({Email: req.body.Email});
     if (!user) {
         return res.status(404).send({ error: 'Corporate user not found' });
     }
 
-    const isCompleted = user.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-    if (!isCompleted) {
-        return res.status(401).send({ error: 'You have not completed this course' });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
+    console.log(`Pass2`);
+    const course = await Course.findOne({Courseid: req.body.Courseid});
     if (!course) {
         return res.status(404).send({ error: 'Course not found' });
     }
 
+ 
+    console.log(`Pass3`);
       // Get the number of videos watched by the user
-      const videosWatched = user.videosWatched.filter(video => video.courseId.toString() === course.Courseid);
+      const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
 
+      console.log(`Pass4`);
       const progress = (videosWatched.length / course.videos.length) * 100;
       if (progress < 50) {
-          // Process the refund          
+
+        const check = await Request.find({userEmail : user.Email}, {courseId : course.Courseid});
+
+        if (check) {
+          return res.status(404).send({ error: 'You have already made request to this course before' });}
+          
+        if (!check) {
+          // Process the refund 
+          console.log(`Pass5`);
+          const request = new Request({
+            userEmail: user.Email,
+            courseId: course.Courseid,
+            
+          });
+          console.log(`Pass6`);
+
+          if (check) {
+
+          return res.status(404).send({ error: 'You have already made request to this course before' });}
+          
+      
+          // Save the report to the database
+          await request.save();  }
+          console.log(`Pass7`);
+
           return res.send({ message: 'Refund request has been processed successfully' });
       } else {
           return res.status(401).send({ error: 'You cannot request a refund as you have attended more than 50% of the course' });
@@ -896,12 +1007,7 @@ router.put("/report-problem", async (req, res) => {
       return res.status(404).send({ error: "Course not found" });
     }
 
-    const isRegistered = user.RegisteredCourseid.find(course);
-    if (!isRegistered) {
-      return res
-        .status(401)
-        .send({ error: "You are not registered for this course" });
-    }
+
 
 
     // Create a new report 
@@ -913,6 +1019,7 @@ router.put("/report-problem", async (req, res) => {
       description: req.body.description,
       status: "unsolved",
     });
+    
 
     // Save the report to the database
     await report.save();
@@ -923,6 +1030,7 @@ router.put("/report-problem", async (req, res) => {
     return res.status(500).send({ error: "Error reporting problem" });
   }
 });
+
 
 router.post('/previous-reports', async (req, res) => {
   try {
@@ -945,25 +1053,33 @@ router.post('/previous-reports', async (req, res) => {
 
 
 
-router.put("/reports/:reportId", async (req, res) => {
+router.put("/follow-up/:reportId", async (req, res) => {
   try {
+
+    console.log(`Pass1`);
     // Find the report by its id
     const report = await Report.findById(req.params.reportId);
     if (!report) {
       return res.status(404).send({ error: "Report not found" });
     }
+    console.log(`Pass2`);
 
     // Check if the report is already resolved
     if (report.status === "solved") {
       return res.status(400).send({ error: "Report already resolved" });
     }
 
+    console.log(`Pass3`);
+
     // Update the report status to "in-progress"
     report.status = "in-progress";
+    console.log(`Pass4`);
     await report.save();
 
+    console.log(`Pass5`);
     // Send the updated report as a response
     return res.send({ report });
+    
   } catch (err) {
     console.error(err);
     return res.status(500).send({ error: "Error updating report" });

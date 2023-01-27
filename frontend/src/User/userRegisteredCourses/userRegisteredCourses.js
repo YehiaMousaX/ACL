@@ -11,8 +11,14 @@ function UserRegisteredCourses() {
   const [progress, setProgress] = useState(0);
 
 
-  function handleSubmit5(x) {
-    localStorage.setItem("usercourseID", x+""); 
+  const handleSubmit5 = async (courseID,videoID)  => {
+    try {
+      const email = localStorage.getItem('UserEmail');
+      const res = await axios.post('http://localhost:8000/user/watch', { Email: email, Courseid: courseID,id:videoID });
+      alert(res.data.message);
+    } catch (err) {
+      alert(err.response.data.error);
+    } 
   
     window.location.href = '/user/WatchVideo'
   }
@@ -28,6 +34,31 @@ function UserRegisteredCourses() {
       alert(err.response.data.error);
     }
   }
+
+
+  const getProgress = async (courseId) => {
+    try {
+      const email = localStorage.getItem('UserEmail');
+      const res = await axios.post('http://localhost:8000/user/progress', { Email: email, Courseid: courseId });
+      alert(res.data.message);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  }
+
+
+
+  const Refund = async (courseId) => {
+    try {
+      const email = localStorage.getItem('UserEmail');
+      const res = await axios.put('http://localhost:8000/user/request-refund', { Email: email, Courseid: courseId });
+      alert(res.data.message);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  }
+
+  
 
   const handleDownloadCertificate = async (courseId) => {
     try {
@@ -69,6 +100,7 @@ function UserRegisteredCourses() {
          setCourses(res.data)
     })
     .catch((err) => console.log(err));
+    
       
       
   }, []);
@@ -140,28 +172,22 @@ function UserRegisteredCourses() {
         <h3>Progress: {progress}%</h3>
 
 
-        <button 
-       id = "register" 
-    className='btn' 
-    type="submit" 
-    variant="contained" 
-    color="primary" 
-    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
-    onClick={() => handleSubmit5(course.Courseid)}>
-    Videos
-     </button>
-
      <h3></h3>
-
-        {course.subtitles.map((sub) => (
-                <div className="Coursee1">
-                <h3>subtitle : {sub}  </h3>
-                <h3>Link Youtube :  </h3>
-                <a href={sub[1]} target="_blank" style={{color: 'blue'}}> {sub[1]}</a>
-                 <h3>total hour : {sub[2]}  </h3>
-
-                                       </div>
-               ))}
+     <div className="Coursee1">
+        {course.videos.map((vid,i) => (
+                
+                <button 
+                id = "register" 
+                className='btn' 
+                type="submit" 
+                variant="contained" 
+                color="primary" 
+                onClick={() => handleSubmit5(course.Courseid,vid.id)}>
+                Video {i+1}
+                 </button>
+                 
+                                       
+               ))}</div>
                
                
 
@@ -171,21 +197,24 @@ function UserRegisteredCourses() {
         <h3>preview video press here  :   <a href={course.preview} target="_blank" style={{color: 'blue'}}>  {course.preview}</a></h3>
 
         
-       
-        <button 
-       id = "register" 
-    className='btn' 
-    type="submit" 
-    variant="contained" 
-    color="primary" 
-    style={{display: checkFunction(course.excercises.length) ? 'block' : 'none'}} 
-    onClick={() => handleSubmit(course.Courseid)}>
-    Take exam 
+
+
+     <button 
+    onClick={() => getProgress(course.Courseid)}>
+    show progress
      </button>
 
+     <h3></h3>
+
+ 
+
+     <h3></h3>
+     
      <button onClick={() => handleReceiveCertificate(course.Courseid)}>Receive Certificate</button>
 <h3></h3>
 <button onClick={() => handleDownloadCertificate(course.Courseid)}>Download Certificate</button>
+<h3></h3>
+<button onClick={() => Refund(course.Courseid)}>request a refund </button>
 
 
      

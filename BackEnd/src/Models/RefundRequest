@@ -1,0 +1,18 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const RefundRequestSchema = new Schema({
+  userEmail: {
+    type: String,
+  },
+  courseId: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const RefundRequest = mongoose.model("RefundRequest", RefundRequestSchema);
+module.exports = RefundRequest;

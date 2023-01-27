@@ -337,28 +337,7 @@ function handleSubmit(x) {
              
              
           </nav>
-          <div className='search-container'>
-            <input    placeholder="Search here"
-           className='input' type="text" onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} />
-            <button className='btn1'onClick={handleClick}>Search</button>
-        </div>
-        
-        <div className='search-container'>
-            <input    placeholder="filter here based on Subject "
-           className='input' type="text" onChange={(e) => setfilterQuery(e.target.value)} value={filterQuery} />
-        </div>
-
-        <div className='search-container'>
-            <input    placeholder="filter and put maximum price"
-           className='input' type="text" onChange={(e) => setfilterQuery1(e.target.value)} value={filterQuery1} />
-        </div>
-        
-        <div className='search-container'>
-            <input    placeholder="filter and put minimum rate"
-           className='input' type="text" onChange={(e) => setfilterQuery2(e.target.value)} value={filterQuery2} />
-           <button className='btn1'onClick={handleClick1}>filter</button>
-
-        </div>
+         
 
           <div className="dropdown">
               <button className="dropbtn">User

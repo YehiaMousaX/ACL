@@ -714,7 +714,7 @@ router.post('/watch', async (req, res) => {
           console.log(`calculating progress7`);
         }}
 
-        return res.send({ message: 'Video Watched!' });
+        return res.send({ message: 'Loading!' });
         
     }catch(err){
         console.error(err);
@@ -816,7 +816,7 @@ router.post('/downloadCertificate', async (req, res) => {
   console.log(`Pass1`);
     const user = await User.findOne({Email: req.body.Email});
     if (!user) {
-        return res.status(404).send({ error: 'Corporate user not found' });
+        return res.status(404).send({ error: 'user not found' });
     }
 
     console.log(`Pass2`);
@@ -897,7 +897,7 @@ router.post('/downloadNotes', async (req, res) => {
  
 });
 
-router.get('/progress', async (req, res) => {
+router.post('/progress', async (req, res) => {
   try {
     const user = await User.findOne({Email: req.body.Email});
     if (!user) {
@@ -911,17 +911,11 @@ router.get('/progress', async (req, res) => {
 
     try{
     
-    
-    console.log(`calculating progress1`);
-
       const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
-      console.log(`calculating progress2`);
       const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
-      console.log(`calculating progress3`);
 
       return res.send({ progress });
 
-     
 
       
   }catch(err){
@@ -935,7 +929,7 @@ router.get('/progress', async (req, res) => {
 }
 });
 
-router.post('/request-refund', async (req, res) => {
+router.put('/request-refund', async (req, res) => {
   try {
     console.log(`Pass1`);
     const user = await User.findOne({Email: req.body.Email});
@@ -953,16 +947,22 @@ router.post('/request-refund', async (req, res) => {
     console.log(`Pass3`);
       // Get the number of videos watched by the user
       const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
-
       console.log(`Pass4`);
-      const progress = (videosWatched.length / course.videos.length) * 100;
-      if (progress < 50) {
+      const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+      console.log(`Pass55`);
+      if (progress > 50) {
+        console.log(`Pass56`);
 
-        const check = await Request.find({userEmail : user.Email}, {courseId : course.Courseid});
-
+        const check = await Request.findOne({ 
+          userEmail: user.Email,
+          courseId: course.Courseid 
+        });
+        
+        console.log(`Pass57`);
         if (check) {
+          console.log(`Pass58`);
           return res.status(404).send({ error: 'You have already made request to this course before' });}
-          
+          console.log(`Pass59`);
         if (!check) {
           // Process the refund 
           console.log(`Pass5`);
@@ -972,10 +972,6 @@ router.post('/request-refund', async (req, res) => {
             
           });
           console.log(`Pass6`);
-
-          if (check) {
-
-          return res.status(404).send({ error: 'You have already made request to this course before' });}
           
       
           // Save the report to the database

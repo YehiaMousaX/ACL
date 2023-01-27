@@ -45,6 +45,8 @@ import AdminViewRequested from './Admin/AdminViewRequested/AdminViewRequested';
 import ReportProblem from './Corporateuser/Report/ReportProblem';
 import PreviousProblems from './Corporateuser/Report/PreviousReports';
 import WatchVideo from './User/WatchVideo/WatchVideo';
+import ReportProblem1 from './User/Report/ReportProblem';
+import PreviousProblems1 from './User/Report/PreviousReports';
 
 import ViewInstructorContract from './Instructor/ViewInstructorContract/ViewInstructorContract';
 import InstructorCourses from './Instructor/instructorViewMyCourse/instructorViewMyCourse';
@@ -84,6 +86,8 @@ ReactDOM.render(
         <Route path = '/user/UserShowAllCourseregistered' element={<UserRegisteredCourses/>}/>
         <Route path = '/user/ReportProblem' element={<ReportProblem/>}/>
         <Route path = '/user/PreviousProblems' element={<PreviousProblems/>}/>
+        <Route path = '/corporateuser/ReportProblem' element={<ReportProblem1/>}/>
+        <Route path = '/corporateuser/PreviousProblems' element={<PreviousProblems1/>}/>
 
         <Route path = '/corporateuser/CoroporateRegisteredCourses' element={<CoroporateRegisteredCourses/>}/>
         <Route path = '/user/UseropenExamCourses' element={<UseropenExamCourses/>}/>

@@ -7,23 +7,14 @@ import Modal from "react-modal";
 
 function UserRegisteredCourses() {
   const [courses, setCourses] = useState([]);
-  const [error, setError] = useState('');
-  const [progress, setProgress] = useState(0);
 
 
-  const handleSubmit5 = async (courseID,videoID)  => {
-    try {
-      const email = localStorage.getItem('UserEmail');
-      const res = await axios.post('http://localhost:8000/user/watch', { Email: email, Courseid: courseID,id:videoID });
-      alert(res.data.message);
-    } catch (err) {
-      alert(err.response.data.error);
-    } 
+  function handleSubmit5(x) {
+    localStorage.setItem("Course", x); 
   
     window.location.href = '/user/WatchVideo'
   }
 
-  const email = "" + localStorage.getItem('UserEmail');
 
   const handleReceiveCertificate = async (courseId) => {
     try {
@@ -39,8 +30,8 @@ function UserRegisteredCourses() {
   const getProgress = async (courseId) => {
     try {
       const email = localStorage.getItem('UserEmail');
-      const res = await axios.post('http://localhost:8000/user/progress', { Email: email, Courseid: courseId });
-      alert(res.data.message);
+      const res = await axios.post('http://localhost:8000/user/progress1', { Email: email, Courseid: courseId });
+      alert(res.data.progress);
     } catch (err) {
       alert(err.response.data.error);
     }
@@ -169,25 +160,19 @@ function UserRegisteredCourses() {
         <h3>Instractur Email : {course.instractorid}</h3>
         <h3>rate : {courserate(course.rate)}</h3>
         <h3>Number of Exercises : {course.excercises.length}</h3>
-        <h3>Progress: {progress}%</h3>
 
 
      <h3></h3>
+
+        {course.subtitles.map((sub) => (
      <div className="Coursee1">
-        {course.videos.map((vid,i) => (
-                
-                <button 
-                id = "register" 
-                className='btn' 
-                type="submit" 
-                variant="contained" 
-                color="primary" 
-                onClick={() => handleSubmit5(course.Courseid,vid.id)}>
-                Video {i+1}
-                 </button>
-                 
+                <h3>subtitle : {sub}  </h3>
+                <h3>Link Youtube :  </h3>
+                <a href={sub[1]} target="_blank" style={{color: 'blue'}}> {sub[1]}</a>
+                 <h3>total hour : {sub[2]}  </h3>
                                        
-               ))}</div>
+                                       </div>
+               ))}
                
                
 
@@ -206,7 +191,10 @@ function UserRegisteredCourses() {
 
      <h3></h3>
 
- 
+     <button 
+    onClick={() => handleSubmit5(course)}>
+    Video
+     </button>
 
      <h3></h3>
      

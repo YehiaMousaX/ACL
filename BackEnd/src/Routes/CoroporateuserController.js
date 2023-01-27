@@ -409,7 +409,7 @@ router.put("/ChangePassword", async(req, res) => {
   });
 
   router.post("/AllCourses/registerfor", async(req, res) => {
-    const registeredCourses = await User.aggregate([
+    const registeredCourses = await Coroporateuser.aggregate([
       {$match: {Email: req.body.Email }},
       {$unwind: "$RegisteredCourseid"},
       {$replaceRoot: {newRoot: "$RegisteredCourseid"}}
@@ -419,306 +419,470 @@ router.put("/ChangePassword", async(req, res) => {
     });
     
 
-router.get('/watch/:Courseid/:videoId', async (req, res) => {
-  try {
-      const corporateuser = await Coroporateuser.findOne(req.params.Email);
-      if (!corporateuser) {
-          return res.status(404).send({ error: 'Corporate user not found' });
-      }
-
-      // Check if the corporate user is registered for the course
-      const isRegistered = corporateuser.RegisteredCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-      if (!isRegistered) {
-          return res.status(401).send({ error: 'You are not registered for this course' });
-      }
-
-      const course = await Course.findOne(req.params.Courseid);
-      if (!course) {
-          return res.status(404).send({ error: 'Course not found' });
-      }
-
-      // Find the video by its id
-      const video = course.videos.find(video => video._id.toString() === req.params.videoId);
-      if (!video) {
-          return res.status(404).send({ error: 'Video not found' });
-      }
-
-      try{
-        corporateuser.videosWatched.push(req.params.videoId);
-        await corporateuser.save();
-
-        const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === req.params.courseId);
-        const progress = (videosWatched.length / course.videos.length) * 100;
-
-        if (progress == 100){
-          corporateuser.CompletedCourseid.push(req.params.courseId);
-          await corporateuser.save();
-        }
-
-        return res.send({ videoUrl: video.url });  
-
-    }catch(err){
-        console.error(err);
-        return res.status(500).send({ error: 'Error adding video to watch history' });
-    }
+    router.post('/watch', async (req, res) => {
+      try {
+          const Coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+          if (!Coroporateuser) {
+              return res.status(404).send({ error: 'Coroporateuser not found' });
+          }
     
-
-
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send({ error: 'Error retrieving video' });
-  }
-});
-
-
-
-router.post('/receiveCertificate/:Courseid', async (req, res) => {
-  try {
-    const corporateuser = await Coroporateuser.findOne(req.params.Email);
-    if (!corporateuser) {
-        return res.status(404).send({ error: 'Corporate user not found' });
-    }
-
-        // Check if the corporate user has completed the course
-        const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-        if (!isCompleted) {
-            return res.status(401).send({ error: 'You have not completed this course' });
+          const course = await Course.findOne({Courseid: req.body.Courseid});
+          if (!course) {
+              return res.status(404).send({ error: 'Course not found' });
+          }
+    
+          // Find the video by its id
+          const video = course.videos.find(v => v.id === req.body.id);
+          if (!video) {
+              return res.status(404).send({ error: 'Video not found' });
+          }
+    
+          try{
+            console.log(`checking if the video watched before`);
+    
+            const videowatched = Coroporateuser.videosWatched.find(v => v.id === req.body.id);
+            if (!videowatched) {
+    
+              console.log(`adding the video to videos watched`);
+    
+              Coroporateuser.videosWatched.push(video);
+            console.log(`added the video to videos watched`);
+    
+            await Coroporateuser.save();
+            console.log(`Coroporateuser saved`);
+    
+          }
+          console.log(`calculating progress1`);
+    
+            const videosWatched = Coroporateuser.videosWatched.filter(v => v.courseID === course.Courseid);
+            console.log(`calculating progress2`);
+            const progress = (videosWatched.length / course.videos.length) * 100;
+            console.log(`calculating progress3`);
+    
+            if (progress >= 100){
+              console.log(`calculating progress4`);
+              if(!Coroporateuser.CompletedCourseid.includes(course.Courseid)){
+                console.log(`calculating progress5`);
+                Coroporateuser.CompletedCourseid.push(video.courseID);
+              console.log(`calculating progress6`);
+              await Coroporateuser.save();
+              console.log(`calculating progress7`);
+            }}
+    
+            return res.send({ message: 'Loading!' });
+            
+        }catch(err){
+            console.error(err);
+            return res.status(500).send({ error: 'Error adding video to watch history' });
         }
-
-        const course = await Course.findOne(req.params.Courseid);
+    
+      } catch (err) {
+          console.error(err);
+          return res.status(500).send({ error: 'Error retrieving video' });
+      }
+    });
+    
+    
+    
+    router.post('/receiveCertificate', async (req, res) => {
+      
+      console.log(`Pass1`);
+        const Coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+        if (!Coroporateuser) {
+            return res.status(404).send({ error: 'Corporate Coroporateuser not found' });
+        }
+    
+        console.log(`Pass2`);
+        const course = await Course.findOne({Courseid: req.body.Courseid});
         if (!course) {
             return res.status(404).send({ error: 'Course not found' });
         }
-
-        // Create a new PDF document
+    
+        console.log(`Pass3`);
+            // Check if the corporate Coroporateuser has completed the course
+            const isCompleted = Coroporateuser.CompletedCourseid.includes(course.Courseid);
+            console.log(`Pass4`);
+            if (!isCompleted) {
+                return res.status(401).send({ error: 'You have not completed this course' });
+            }
+            console.log(`Pass5`);
+    
+             // Create a new PDF document
         const doc = new PDFDocument();
+        console.log(`Pass6`);
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
-        doc.pipe(res);
-
+        const pdfPath = '\certificate.pdf';
+        doc.pipe(fs.createWriteStream(pdfPath));
+        console.log(`Pass7`);
+    
         // Add the certificate image
-        doc.image('path/to/certificate.jpg', 0, 0, { width: 600 });
-        doc.font('Helvetica-Bold').fontSize(20).text(corporateuser.Name, 100, 200);
-        doc.font('Helvetica-Bold').fontSize(20).text(course.title, 100, 250);
-        doc.end();
-
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'Error processing request' });
-    }
-});
-
-
-
-router.get('/downloadCertificate/:courseId', async (req, res) => {
-  try {
-    const corporateuser = await Coroporateuser.findOne(req.params.Email);
-    if (!corporateuser) {
-        return res.status(404).send({ error: 'Corporate user not found' });
-    }
-
-    const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-    if (!isCompleted) {
-        return res.status(401).send({ error: 'You have not completed this course' });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
-    if (!course) {
-        return res.status(404).send({ error: 'Course not found' });
-    }
-
-        // Create a new PDF document
-        const doc = new PDFDocument();
-        res.setHeader('Content-disposition', 'attachment; filename=certificate.pdf');
-        res.setHeader('Content-type', 'application/pdf');
-        doc.pipe(res);
-
-        // Add content to the PDF
         doc.font('Helvetica-Bold').text('Certificate of Completion', { align: 'center' });
-        doc.font('Helvetica').text(`This is to certify that ${corporateuser.Name} has completed the course "${course.title}"`, { align: 'center' });
-        doc.image('path/to/course/logo.png', { align: 'center' });
-        doc.moveDown();
-        doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
-        doc.end();
-
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'Error processing request' });
-    }
-});
-
-router.get('/progress/:courseId', async (req, res) => {
-  try {
-    const corporateuser = await Coroporateuser.findOne(req.params.Email);
-    if (!corporateuser) {
-        return res.status(404).send({ error: 'Corporate user not found' });
-    }
-
-    const isCompleted = corporateuser.CompletedCourseid.find(courseId => courseId.toString() === req.params.Courseid);
-    if (!isCompleted) {
-        return res.status(401).send({ error: 'You have not completed this course' });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
-    if (!course) {
-        return res.status(404).send({ error: 'Course not found' });
-    }
-
-      // Get the number of videos watched by the user
-      const videosWatched = corporateuser.videosWatched.filter(video => video.courseId.toString() === course.Courseid);
-      const progress = (videosWatched.length / course.videos.length) * 100;
-
-      return res.send({ progress });
-
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send({ error: 'Error retrieving progress' });
-  }
-});
-
-
-  router.get('/registerdCourses/:Email', async (req, res) => {
-    try {
-        const corporateuser = await Coroporateuser.findOne(req.params.Email);
-        if (!corporateuser) {
-            return res.status(404).send({ error: 'Corporate user not found' });
-        }
-
-        // Get the list of course ids that the user is registered for
-        const registeredCourseIds = corporateuser.RegisteredCourseid;
-
-        // Find the details of the courses that the user is registered for
-        const registeredCourses = await Course.find({ _id: { $in: registeredCourseIds } });
-
-        return res.send({ registeredCourses });
-
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'Error retrieving registerdCourses' });
-    }
-});
-
-
-router.post("/report-problem/:Courseid", async (req, res) => {
-  try {
-    const corporateUser = await Coroporateuser.findOne(req.body.Email);
-    if (!corporateUser) {
-      return res.status(404).send({ error: "Corporate user not found" });
-    }
-
-    const isRegistered = corporateUser.RegisteredCourseid.find(
-      (courseId) => courseId.toString() === req.params.Courseid
-    );
-    if (!isRegistered) {
-      return res
-        .status(401)
-        .send({ error: "You are not registered for this course" });
-    }
-
-    const course = await Course.findOne(req.params.Courseid);
-    if (!course) {
-      return res.status(404).send({ error: "Course not found" });
-    }
-
-    // Create a new report 
-    const report = new Report({
-      userEmail: corporateUser.Email,
-      courseId: course.Courseid,
-      typeoftheUser: "corporate user",
-      typeoftheProblem: req.body.typeoftheProblem,
-      status: "unsolved",
-      description: req.body.description,
+            doc.font('Helvetica').text(`This is to certify that ${user.Name} has completed the course "${course.title}"`, { align: 'center' });
+            doc.moveDown();
+            doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+    
+        console.log(`Pass8`);
+        // make sure that the document has been fully written before calling the end method
+        console.log(`Pass9`);
+    
+    
+            doc.end();
+       
+        
+        console.log(`Pass10`);
+    
+             // Set up the transporter for sending email
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            Coroporateuser: 'yehiaronldo@gmail.com',
+              pass: 'ulywxspvyrwthxct'
+          }
+      });
+      console.log(`Pass15`);
+    
+             // Send the email
+        const mailOptions = {
+          from: 'yehiaronldo@gmail.com',
+          to: 'mohameddawod7551@gmail.com',
+          subject: 'Certificate for ' + course.title,
+          text: 'Congratulations on completing the course! Please find your certificate attached.',
+          attachments: [{path: 'certificate.pdf'}]
+      };
+      console.log(`Pass16`);
+      transporter.sendMail(mailOptions, function(error, info){
+        console.log(`Pass21`);
+          if (error) {
+              console.log(error);
+              return res.status(500).send({ error: 'Error sending email' });
+          } else {
+              console.log('Email sent: ' + info.response);
+              return res.status(200).send({ message: 'Certificate sent to ' + user.Email });
+          }
+      });
+    
+        
     });
-
-    // Save the report to the database
-    await report.save();
-
-    return res.send({ message: "Problem reported successfully" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send({ error: "Error reporting problem" });
-  }
-});
-
-router.get('/previous-reports/:Email', async (req, res) => {
-  try {
-      const corporateuser = await Coroporateuser.findOne(req.params.Email);
-      if (!corporateuser) {
-          return res.status(404).send({ error: 'Corporate user not found' });
+    
+    
+    
+    router.post('/downloadCertificate', async (req, res) => {
+      console.log(`Pass1`);
+        const user = await User.findOne({Email: req.body.Email});
+        if (!user) {
+            return res.status(404).send({ error: 'user not found' });
+        }
+    
+        console.log(`Pass2`);
+        const course = await Course.findOne({Courseid: req.body.Courseid});
+        if (!course) {
+            return res.status(404).send({ error: 'Course not found' });
+        }
+    
+        console.log(`Pass3`);
+            // Check if the corporate user has completed the course
+            const isCompleted = user.CompletedCourseid.includes(course.Courseid);
+            console.log(`Pass4`);
+            if (!isCompleted) {
+                return res.status(401).send({ error: 'You have not completed this course' });
+            }
+            console.log(`Pass5`);
+    
+             // Create a new PDF document
+        const doc = new PDFDocument();
+        console.log(`Pass6`);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+        const pdfPath = '\certificate.pdf';
+        doc.pipe(fs.createWriteStream(pdfPath));
+        console.log(`Pass7`);
+    
+        // Add the certificate image
+        doc.font('Helvetica-Bold').text('Certificate of Completion', { align: 'center' });
+            doc.font('Helvetica').text(`This is to certify that ${user.Name} has completed the course "${course.Courseid}"`, { align: 'center' });
+            doc.moveDown();
+            doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+    
+        console.log(`Pass8`);
+        // make sure that the document has been fully written before calling the end method
+        console.log(`Pass9`);
+    
+    
+            doc.end();
+    
+            doc.pipe(res);
+       
+        
+        console.log(`Pass10`);
+    
+     
+    });
+    
+    router.post('/downloadNotes', async (req, res) => {
+    
+    
+             // Create a new PDF document
+        const doc = new PDFDocument();
+        console.log(`Pass6`);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+        const pdfPath = '\certificate.pdf';
+        doc.pipe(fs.createWriteStream(pdfPath));
+        console.log(`Pass7`);
+    
+        // Add the certificate image
+        doc.font('Helvetica-Bold').text('My Notes', { align: 'center' });
+            doc.font('Helvetica').text(`"${req.body.Notes}"`, { align: 'center' });
+            doc.moveDown();
+            doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
+    
+        console.log(`Pass8`);
+        // make sure that the document has been fully written before calling the end method
+        console.log(`Pass9`);
+    
+    
+            doc.end();
+    
+            doc.pipe(res);
+       
+        
+        console.log(`Pass10`);
+    
+     
+    });
+    
+    router.get('/progress', async (req, res) => {
+      try {
+        const Coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+        if (!Coroporateuser) {
+            return res.status(404).send({ error: 'Coroporateuser not found' });
+        }
+    
+        const course = await Course.findOne({Courseid: req.body.Courseid});
+        if (!course) {
+            return res.status(404).send({ error: 'Course not found' });
+        }
+    
+        try{
+        
+          const videosWatched = Coroporateuser.videosWatched.filter(v => v.courseID === course.Courseid);
+          const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+    
+          return res.send({ progress });
+    
+    
+          
+      }catch(err){
+          console.error(err);
+          return res.status(500).send({ error: 'Errorrr ' });
       }
-
-      const reports = await Report.find({ userEmail: corporateuser.Email });
-
-      // Send the list of reports as a response
-      return res.send({ reports });
-  } catch (err) {
-      console.error(err);
-      return res.status(500).send({ error: 'Error retrieving previous problems' });
-  }
-});
-
-
-
-router.put("/reports/:reportId", async (req, res) => {
-  try {
-    // Find the report by its id
-    const report = await Report.findById(req.params.reportId);
-    if (!report) {
-      return res.status(404).send({ error: "Report not found" });
+    
+    } catch (err) {
+        console.error(err);
+          return res.status(500).send({ error: 'Error retrieving progress' });
     }
-
-    // Check if the report is already resolved
-    if (report.status === "solved") {
-      return res.status(400).send({ error: "Report already resolved" });
-    }
-
-    // Update the report status to "in-progress"
-    report.status = "in-progress";
-    await report.save();
-
-    // Send the updated report as a response
-    return res.send({ report });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send({ error: "Error updating report" });
-  }
-});
-
-router.post("/ResetPassword", async (req, res) => {
-  
-  await Coroporateuser.updateOne({Email: req.body.id} , { password: req.body.password } )
-
-});
-
-
-router.post("/ChangePassword", async (req, res) => {
-await Coroporateuser.updateOne({Email: req.body.id} ,{  password: req.body.password } )
-
-});
-
-
-
-
-router.post("/Addrequest", async(req, res) => {
- 
-  const req2 = await Request.find( {   userEmail : req.body.userEmail   ,
-    courseId : req.body.courseId} ,{ });
- 
-  if (req2.length > 0){
-   res.send("false")
-    }
-    else {
-  const req1 = new Request({
-    userEmail : req.body.userEmail   ,
-    courseId : req.body.courseId
-});
-
- await  req1.save() ;
- res.send("true")
-
-}
- 
-  });
+    });
+    
+    router.post('/progress1', async (req, res) => {
+      try {
+          const Coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+          console.log(`Pass4`);
+    
+          if (!Coroporateuser) {
+            console.log(`Pass4`);
+    
+              return res.status(404).send({ error: 'Coroporateuser not found' });
+    
+          }
+    
+          const course = await Course.findOne({Courseid: req.body.Courseid});
+          console.log(`Pass4`);
+    
+          if (!course) {
+            console.log(`Pass4`);
+    
+              return res.status(404).send({ error: 'Course not found' });
+    
+          }
+    
+          console.log(`Pass4`);
+    
+    
+          try{
+            const videosWatched = Coroporateuser.videosWatched.filter(v => v.courseID === course.Courseid);
+            console.log(`Pass4`);
+    
+            const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+            console.log(`Pass5`);
+    
+    
+            return res.send({progress: "your progress is " +progress+"%"});
+            
+        }catch(err){
+            console.error(err);
+            return res.status(500).send({ error: 'Error adding video to watch history' });
+        }
+    
+      } catch (err) {
+          console.error(err);
+          return res.status(500).send({ error: 'Error retrieving video' });
+      }
+    });
+    
+    
+    router.put('/request-refund', async (req, res) => {
+      try {
+        console.log(`Pass1`);
+        const Coroporateuser = await User.findOne({Email: req.body.Email});
+        if (!Coroporateuser) {
+            return res.status(404).send({ error: 'Coroporateuser not found' });
+        }
+    
+        console.log(`Pass2`);
+        const course = await Course.findOne({Courseid: req.body.Courseid});
+        if (!course) {
+            return res.status(404).send({ error: 'Course not found' });
+        }
+    
+     
+        console.log(`Pass3`);
+          // Get the number of videos watched by the user
+          const videosWatched = Coroporateuser.videosWatched.filter(v => v.courseID === course.Courseid);
+          console.log(`Pass4`);
+          const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+          console.log(`Pass55`);
+          if (progress > 50) {
+            console.log(`Pass56`);
+    
+            const check = await Request.findOne({ 
+              userEmail: Coroporateuser.Email,
+              courseId: course.Courseid 
+            });
+            
+            console.log(`Pass57`);
+            if (check) {
+              console.log(`Pass58`);
+              return res.status(404).send({ error: 'You have already made request to this course before' });}
+              console.log(`Pass59`);
+            if (!check) {
+              // Process the refund 
+              console.log(`Pass5`);
+              const request = new Request({
+                userEmail: Coroporateuser.Email,
+                courseId: course.Courseid,
+                
+              });
+              console.log(`Pass6`);
+              
+          
+              // Save the report to the database
+              await request.save();  }
+              console.log(`Pass7`);
+    
+              return res.send({ message: 'Refund request has been processed successfully' });
+          } else {
+              return res.status(401).send({ error: 'You cannot request a refund as you have attended more than 50% of the course' });
+          }
+    
+      } catch (err) {
+          console.error(err);
+          return res.status(500).send({ error: 'Error retrieving progress' });
+        }
+      });
+    
+    
+    
+    router.put("/report-problem", async (req, res) => {
+      try {
+        const coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+        if (!coroporateuser) {
+          return res.status(404).send({ error: "user not found" });
+        }
+    
+        const course = await Course.findOne({Courseid:req.body.Courseid});
+        if (!course) {
+          return res.status(404).send({ error: "Course not found" });
+        }
+    
+    
+    
+    
+        // Create a new report 
+        const report = new Report({
+          userEmail: coroporateuser.Email,
+          courseId: course.Courseid,
+          typeoftheUser: "Coroporateuser",
+          typeoftheProblem: req.body.type,
+          description: req.body.description,
+          status: "unsolved",
+        });
+        
+    
+        // Save the report to the database
+        await report.save();
+    
+        return res.send({ message: "Problem reported successfully" });
+      } catch (err) {
+        console.error(err);
+        return res.status(500).send({ error: "Error reporting problem" });
+      }
+    });
+    
+    
+    router.post('/previous-reports', async (req, res) => {
+      try {
+        const coroporateuser = await Coroporateuser.findOne({Email: req.body.Email});
+    
+          if (!coroporateuser) {
+              return res.status(404).send({ error: 'Corporate user not found' });
+          }
+    
+          const reports = await Report.find({ userEmail: coroporateuser.Email });
+    
+          // Send the list of reports as a response
+          return res.send({ reports });
+      } catch (err) {
+          console.error(err);
+          return res.status(500).send({ error: 'Error retrieving previous problems' });
+      }
+    });
+    
+    
+    
+    
+    router.put("/follow-up/:reportId", async (req, res) => {
+      try {
+    
+        console.log(`Pass1`);
+        // Find the report by its id
+        const report = await Report.findById(req.params.reportId);
+        if (!report) {
+          return res.status(404).send({ error: "Report not found" });
+        }
+        console.log(`Pass2`);
+    
+        // Check if the report is already resolved
+        if (report.status === "solved") {
+          return res.status(400).send({ error: "Report already resolved" });
+        }
+    
+        console.log(`Pass3`);
+    
+        // Update the report status to "in-progress"
+        report.status = "in-progress";
+        console.log(`Pass4`);
+        await report.save();
+    
+        console.log(`Pass5`);
+        // Send the updated report as a response
+        return res.send({ report });
+        
+      } catch (err) {
+        console.error(err);
+        return res.status(500).send({ error: "Error updating report" });
+      }
+    });
 
 
 

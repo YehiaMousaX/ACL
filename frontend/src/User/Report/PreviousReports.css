@@ -1,0 +1,57 @@
+/* Page container */
+.previous-reports-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Title */
+  .previous-reports-container h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Report list */
+  .previous-reports-container ul {
+    width: 80%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Report item */
+  .previous-reports-container li {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 4px #ccc;
+  }
+  
+  /* Course ID */
+  .previous-reports-container li p:first-of-type {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Follow Up button */
+  .previous-reports-container button {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  
+  /* Error message */
+  .previous-reports-container .error {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  

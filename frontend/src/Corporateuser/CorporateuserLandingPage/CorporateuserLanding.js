@@ -101,6 +101,8 @@ const helper3 = () => {
                       <Link to='/corporateuser/CoroporateRegisteredCourses' > view registered courses </Link>
                       <Link to='/coroporateuser/UserRateInstractor' > Add rate for registered courses </Link>
                       <Link to='/coroporateuser/CoroporateRateInstructor' > Add rate for your instractors </Link>
+                      <Link to='/coroporateuser/PreviousProblems' > Your Reports</Link>
+
 
                       
                       

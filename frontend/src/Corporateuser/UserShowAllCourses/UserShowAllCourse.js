@@ -50,6 +50,13 @@ const successMessage = () => {
   );
 };
 
+function handleSubmit5(x) {
+  localStorage.setItem("usercourseID", x+"");  
+  
+ window.location.href = '/corporateuser/ReportProblem'
+
+}
+
 function handleSubmit(x) {
   
   axios.post('http://localhost:8000/Coroporateuser/Addrequest' ,{ courseId : x , userEmail : localStorage.getItem("UserEmail") })
@@ -318,6 +325,16 @@ function handleSubmit(x) {
         
          
         <button id = "register" className='btn' type="submit" variant="contained" color="primary" onClick={() => handleSubmit(course.Courseid)}> Register </button>
+
+        <button 
+                         id = "register" 
+                         className='btn1' 
+                         type="submit" 
+                         variant="contained" 
+                          color="primary"  
+                          onClick={() => handleSubmit5(course.Courseid)}>
+                                       Report Problem
+                                                     </button>
 
    </div>
         

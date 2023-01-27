@@ -897,11 +897,11 @@ router.post('/downloadNotes', async (req, res) => {
  
 });
 
-router.post('/progress', async (req, res) => {
+router.get('/progress', async (req, res) => {
   try {
     const user = await User.findOne({Email: req.body.Email});
     if (!user) {
-        return res.status(404).send({ error: 'user not found' });
+        return res.status(404).send({ error: 'User not found' });
     }
 
     const course = await Course.findOne({Courseid: req.body.Courseid});
@@ -929,12 +929,59 @@ router.post('/progress', async (req, res) => {
 }
 });
 
+router.post('/progress1', async (req, res) => {
+  try {
+      const user = await User.findOne({Email: req.body.Email});
+      console.log(`Pass4`);
+
+      if (!user) {
+        console.log(`Pass4`);
+
+          return res.status(404).send({ error: 'user not found' });
+
+      }
+
+      const course = await Course.findOne({Courseid: req.body.Courseid});
+      console.log(`Pass4`);
+
+      if (!course) {
+        console.log(`Pass4`);
+
+          return res.status(404).send({ error: 'Course not found' });
+
+      }
+
+      console.log(`Pass4`);
+
+
+      try{
+        const videosWatched = user.videosWatched.filter(v => v.courseID === course.Courseid);
+        console.log(`Pass4`);
+
+        const progress = Math.ceil((videosWatched.length / course.videos.length) * 100);
+        console.log(`Pass5`);
+
+
+        return res.send({progress: "your progress is " +progress+"%"});
+        
+    }catch(err){
+        console.error(err);
+        return res.status(500).send({ error: 'Error adding video to watch history' });
+    }
+
+  } catch (err) {
+      console.error(err);
+      return res.status(500).send({ error: 'Error retrieving video' });
+  }
+});
+
+
 router.put('/request-refund', async (req, res) => {
   try {
     console.log(`Pass1`);
     const user = await User.findOne({Email: req.body.Email});
     if (!user) {
-        return res.status(404).send({ error: 'Corporate user not found' });
+        return res.status(404).send({ error: 'user not found' });
     }
 
     console.log(`Pass2`);

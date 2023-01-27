@@ -956,4 +956,96 @@ const courses3 = await Course.find({
  
   res.send(courses);
 });
+
+router.put("/report-problem", async (req, res) => {
+  try {
+    const user = await User.findOne({Email: req.body.Email});
+    if (!user) {
+      return res.status(404).send({ error: "user not found" });
+    }
+
+    const course = await Course.findOne({Courseid:req.body.Courseid});
+    if (!course) {
+      return res.status(404).send({ error: "Course not found" });
+    }
+
+
+
+
+    // Create a new report 
+    const report = new Report({
+      userEmail: user.Email,
+      courseId: course.Courseid,
+      typeoftheUser: "User",
+      typeoftheProblem: req.body.type,
+      description: req.body.description,
+      status: "unsolved",
+    });
+    
+
+    // Save the report to the database
+    await report.save();
+
+    return res.send({ message: "Problem reported successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: "Error reporting problem" });
+  }
+});
+
+
+router.post('/previous-reports', async (req, res) => {
+  try {
+    const user = await User.findOne({Email: req.body.Email});
+
+      if (!user) {
+          return res.status(404).send({ error: 'Corporate user not found' });
+      }
+
+      const reports = await Report.find({ userEmail: user.Email });
+
+      // Send the list of reports as a response
+      return res.send({ reports });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).send({ error: 'Error retrieving previous problems' });
+  }
+});
+
+
+
+
+router.put("/follow-up/:reportId", async (req, res) => {
+  try {
+
+    console.log(`Pass1`);
+    // Find the report by its id
+    const report = await Report.findById(req.params.reportId);
+    if (!report) {
+      return res.status(404).send({ error: "Report not found" });
+    }
+    console.log(`Pass2`);
+
+    // Check if the report is already resolved
+    if (report.status === "solved") {
+      return res.status(400).send({ error: "Report already resolved" });
+    }
+
+    console.log(`Pass3`);
+
+    // Update the report status to "in-progress"
+    report.status = "in-progress";
+    console.log(`Pass4`);
+    await report.save();
+
+    console.log(`Pass5`);
+    // Send the updated report as a response
+    return res.send({ report });
+    
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ error: "Error updating report" });
+  }
+});
+
 module.exports = router;
